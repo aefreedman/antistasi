@@ -318,7 +318,7 @@ if (!isDedicated) then
 			_tipos = _tipos + [_x];
 			};
 		};
-	} forEach ["AS","CON","DES","LOG","RES","CONVOY","DEF_HQ","AtaqueAAF"];
+	} forEach ["AS","AST","CON","DES","LOG","RES","CONVOY","DEF_HQ","AtaqueAAF"];
 
 	["tasks",_tipos] call fn_SaveStat;
 	};
