@@ -409,25 +409,4 @@ if (_tipo == "AST") then {
 	};
 };
 
-if (_tipo == "AS") then {
-	_sitios = bases - mrkFIA;
-	if (count _sitios > 0) then {
-		for "_i" from 0 to ((count _sitios) - 1) do {
-			_sitio = _sitios select _i;
-			_pos = getMarkerPos _sitio;
-			if ((_pos distance _posbase < 4000) and (not(spawner getVariable _sitio))) then {_posibles = _posibles + [_sitio]};
-		};
-	};
-	if (count _posibles == 0) then {
-		if (!_silencio) then {
-			[[Nomad,"globalChat","I have no assasination missions for you. Move our HQ closer to the enemy or finish some other assasination missions in order to have better intel"],"commsMP"] call BIS_fnc_MP;
-			[[Nomad,"hint","Assasination Missions require AAF cities, Observation Posts or bases closer than 4Km from your HQ."],"commsMP"] call BIS_fnc_MP;
-		};
-	}
-	else {
-		_sitio = _posibles call BIS_fnc_selectRandom;
-		[_sitio, "mil"] remoteExec ["AS_Oficial",HCgarrisons];
-	};
-};
-
 if ((count _posibles > 0) and (!_silencio)) then {[[petros,"globalChat","I have a mission for you"],"commsMP"] call BIS_fnc_MP;}
