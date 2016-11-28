@@ -24,6 +24,8 @@ if !(hayRHS) then {
 }
 else {
 	unlockedWeapons pushBackUnique "rhs_weap_ak74m_camo";
+	unlockedWeapons pushBackUnique "rhs_weap_ak74m_desert";
+	unlockedWeapons pushBackUnique "rhs_weap_ak74m";
 	unlockedWeapons pushBackUnique "rhs_weap_rpg26";
 
 	unlockedMagazines pushBackUnique "rhs_30Rnd_545x39_AK";
@@ -34,7 +36,12 @@ else {
 	unlockedItems pushBackUnique "ItemRadio";
 	unlockedItems pushBackUnique "rhs_acc_1p29";
 	unlockedItems pushBackUnique "rhs_6b23_digi_rifleman";
-	unlockedItems pushBackUnique "rhs_6b28_ess_bala";
+	unlockedItems pushBackUnique "rhs_6b28";
+	unlockedItems pushBackUnique "rhs_6b28_ess";
+	unlockedItems pushBackUnique "rhs_tsh4";
+	unlockedItems pushBackUnique "rhs_tsh4_ess";
+	unlockedItems pushBackUnique "rhs_zsh7a";
+	unlockedItems pushBackUnique "rhs_fieldcap";
 
 	unlockedOptics pushBackUnique "rhs_acc_1p29";
 };
