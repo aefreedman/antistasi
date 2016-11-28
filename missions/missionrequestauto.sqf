@@ -1,8 +1,8 @@
 if (!isServer) exitWith {};
 if (leader group Petros != Petros) exitWith {};
 
-_tipos   = ["CON","LOG","RES","CONVOY","PR","AS"];
-_weights = [1.0,1.0,1.0,1.0,1.0,0.2];
+_tipos   = ["CON","LOG","RES","CONVOY","PR","AS","AST"];
+_weights = [1.0,1.0,1.0,1.0,1.0,1.0,0.35];
 _tipo = "";
 
 // Remove any mission types currently active
