@@ -1,54 +1,90 @@
+/*
+ * Called when an AAF tank, APC, Heli or Plane is killed.
+ * Simply subtracts 1 from various global counts that keep
+ * track of AAF assets. Also removes *all* of the vehicle
+ * type from the AAF available vehicle list.
+ *
+ * Arguments:
+ * 0: Target vehicle <OBJECT>
+ *
+ * Return Value: Nothing
+ *
+ * Modifies Globals: APCAAFCurrent (and tanks, planes, etc), vehAAFAT, planesAAF
+ *
+ * Example:
+ * _veh addEventHandler ["killed",{[_this select 0] call AAFassets;}];
+ */
+
 if !(isPlayer stavros) exitWith {};
 
-private ["_veh","_tipo"];
-_veh = _this select 0;
-_tipo = typeOf _veh;
+params ["_vehicle"];
+private ["_vehicle_type"];
+_vehicle_type = [_vehicle] call getTypeForVehicle;
 
-if ((_tipo in vehAPC) or (_tipo in vehIFV)) then {
-	APCAAFcurrent = APCAAFcurrent -1;
-	if (APCAAFcurrent < 1) then
-		{
-		if (APCAAFcurrent < 0) then {APCAAFcurrent = 0};
-		vehAAFAT = vehAAFAT - vehAPC - vehIFV;
-		publicVariable "vehAAFAT";
-		};
-	publicVariable "APCAAFcurrent";
-	}
-else {
-	if (_tipo in vehTank) then
-		{
-		tanksAAFcurrent = tanksAAFcurrent - 1;
-		if (tanksAAFcurrent < 1) then
-			{
-			if (tanksAAFcurrent < 0) then {tanksAAFcurrent = 0};
-			vehAAFAT = vehAAFAT - vehTank;
-			publicVariable "vehAAFAT";
-			};
-		publicVariable "tanksAAFcurrent";
-		}
-	else
-		{
-		if (_veh isKindOf "Helicopter") then
-			{
-			helisAAFcurrent = helisAAFcurrent -1;
-			if (helisAAFcurrent < 1) then
-				{
-				if (helisAAFcurrent < 0) then {helisAAFcurrent = 0};
-				planesAAF = planesAAF - heli_armed;
-				publicVariable "planesAAF";
-				};
-			publicVariable "helisAAFcurrent";
-			}
-		else
-			{
-			planesAAFcurrent = planesAAFcurrent - 1;
-			if (planesAAFcurrent < 1) then
-				{
-				if (planesAAFcurrent < 0) then {planesAAFcurrent = 0};
-				planesAAF = planesAAF - planes;
-				publicVariable "planesAAF";
-				};
-			publicVariable "planesAAFcurrent";
-			};
-		};
+switch (_vehicle_type) do {
+	case ("APC"): _subtractAPC;
+	case ("TANK"): _subtractTANK;
+	case ("HELI"): _subtractHELI;
+	case ("PLANE"): _subtractPLANE;
+	default {
+		if (debug) then { hint format ["AAFAssets called w/unknown vehicle %1", typeOf _vehicle]; };
 	};
+};
+
+_subtractAPC = {
+	["APCAAFcurrent", APCAAFcurrent] call _safeSubtractAssetCount;
+	if (APCAAFcurrent < 0) then {
+		private ["_to_subtract"];
+		_to_subtract = vehAPC - vehIFV;
+	  ["vehAAFAT", vehAAFAT, _to_subtract] call _removeDestroyedVehicleTypeFromSpawnList;
+	};
+};
+_subtractTANK = {
+	["tanksAAFcurrent", tanksAAFcurrent] call _safeSubtractAssetCount;
+	if (tanksAAFcurrent < 0) then {
+	  ["vehAAFAT", vehAAFAT, vehTank] call _removeDestroyedVehicleTypeFromSpawnList;
+	};
+};
+_subtractHELI = {
+	["helisAAFcurrent", helisAAFcurrent] call _safeSubtractAssetCount;
+	if (helisAAFcurrent < 0) then {
+	  ["planesAAF", planesAAF, heli_armed] call _removeDestroyedVehicleTypeFromSpawnList;
+	};
+};
+_subtractPLANE = {
+	["planesAAFcurrent", planesAAFcurrent] call _safeSubtractAssetCount;
+	if (planesAAFcurrent < 0) then {
+	  ["planesAAF", planesAAF, planes] call _removeDestroyedVehicleTypeFromSpawnList;
+	};
+};
+
+// Subtract 1 from asset and redeclare public
+_safeSubtractAssetCount = {
+	params ["_variable", "_value"];
+	_value = _value - 1;
+	if (_value < 0) then { _value = 0 };
+	server setVariable [_variable, _value, true];
+};
+
+// Does what it says on the tin
+_removeDestroyedVehicleTypeFromSpawnList = {
+ params ["_variable", "_spawnlist", "_vehicles_to_remove"];
+ private ["_new_spawnlist"];
+ _new_spawnlist = _spawnlist - _vehicles_to_remove;
+
+ server setVariable [_variable, _new_spawnlist, true];
+};
+
+// Vehicle convert into 1 of 4 string "types"
+_getTypeForVehicle =  {
+	params ["_vehicle"];
+	_vehicle_class = typeOf _vehicle;
+
+	switch true do {
+	  case ((_vehicle_class in vehAPC) or (_vehicle_type in vehIFV)): {"APC"};
+	  case (_vehicle_class in vehTank): {"TANK"};
+	  case (_vehicle_class in vehHeli): {"HELI"};
+	  case (_vehicle_class in vehPlane): {"PLANE"};
+	  default { objNull };
+	};
+};
