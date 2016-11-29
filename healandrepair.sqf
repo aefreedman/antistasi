@@ -1,20 +1,26 @@
-
 private ["_posHQ"];
 _posHQ = getMarkerPos "respawn_west";
 
-{if ((side _x == side_blue) and (_x distance _posHQ < 150)) then {_x setDamage 0}} forEach allUnits;
-
-{if ((side _x == side_blue) and (_x distance _posHQ < 30)) then {_x setVariable ["compromised",0];}}forEach allPlayers - entities "HeadlessClient_F";
-
-
+// Heal
 {
-if (_x distance _posHQ < 150)
-	then
-	{
-	 reportedVehs = reportedVehs - [_x];
-	_x setDamage 0;
-	//_x setVehicleAmmoDef 1;
-	[_x,1] remoteExec ["setVehicleAmmoDef",_x];
+	if ((side _x == side_blue) and (_x distance _posHQ < 150)) then {
+		if (hayACE) then {
+			[_x, _x] call ace_medical_fnc_treatmentAdvanced_fullHeal;
+		} else {
+			_x setDamage 0;
+		};
+
+		_x setVariable ["compromised",0];
+	}
+} forEach allUnits;
+
+// Unreport vehicles and heal
+{
+  if (_x distance _posHQ < 150) then {
+		reportedVehs = reportedVehs - [_x];
+		_x setDamage 0;
+		//_x setVehicleAmmoDef 1;
+		[_x,1] remoteExec ["setVehicleAmmoDef",_x];
 	};
 } forEach vehicles;
 
