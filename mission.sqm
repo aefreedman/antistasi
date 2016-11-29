@@ -8,7 +8,7 @@ class EditorData
 	toggles=513;
 	class ItemIDProvider
 	{
-		nextID=397;
+		nextID=399;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={3614.8774,98.413757,10205.902};
-		dir[]={0.090052247,-0.53310204,0.84137636};
-		up[]={0.056756295,0.84588295,0.53027523};
-		aside[]={0.99444956,7.1259274e-007,-0.10643845};
+		pos[]={3623.2544,19.176538,10276.179};
+		dir[]={0.020487674,-0.44008416,0.89784771};
+		up[]={0.010045796,0.89780402,0.44020268};
+		aside[]={0.99986786,4.8815218e-007,-0.022818319};
 	};
 };
 binarizationWanted=0;
@@ -39,6 +39,15 @@ addons[]=
 	"ace_dragging",
 	"A3_Modules_F",
 	"A3_Characters_F",
+	"rhs_c_weapons",
+	"A3_Weapons_F",
+	"rhs_c_troops",
+	"XLA_FixedArsenal",
+	"ace_attach",
+	"ace_chemlights",
+	"A3_Weapons_F_Items",
+	"ace_medical",
+	"ace_realisticnames",
 	"A3_Modules_F_Hc",
 	"ace_explosives",
 	"ace_advanced_ballistics",
@@ -48,7 +57,6 @@ addons[]=
 	"ace_microdagr",
 	"ace_viewdistance",
 	"ace_weather",
-	"ace_medical",
 	"ace_medical_menu",
 	"ace_repair"
 };
@@ -56,7 +64,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=19;
+		items=24;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -115,75 +123,108 @@ class AddonsMetaData
 		};
 		class Item8
 		{
-			className="ace_explosives";
-			name="ACE3 - Explosives";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
+			className="rhs_c_weapons";
+			name="AFRF Weapons Pack";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item9
 		{
-			className="ace_advanced_ballistics";
-			name="ACE3 - Advanced Ballistics";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
+			className="rhs_c_troops";
+			name="AFRF Infantry & Equipment";
+			author="Red Hammer Studios";
+			url="http://www.rhsmods.org/";
 		};
 		class Item10
 		{
-			className="ace_advanced_fatigue";
-			name="ACE3 - Advanced Fatigue";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
+			className="XLA_FixedArsenal";
+			name="XLA_FixedArsenal";
 		};
 		class Item11
 		{
-			className="ace_interaction";
-			name="ACE3 - Interaction";
+			className="ace_attach";
+			name="ACE3 - Attach";
 			author="ACE-Team";
 			url="http://ace3mod.com/";
 		};
 		class Item12
 		{
-			className="ace_map";
-			name="ACE3 - Map";
+			className="ace_chemlights";
+			name="ace_chemlights";
 			author="ACE-Team";
 			url="http://ace3mod.com/";
 		};
 		class Item13
-		{
-			className="ace_microdagr";
-			name="ACE3 - MicroDAGR";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item14
-		{
-			className="ace_viewdistance";
-			name="ACE3 - View Distance";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item15
-		{
-			className="ace_weather";
-			name="ACE3 - Weather";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item16
 		{
 			className="ace_medical";
 			name="ACE3 - Medical";
 			author="ACE-Team";
 			url="http://ace3mod.com/";
 		};
+		class Item14
+		{
+			className="ace_explosives";
+			name="ACE3 - Explosives";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item15
+		{
+			className="ace_advanced_ballistics";
+			name="ACE3 - Advanced Ballistics";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item16
+		{
+			className="ace_advanced_fatigue";
+			name="ACE3 - Advanced Fatigue";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
 		class Item17
+		{
+			className="ace_interaction";
+			name="ACE3 - Interaction";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item18
+		{
+			className="ace_map";
+			name="ACE3 - Map";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item19
+		{
+			className="ace_microdagr";
+			name="ACE3 - MicroDAGR";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item20
+		{
+			className="ace_viewdistance";
+			name="ACE3 - View Distance";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item21
+		{
+			className="ace_weather";
+			name="ACE3 - Weather";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item22
 		{
 			className="ace_medical_menu";
 			name="ACE3 - Medical Menu";
 			author="ACE-Team";
 			url="http://ace3mod.com/";
 		};
-		class Item18
+		class Item23
 		{
 			className="ace_repair";
 			name="ACE3 - Repair";
@@ -680,6 +721,7 @@ class Mission
 			b=60;
 			angle=136.12096;
 			id=33;
+			atlOffset=1.9073486e-006;
 		};
 		class Item34
 		{
@@ -1468,7 +1510,7 @@ class Mission
 			};
 			id=95;
 			type="IG_supplyCrate_F";
-			atlOffset=-0.0048341751;
+			atlOffset=-0.0048236847;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1698,6 +1740,101 @@ class Mission
 						init="grupoPetros = group this; grupoPetros setGroupId [""Petros"",""GroupColor4""];this setIdentity ""amiguete""; petros setName ""Petros"";petros disableAI ""MOVE""; petros disableAI ""AUTOTARGET""; petros addAction [""Mission Request"", {nul=CreateDialog ""mission_menu"";},nil,0,false,true,"""",""(isPlayer _this) and (_this == _this getVariable ['owner',objNull])""];";
 						name="petros";
 						description="Petros";
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="rhs_weap_ak74m_2mag_camo";
+								optics="rhs_acc_1p63";
+								muzzle="rhs_acc_dtk";
+								class primaryMuzzleMag
+								{
+									name="rhs_30Rnd_545x39_AK";
+									ammoLeft=30;
+								};
+							};
+							class uniform
+							{
+								typeName="U_BG_Guerrilla_6_1";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="Chemlight_blue";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item1
+									{
+										name="rhs_30Rnd_545x39_AK";
+										count=1;
+										ammoLeft=30;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							class vest
+							{
+								typeName="rhs_vydra_3m";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=6;
+									class Item0
+									{
+										name="SmokeShell";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item1
+									{
+										name="SmokeShellGreen";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item2
+									{
+										name="SmokeShellRed";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item3
+									{
+										name="SmokeShellBlue";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item4
+									{
+										name="Chemlight_blue";
+										count=1;
+										ammoLeft=1;
+									};
+									class Item5
+									{
+										name="rhs_30Rnd_545x39_AK";
+										count=6;
+										ammoLeft=30;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="ItemRadio";
+							gps="ItemGPS";
+							headgear="rhs_beret_mp1";
+						};
 					};
 					id=102;
 					type="B_G_officer_F";
@@ -2029,6 +2166,7 @@ class Mission
 			name="seaPatrol_19";
 			type="Empty";
 			id=205;
+			atlOffset=-7.6293945e-006;
 		};
 		class Item132
 		{
@@ -2106,6 +2244,7 @@ class Mission
 			a=50;
 			b=50;
 			id=215;
+			atlOffset=-7.6293945e-006;
 		};
 		class Item141
 		{
@@ -2118,7 +2257,7 @@ class Mission
 			name="spawner";
 			id=216;
 			type="Logic";
-			atlOffset=1.9073486e-006;
+			atlOffset=2.8610229e-006;
 		};
 		class Item142
 		{
@@ -2270,12 +2409,14 @@ class Mission
 					};
 					id=229;
 					type="B_G_medic_F";
+					atlOffset=-9.5367432e-007;
 				};
 			};
 			class Attributes
 			{
 			};
 			id=230;
+			atlOffset=-9.5367432e-007;
 		};
 		class Item148
 		{
@@ -4500,6 +4641,7 @@ class Mission
 			};
 			id=385;
 			type="ACE_moduleAssignRepairFacility";
+			atlOffset=-9.5367432e-007;
 			class CustomAttributes
 			{
 				class Attribute0
