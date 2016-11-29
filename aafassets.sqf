@@ -22,38 +22,38 @@ private ["_vehicle_type"];
 _vehicle_type = [_vehicle] call getTypeForVehicle;
 
 switch (_vehicle_type) do {
-	case ("APC"): { call _subtractAPC };
-	case ("TANK"): { call _subtractTANK };
-	case ("HELI"): { call _subtractHELI };
-	case ("PLANE"): { call _subtractPLANE };
+	case ("APC"): _subtractAPC;
+	case ("TANK"): _subtractTANK;
+	case ("HELI"): _subtractHELI;
+	case ("PLANE"): _subtractPLANE;
 	default {
-		if (debug) then { hint format ["AAFAssets called w/unknown vehicle %1", typeOf _vehicle] };
+		if (debug) then { hint format ["AAFAssets called w/unknown vehicle %1", typeOf _vehicle]; };
 	};
 };
 
 _subtractAPC = {
 	["APCAAFcurrent", APCAAFcurrent] call _safeSubtractAssetCount;
-	if (APCAAFcurrent < 0) {
-		private "_to_subtract";
+	if (APCAAFcurrent < 0) then {
+		private ["_to_subtract"];
 		_to_subtract = vehAPC - vehIFV;
 	  ["vehAAFAT", vehAAFAT, _to_subtract] call _removeDestroyedVehicleTypeFromSpawnList;
 	};
 };
 _subtractTANK = {
 	["tanksAAFcurrent", tanksAAFcurrent] call _safeSubtractAssetCount;
-	if (tanksAAFcurrent < 0) {
+	if (tanksAAFcurrent < 0) then {
 	  ["vehAAFAT", vehAAFAT, vehTank] call _removeDestroyedVehicleTypeFromSpawnList;
 	};
 };
 _subtractHELI = {
 	["helisAAFcurrent", helisAAFcurrent] call _safeSubtractAssetCount;
-	if (helisAAFcurrent < 0) {
+	if (helisAAFcurrent < 0) then {
 	  ["planesAAF", planesAAF, heli_armed] call _removeDestroyedVehicleTypeFromSpawnList;
 	};
 };
 _subtractPLANE = {
 	["planesAAFcurrent", planesAAFcurrent] call _safeSubtractAssetCount;
-	if (planesAAFcurrent < 0) {
+	if (planesAAFcurrent < 0) then {
 	  ["planesAAF", planesAAF, planes] call _removeDestroyedVehicleTypeFromSpawnList;
 	};
 };
