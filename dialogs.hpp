@@ -917,7 +917,7 @@ class HQ_button_resetHQ: RscButton // R3
 	y = 0.514003 * safezoneH + safezoneY;
 	w = 0.175015 * safezoneW;
 	h = 0.0560125 * safezoneH;
-	tooltip = "If you managed to lose one of your HQ items, this will reset all of them near Petros. "
+	tooltip = "If you managed to lose one of your HQ items, this will reset all of them near Petros.";
 	action = "closeDialog 0;nul= createDialog ""HQ_reset_menu"";";
 };
 	};
