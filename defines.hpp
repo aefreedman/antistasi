@@ -42,8 +42,6 @@
 #define ST_DOWN           0x04
 #define ST_UP             0x08
 #define ST_VCENTER        0x0C
-#define ST_GROUP_BOX       96
-#define ST_GROUP_BOX2      112
 #define ST_ROUNDED_CORNER  ST_GROUP_BOX + ST_CENTER
 #define ST_ROUNDED_CORNER2 ST_GROUP_BOX2 + ST_CENTER
 
@@ -337,7 +335,7 @@ class CustomTB {
     values[] = {1,0};
     font = "PuristaMedium";
     SizeEx = 0.04300;
-}
+};
 
 class MenuText {
     idc = -1;
