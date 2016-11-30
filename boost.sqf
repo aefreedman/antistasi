@@ -2,25 +2,22 @@ if (!isServer) exitWith{};
 
 scriptName "boost";
 
-server setVariable ["hr",20,true];
-server setVariable ["resourcesFIA",10000,true];
-server setVariable ["prestigeNATO",30,true];
+server setVariable ["hr",200,true];
+server setVariable ["resourcesFIA",100000,true];
+server setVariable ["prestigeNATO",80,true];
 
+{ unlockedWeapons pushBackUnique _x; } forEach genWeapons;
+{ unlockedWeapons pushBackUnique _x; } forEach genLaunchers;
 
-unlockedWeapons pushBackUnique "rhs_weap_ak74m_camo";
-unlockedWeapons pushBackUnique "rhs_weap_rpg26";
+{ unlockedMagazines pushBackUnique _x; } forEach genAmmo;
+{ unlockedMagazines pushBackUnique _x; } forEach genMissiles;
+{ unlockedMagazines pushBackUnique _x; } forEach genMines;
 
-unlockedMagazines pushBackUnique "rhs_30Rnd_545x39_AK";
-unlockedMagazines pushBackUnique "rhs_rpg26_mag";
-unlockedMagazines pushBackUnique "rhs_mag_rgd5";
-
-unlockedItems pushBackUnique "ItemGPS";
-unlockedItems pushBackUnique "ItemRadio";
-unlockedItems pushBackUnique "rhs_acc_1p29";
-unlockedItems pushBackUnique "rhs_6b23_digi_rifleman";
-unlockedItems pushBackUnique "rhs_6b28_ess_bala";
-
-unlockedItems pushBackUnique "rhs_acc_1p29";
+{ unlockedItems pushBackUnique _x; } forEach genVests;
+{ unlockedItems pushBackUnique _x; } forEach genHelmets;
+{ unlockedItems pushBackUnique _x; } forEach genItems;
+{ unlockedItems pushBackUnique _x; } forEach genOptics;
+{ unlockedItems pushBackUnique _x; } forEach bluItems;
 
 publicVariable "unlockedWeapons";
 publicVariable "unlockedMagazines";
