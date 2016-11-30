@@ -24,16 +24,7 @@ _fnc_attemptMagazineUnlock = {
 		};
 	};
 };
-{ [_x] call _fnc_attemptMagazineUnlock } forEach allMagazines - primaryMagazines;
-
-//-BEGIN-// 1.5.5
-// check primary magazines to account for unlock issues caused by Petros' death
-_primeMags = [];
-{
-	_primeMags pushBackUnique (getArray (configFile / "CfgWeapons" / _x / "magazines") select 0);
-} forEach unlockedWeapons;
-{ [_x] call _fnc_attemptMagazineUnlock; } forEach _primeMags;
-//-END-//
+{ [_x] call _fnc_attemptMagazineUnlock } forEach allMagazines;
 
 // Turn our list of armas-in-inventory into a list of base weapon classes.
 // Removes attachments from classname basically.
