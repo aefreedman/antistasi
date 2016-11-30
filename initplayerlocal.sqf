@@ -1,6 +1,7 @@
 waitUntil {!isNull player};
 waitUntil {player == player};
 
+#include "globals.hpp"
 #include "SHK_Fastrope.sqf"
 player removeweaponGlobal "itemmap";
 player removeweaponGlobal "itemgps";
@@ -39,8 +40,7 @@ _introShot =
 if (isMultiplayer) then {waitUntil {!isNil "initVar"}; diag_log format ["Antistasi MP Client. initVar is public. Version %1",antistasiVersion];};
 _titulo = ["A3 - Antistasi","by Barbolani",antistasiVersion] spawn BIS_fnc_infoText;
 
-if (isMultiplayer) then
-	{
+if (isMultiplayer) then {
 	player setVariable ["elegible",true,true];
 	musicON = false;
 	waitUntil {scriptdone _introshot};
@@ -51,39 +51,40 @@ if (isMultiplayer) then
 	cutText ["Starting Mission","BLACK IN",0];
 	diag_log "Antistasi MP Client. serverInitDone is public";
 	diag_log format ["Antistasi MP Client: JIP?: %1",_isJip];
-	caja addEventHandler ["ContainerOpened",
-	    {
-	    _jugador = _this select 1;
-	    if (not([_jugador] call isMember)) then
-	       {
-	    	_jugador setPos position petros;
-	        //hint "You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.";
-	        _fabricas = count (fabricas - mrkAAF);
-			_itemBase = -53;
-			if (hayACE) then {_itemBase = _itemBase - 31};
-			hint format ["You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.\n\nArsenal Unlocking Requirements\nWeapons: %1\nBackpacks: %5\nMagazines/Usables: %2\nOptics: %3\nVests: %3\nOther Items: %4",(12 + (count unlockedWeapons) - (2*_fabricas)),(13 + (count unlockedMagazines)) - (2*_fabricas),(_itemBase - 10 + (count unlockedItems) - _fabricas),(_itemBase + (count unlockedItems) - _fabricas),5*(count unlockedBackpacks)];
-	        };
-	    }
-        ];
-    player addEventHandler ["InventoryOpened",
-	{
-	_control = false;
-	if !([_this select 0] call isMember) then
-		{
-		if ((_this select 1 == caja) or ((_this select 0) distance caja < 3)) then
-			{
-			_control = true;
-			_fabricas = count (fabricas - mrkAAF);
-			_itemBase = -53;
-			if (hayACE) then {_itemBase = _itemBase - 31};
-			hint format ["You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.\n\nArsenal Unlocking Requirements\nWeapons: %1\nBackpacks: %5\nMagazines/Usables: %2\nOptics: %3\nVests: %3\nOther Items: %4",(12 + (count unlockedWeapons) - (2*_fabricas)),(13 + (count unlockedMagazines)) - (2*_fabricas),(_itemBase - 10 + (count unlockedItems) - _fabricas),(_itemBase + (count unlockedItems) - _fabricas),5*(count unlockedBackpacks)];
-			//hint "You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.";
+	caja addEventHandler ["ContainerOpened", {
+		params["_object", "_jugador"];
+		_fabricas = count (fabricas - mrkAAF);
+	  _weapon_unlock_count = BASE_WEP_UNLOCK + (count unlockedWeapons) - unlockedWeaponsInitial - (FACTORY_BONUS*_fabricas);
+		_backpack_unlock_count = BASE_MOCHI_UNLOCK + (count unlockedBackpacks) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+		_magazine_unlock_count = BASE_MAG_UNLOCK + (count unlockedMagazines) - unlockedMagazinesInitial - (FACTORY_BONUS*_fabricas);
+		_optics_unlock_count = BASE_OPTIC_UNLOCK + (count unlockedOptics) - unlockedOpticsInitial - (FACTORY_BONUS*_fabricas);
+		_vest_unlock_count = BASE_VEST_UNLOCK + (count unlockedItems) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+		_item_unlock_count = BASE_ITEM_UNLOCK + (count unlockedItems) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+
+	  if !([_jugador] call isMember) then {
+	    _jugador setPos position petros;
+			hint format ["You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.\n\nArsenal Unlocking Requirements\nWeapons: %1\nBackpacks: %2\nMagazines/Usables: %3\nOptics: %4\nVests: %5\nOther Items: %6",_weapon_unlock_count,_backpack_unlock_count,_magazine_unlock_count,_optics_unlock_count,_vest_unlock_count,_item_unlock_count];
+	  };
+	}];
+  player addEventHandler ["InventoryOpened", {
+		params["_jugador", "_object"];
+		_control = false;
+		if !([_jugador] call isMember) then {
+			if ((_object == caja) or ((_jugador select 0) distance caja < 3)) then {
+				_control = true;
+				_fabricas = count (fabricas - mrkAAF);
+				_weapon_unlock_count = BASE_WEP_UNLOCK + (count unlockedWeapons) - unlockedWeaponsInitial - (FACTORY_BONUS*_fabricas);
+				_backpack_unlock_count = BASE_MOCHI_UNLOCK + (count unlockedBackpacks) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+				_magazine_unlock_count = BASE_MAG_UNLOCK + (count unlockedMagazines) - unlockedMagazinesInitial - (FACTORY_BONUS*_fabricas);
+				_optics_unlock_count = BASE_OPTIC_UNLOCK + (count unlockedOptics) - unlockedOpticsInitial - (FACTORY_BONUS*_fabricas);
+				_vest_unlock_count = BASE_VEST_UNLOCK + (count unlockedItems) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+				_item_unlock_count = BASE_ITEM_UNLOCK + (count unlockedItems) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+				hint format ["You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.\n\nArsenal Unlocking Requirements\nWeapons: %1\nBackpacks: %2\nMagazines/Usables: %3\nOptics: %4\nVests: %5\nOther Items: %6",_weapon_unlock_count,_backpack_unlock_count,_magazine_unlock_count,_optics_unlock_count,_vest_unlock_count,_item_unlock_count];
 			};
 		};
-	_control
+		_control
 	}];
-	player addEventHandler ["Fired",
-		{
+	player addEventHandler ["Fired", {
 		_tipo = _this select 1;
 		if ((_tipo == "Put") or (_tipo == "Throw")) then
 			{
@@ -283,10 +284,15 @@ if (isMultiplayer) then
 	};
 caja addEventHandler ["ContainerOpened",
 	{
-	_fabricas = count (fabricas - mrkAAF);
-	_itemBase = -53;
-	if (hayACE) then {_itemBase = _itemBase - 31};
-	hint format ["Arsenal Unlocking Requirements\n\n\nWeapons: %1\nBackpacks: %5\nMagazines/Usables: %2\nOptics: %3\nVests: %3\nOther Items: %4",(12 + (count unlockedWeapons) - (2*_fabricas)),(13 + (count unlockedMagazines)) - (2*_fabricas),(_itemBase - 10 + (count unlockedItems) - _fabricas),(_itemBase + (count unlockedItems) - _fabricas),5*(count unlockedBackpacks)];
+		_fabricas = count (fabricas - mrkAAF);
+		_weapon_unlock_count = BASE_WEP_UNLOCK + (count unlockedWeapons) - unlockedWeaponsInitial - (FACTORY_BONUS*_fabricas);
+		_backpack_unlock_count = BASE_MOCHI_UNLOCK + (count unlockedBackpacks) - unlockedBackpacksInitial - (FACTORY_BONUS*_fabricas);
+		_magazine_unlock_count = BASE_MAG_UNLOCK + (count unlockedMagazines) - unlockedMagazinesInitial - (FACTORY_BONUS*_fabricas);
+		_optics_unlock_count = BASE_OPTIC_UNLOCK + (count unlockedOptics) - unlockedOpticsInitial - (FACTORY_BONUS*_fabricas);
+		_vest_unlock_count = BASE_VEST_UNLOCK + (count unlockedItems) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+		_item_unlock_count = BASE_ITEM_UNLOCK + (count unlockedItems) - unlockedItemsInitial - (FACTORY_BONUS*_fabricas);
+
+		hint format ["Arsenal Unlocking Requirements\nWeapons: %1\nBackpacks: %2\nMagazines/Usables: %3\nOptics: %4\nVests: %5\nOther Items: %6",_weapon_unlock_count,_backpack_unlock_count,_magazine_unlock_count,_optics_unlock_count,_vest_unlock_count,_item_unlock_count];
 	}
     ];
 

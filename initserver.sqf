@@ -92,6 +92,28 @@ if (hayXLA) then {
     [caja,unlockedBackpacks,true] call BIS_fnc_addVirtualBackpackCargo;
 };
 
+unlockedWeaponsInitial = (count unlockedWeapons);
+unlockedItemsInitial = (count unlockedItems);
+unlockedOpticsInitial = (count unlockedOptics);
+unlockedMagazinesInitial = (count unlockedMagazines);
+unlockedBackpacksInitial = (count unlockedBackpacks);
+publicVariable "unlockedWeaponsInitial";
+publicVariable "unlockedMagazinesInitial";
+publicVariable "unlockedItemsInitial";
+publicVariable "unlockedOpticsInitial";
+publicVariable "unlockedBackpacksInitial";
+
+unlockedWeaponsInitialAry = unlockedWeapons;
+unlockedItemsInitialAry = unlockedItems;
+unlockedOpticsInitialAry = unlockedOptics;
+unlockedMagazinesInitialAry = unlockedMagazines;
+unlockedBackpacksInitialAry = unlockedBackpacks;
+publicVariable "unlockedWeaponsInitialAry";
+publicVariable "unlockedMagazinesInitialAry";
+publicVariable "unlockedItemsInitialAry";
+publicVariable "unlockedOpticsInitialAry";
+publicVariable "unlockedBackpacksInitialAry";
+
 diag_log "Antistasi MP Server. Arsenal config finished";
 [[petros,"hint","Server Init Completed"],"commsMP"] call BIS_fnc_MP;
 
