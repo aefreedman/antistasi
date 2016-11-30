@@ -119,14 +119,12 @@ if ((_tipo == "AccessoryMuzzle") || (_tipo == "AccessoryPointer") || (_tipo == "
 };
 } forEach _allAccessories;
 
-primaryMagazines = [];
 {
 _nombre = configName _x;
 _nombre = [_nombre] call BIS_fnc_baseWeapon;
 if (not(_nombre in lockedWeapons)) then
 	{
 	_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-	primaryMagazines pushBackUnique (_magazines select 0);
 	lockedWeapons pushBackUnique _nombre;
 	_weapon = [_nombre] call BIS_fnc_itemType;
 	_weaponType = _weapon select 1;
