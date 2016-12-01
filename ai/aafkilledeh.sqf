@@ -78,8 +78,8 @@ if ((side _killer == side_blue) || (captive _killer)) then {
           private _courage_score = 0.5 - (_unit_in_group skill "courage");
           private _units_in_group = count units _grupo;
           private _units_in_group_fighting = { alive _x && !(_x getVariable ["surrendered",false]) } count units _grupo;
-          private _fleeing_score = _courage_score - (_units_in_group_fighting / _units_in_group)
-          _unit_in_group allowFleeing _fleeing_score
+          private _fleeing_score = _courage_score - (_units_in_group_fighting / _units_in_group);
+          _unit_in_group allowFleeing _fleeing_score;
         };
       };
     };
