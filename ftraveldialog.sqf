@@ -32,45 +32,45 @@ _hr = 0;
 if ((_tipo == "create") && (count campsFIA > 4)) exitWith {hint "You can only sustain a maximum of five camps."};
 
 if (_tipo == "create") then {
-	_tipogrupo = "IRG_SniperTeam_M";
-	_formato = (configfile >> "CfgGroups" >> "West" >> "Guerilla" >> "Infantry" >> _tipogrupo);
-	_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _unidades;
+  _tipogrupo = "IRG_SniperTeam_M";
+  _formato = (configfile >> "CfgGroups" >> "West" >> "Guerilla" >> "Infantry" >> _tipogrupo);
+  _unidades = [_formato] call groupComposition;
+  {_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _unidades;
 };
 
 _txt = "";
 _break = false;
 while {(_tipo == "delete") && !(_break)} do {
-	scopeName "loop1";
-	_mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
-	_pos = getMarkerPos _mrk;
-	if (_posicionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
-	breakOut "loop1";
+  scopeName "loop1";
+  _mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
+  _pos = getMarkerPos _mrk;
+  if (_posicionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
+  breakOut "loop1";
 };
 
 while {(_tipo == "rename")} do {
-	scopeName "loop2";
-	_mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
-	_pos = getMarkerPos _mrk;
-	if (_posicionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
+  scopeName "loop2";
+  _mrk = [campsFIA,_posicionTel] call BIS_fnc_nearestPosition;
+  _pos = getMarkerPos _mrk;
+  if (_posicionTel distance _pos > 50) exitWith {_break = true; _txt = "No camp nearby.";};
 
-	_nul = createDialog "rCamp_Dialog";
+  _nul = createDialog "rCamp_Dialog";
 
-	((uiNamespace getVariable "rCamp") displayCtrl 1400) ctrlSetText cName;
+  ((uiNamespace getVariable "rCamp") displayCtrl 1400) ctrlSetText cName;
 
-	waitUntil {dialog};
-	waitUntil {!dialog};
-	if (cName == "") exitWith {_break = true; _txt = "No name entered...";};
-	_mrk setMarkerText cName;
-	for [{_i=0},{_i<count campList},{_i=_i+1}] do {
-		if ((campList select _i) select 0 == _mrk) then {
-			(campList select _i) set [1, cName];
-		};
-	};
-	publicVariable "campList";
-	cName = "";
-	hint "Camp renamed";
-	breakOut "loop2";
+  waitUntil {dialog};
+  waitUntil {!dialog};
+  if (cName == "") exitWith {_break = true; _txt = "No name entered...";};
+  _mrk setMarkerText cName;
+  for [{_i=0},{_i<count campList},{_i=_i+1}] do {
+    if ((campList select _i) select 0 == _mrk) then {
+      (campList select _i) set [1, cName];
+    };
+  };
+  publicVariable "campList";
+  cName = "";
+  hint "Camp renamed";
+  breakOut "loop2";
 };
 
 if (_break) exitWith {openMap false; hint _txt;};
@@ -81,10 +81,10 @@ _hrFIA = server getVariable "hr";
 if (((_resourcesFIA < _coste) or (_hrFIA < _hr)) and (_tipo == "create")) exitWith {hint format ["You lack of resources to build this camp. \n %1 HR and %2 € needed",_hr,_coste]};
 
 if (_tipo == "create") then {
-	[-_hr,-_coste] remoteExec ["resourcesFIA",2];
+  [-_hr,-_coste] remoteExec ["resourcesFIA",2];
 };
 
 if (_tipo != "rename") then {
-	[[_tipo,_posicionTel],"establishCamp"] call BIS_fnc_MP;
+  [[_tipo,_posicionTel],"establishCamp"] call BIS_fnc_MP;
 };
 

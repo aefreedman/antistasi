@@ -55,14 +55,14 @@ civUniforms = ["U_C_Poloshirt_blue","U_C_Poloshirt_burgundy","U_C_Poloshirt_stri
 allMagazines = [];
 _cfgmagazines = configFile >> "cfgmagazines";
 for "_i" from 0 to (count _cfgMagazines) -1 do
-	{
-	_magazine = _cfgMagazines select _i;
-	if (isClass _magazine) then
-		{
-		_nombre = configName (_magazine);
-		allMagazines pushBack _nombre;
-		};
-	};
+  {
+  _magazine = _cfgMagazines select _i;
+  if (isClass _magazine) then
+    {
+    _nombre = configName (_magazine);
+    allMagazines pushBack _nombre;
+    };
+  };
 
 arifles = [];
 srifles = [];
@@ -115,7 +115,7 @@ _nombre = configName _x;
 _tipo = [_nombre] call BIS_fnc_itemType;
 _tipo = _tipo select 1;
 if ((_tipo == "AccessoryMuzzle") || (_tipo == "AccessoryPointer") || (_tipo == "AccessorySights")) then {
-	allAccessories pushBackUnique _nombre;
+  allAccessories pushBackUnique _nombre;
 };
 } forEach _allAccessories;
 
@@ -123,42 +123,42 @@ if ((_tipo == "AccessoryMuzzle") || (_tipo == "AccessoryPointer") || (_tipo == "
 _nombre = configName _x;
 _nombre = [_nombre] call BIS_fnc_baseWeapon;
 if (not(_nombre in lockedWeapons)) then
-	{
-	_magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
-	lockedWeapons pushBackUnique _nombre;
-	_weapon = [_nombre] call BIS_fnc_itemType;
-	_weaponType = _weapon select 1;
-	switch (_weaponType) do
-		{
-		case "AssaultRifle": {arifles pushBack _nombre};
-		case "MachineGun": {mguns pushBack _nombre};
-		case "SniperRifle": {srifles pushBack _nombre};
-		case "Handgun": {hguns pushBack _nombre};
-		case "MissileLauncher": {mlaunchers pushBack _nombre};
-		case "RocketLauncher": {rlaunchers pushBack _nombre};
-		};
+  {
+  _magazines = getArray (configFile / "CfgWeapons" / _nombre / "magazines");
+  lockedWeapons pushBackUnique _nombre;
+  _weapon = [_nombre] call BIS_fnc_itemType;
+  _weaponType = _weapon select 1;
+  switch (_weaponType) do
+    {
+    case "AssaultRifle": {arifles pushBack _nombre};
+    case "MachineGun": {mguns pushBack _nombre};
+    case "SniperRifle": {srifles pushBack _nombre};
+    case "Handgun": {hguns pushBack _nombre};
+    case "MissileLauncher": {mlaunchers pushBack _nombre};
+    case "RocketLauncher": {rlaunchers pushBack _nombre};
+    };
 
-	};
+  };
 } forEach _allPrimaryWeapons + _allHandGuns + _allLaunchers;
 
 //rhs detection and integration
 if ("rhs_weap_akms" in lockedWeapons) then {
-	hayRHS = true;
+  hayRHS = true;
 };
 if ("rhs_weap_m4a1_d" in lockedWeapons) then {
-	hayUSAF = true;
+  hayUSAF = true;
 };
 
 if (!isNil "ace_common_settingFeedbackIcons") then {
-	hayACE = true;
+  hayACE = true;
 };
 
 
 injuredSounds =
 [
-	"a3\sounds_f\characters\human-sfx\Person0\P0_moan_13_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_14_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_15_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_16_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_17_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_18_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_19_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_20_words.wss",
-	"a3\sounds_f\characters\human-sfx\Person1\P1_moan_19_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_20_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_21_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_22_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_23_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_24_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_25_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_26_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_27_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_28_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_29_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_30_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_31_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_32_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_33_words.wss",
-	"a3\sounds_f\characters\human-sfx\Person2\P2_moan_19_words.wss"
+  "a3\sounds_f\characters\human-sfx\Person0\P0_moan_13_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_14_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_15_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_16_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_17_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_18_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_19_words.wss","a3\sounds_f\characters\human-sfx\Person0\P0_moan_20_words.wss",
+  "a3\sounds_f\characters\human-sfx\Person1\P1_moan_19_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_20_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_21_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_22_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_23_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_24_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_25_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_26_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_27_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_28_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_29_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_30_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_31_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_32_words.wss","a3\sounds_f\characters\human-sfx\Person1\P1_moan_33_words.wss",
+  "a3\sounds_f\characters\human-sfx\Person2\P2_moan_19_words.wss"
 ];
 
 missionPath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
@@ -168,10 +168,10 @@ ladridos = ["Music\dog_bark01.wss", "Music\dog_bark02.wss", "Music\dog_bark03.ws
 //------------------ unit module ------------------//
 
 // all statics, used to calculate defensive strength when spawning attacks -- templates add OPFOR statics
-allStatMGs = 		["B_HMG_01_high_F"];
-allStatATs = 		["B_static_AT_F"];
-allStatAAs = 		["B_static_AA_F"];
-allStatMortars = 	["B_G_Mortar_01_F"];
+allStatMGs =    ["B_HMG_01_high_F"];
+allStatATs =    ["B_static_AT_F"];
+allStatAAs =    ["B_static_AA_F"];
+allStatMortars =  ["B_G_Mortar_01_F"];
 
 side_blue = west; // <<<<<< player side, always, at all times, no exceptions
 side_green = independent;
@@ -183,19 +183,19 @@ vfs = [];
 
 // Initialisation of units and gear
 if (hayRHS) then {
-	call compile preprocessFileLineNumbers "CREATE\templateRHS.sqf";
-	call compile preprocessFileLineNumbers "CREATE\templateVMF.sqf";
+  call compile preprocessFileLineNumbers "CREATE\templateRHS.sqf";
+  call compile preprocessFileLineNumbers "CREATE\templateVMF.sqf";
 }
 else {
-	call compile preprocessFileLineNumbers "CREATE\templateAAF.sqf";
-	call compile preprocessFileLineNumbers "CREATE\templateOPFOR_CSAT.sqf";
+  call compile preprocessFileLineNumbers "CREATE\templateAAF.sqf";
+  call compile preprocessFileLineNumbers "CREATE\templateOPFOR_CSAT.sqf";
 };
 
 if (hayUSAF) then {
-	call compile preprocessFileLineNumbers "CREATE\templateUSAF.sqf";
+  call compile preprocessFileLineNumbers "CREATE\templateUSAF.sqf";
 }
 else {
-	call compile preprocessFileLineNumbers "CREATE\templateNATO.sqf";
+  call compile preprocessFileLineNumbers "CREATE\templateNATO.sqf";
 };
 call compile preprocessFileLineNumbers "Municion\gearList.sqf";
 
@@ -233,7 +233,7 @@ smallCApos = [];
 campsFIA = []; // list of current camps
 campList = []; // camps and names
 campNames = ["Camp Spaulding","Camp Wagstaff","Camp Firefly","Camp Loophole","Camp Quale","Camp Driftwood","Camp Flywheel","Camp Grunion","Camp Kornblow","Camp Chicolini","Camp Pinky",
-			"Camp Fieramosca","Camp Bulldozer","Camp Bambino","Camp Pedersoli"]; // possible camp names
+      "Camp Fieramosca","Camp Bulldozer","Camp Bambino","Camp Pedersoli"]; // possible camp names
 usedCN = []; // camp names currently in use
 cName = ""; // custom camp name
 cList = false; // using the new list?
@@ -292,10 +292,10 @@ server setVariable [vfs select 9,800,true];
 server setVariable [vfs select 10,800,true];
 
 if (hayRHS) then {
-	server setVariable [vfs select 2,6000,true];
-	server setVariable [vfs select 11,5000,true];
-	server setVariable [vfs select 12,600,true];
-	server setVariable [vehTruckAA, 800, true];
+  server setVariable [vfs select 2,6000,true];
+  server setVariable [vfs select 11,5000,true];
+  server setVariable [vfs select 12,600,true];
+  server setVariable [vehTruckAA, 800, true];
 };
 
 server setVariable ["hr",8,true];//initial HR value
@@ -344,38 +344,38 @@ if (isClass (configFile >> "CfgPatches" >> "task_force_radio")) then
     hayTFAR = true;
     unlockedItems = unlockedItems + ["tf_anprc152", "ItemRadio"];//making this items Arsenal available.
     tf_no_auto_long_range_radio = true; publicVariable "tf_no_auto_long_range_radio";//set to false and players will start with LR radio, uncomment the last line of so.
-	//tf_give_personal_radio_to_regular_soldier = false;
-	tf_west_radio_code = "";publicVariable "tf_west_radio_code";//to make enemy vehicles usable as LR radio
-	tf_east_radio_code = tf_west_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
-	tf_guer_radio_code = tf_west_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
-	tf_same_sw_frequencies_for_side = true; publicVariable "tf_same_sw_frequencies_for_side";
-	tf_same_lr_frequencies_for_side = true; publicVariable "tf_same_lr_frequencies_for_side";
+  //tf_give_personal_radio_to_regular_soldier = false;
+  tf_west_radio_code = "";publicVariable "tf_west_radio_code";//to make enemy vehicles usable as LR radio
+  tf_east_radio_code = tf_west_radio_code; publicVariable "tf_east_radio_code"; //to make enemy vehicles usable as LR radio
+  tf_guer_radio_code = tf_west_radio_code; publicVariable "tf_guer_radio_code";//to make enemy vehicles usable as LR radio
+  tf_same_sw_frequencies_for_side = true; publicVariable "tf_same_sw_frequencies_for_side";
+  tf_same_lr_frequencies_for_side = true; publicVariable "tf_same_lr_frequencies_for_side";
     //unlockedBackpacks pushBack "tf_rt1523g_sage";//uncomment this if you are adding LR radios for players
     };
 //ACE detection and ACE item availability in Arsenal
 if (!isNil "ace_common_settingFeedbackIcons") then
-	{
-	unlockedItems = unlockedItems + ["ACE_EarPlugs","ACE_RangeCard","ACE_Clacker","ACE_M26_Clacker","ACE_DeadManSwitch","ACE_DefusalKit","ACE_MapTools","ACE_Flashlight_MX991","ACE_Sandbag_empty","ACE_wirecutter","ACE_RangeTable_82mm","ACE_SpareBarrel","ACE_EntrenchingTool","ACE_Cellphone","ACE_ConcertinaWireCoil","ACE_CableTie","ACE_SpottingScope","ACE_Tripod","ACE_Chemlight_HiWhite","ACE_Chemlight_HiRed"];
-	unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
+  {
+  unlockedItems = unlockedItems + ["ACE_EarPlugs","ACE_RangeCard","ACE_Clacker","ACE_M26_Clacker","ACE_DeadManSwitch","ACE_DefusalKit","ACE_MapTools","ACE_Flashlight_MX991","ACE_Sandbag_empty","ACE_wirecutter","ACE_RangeTable_82mm","ACE_SpareBarrel","ACE_EntrenchingTool","ACE_Cellphone","ACE_ConcertinaWireCoil","ACE_CableTie","ACE_SpottingScope","ACE_Tripod","ACE_Chemlight_HiWhite","ACE_Chemlight_HiRed"];
+  unlockedBackpacks pushBackUnique "ACE_TacticalLadder_Pack";
 
-	unlockedWeapons = unlockedWeapons + ["ACE_HandFlare_White","ACE_HandFlare_Red","ACE_VMH3"];
+  unlockedWeapons = unlockedWeapons + ["ACE_HandFlare_White","ACE_HandFlare_Red","ACE_VMH3"];
 
-	itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
-	armasNATO = armasNATO + ["ACE_M84","ACE_UAVBattery"];
-	hayACE = true;
-	if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then
-		{
-		hayACEhearing = true;
-		};
-	if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then
-		{
-		if (ace_medical_level != 0) then
-			{
-			hayACEMedical = true;
-			unlockedItems = unlockedItems + ["ACE_fieldDressing","ACE_bloodIV_500","ACE_bloodIV","ACE_epinephrine","ACE_morphine","ACE_bodyBag"];
-			};
-		};
-	};
+  itemsAAF = itemsAAF + ["ACE_Kestrel4500","ACE_ATragMX"];
+  armasNATO = armasNATO + ["ACE_M84","ACE_UAVBattery"];
+  hayACE = true;
+  if (isClass (configFile >> "CfgSounds" >> "ACE_EarRinging_Weak")) then
+    {
+    hayACEhearing = true;
+    };
+  if (isClass (ConfigFile >> "CfgSounds" >> "ACE_heartbeat_fast_3")) then
+    {
+    if (ace_medical_level != 0) then
+      {
+      hayACEMedical = true;
+      unlockedItems = unlockedItems + ["ACE_fieldDressing","ACE_bloodIV_500","ACE_bloodIV","ACE_epinephrine","ACE_morphine","ACE_bodyBag"];
+      };
+    };
+  };
 
 // texture mod detection
 FIA_texturedVehicles = [];
@@ -384,8 +384,8 @@ _allVehicles = configFile >> "CfgVehicles";
 for "_i" from 0 to (count _allVehicles - 1) do {
     _vehicle = _allVehicles select _i;
     if (toUpper (configName _vehicle) find "DGC_FIAVEH" >= 0) then {
-    	FIA_texturedVehicles pushBackUnique (configName _vehicle);
-    	FIA_texturedVehicleConfigs pushBackUnique _vehicle;
+      FIA_texturedVehicles pushBackUnique (configName _vehicle);
+      FIA_texturedVehicleConfigs pushBackUnique _vehicle;
     };
 };
 
@@ -397,15 +397,15 @@ if (!isNil "ace_medical_level") then
     armasNATO = armasNATO + ["ACE_M84"];
     hayACE = true;
     if (ace_medical_level != 0) then
-    	{
-    	unlockedItems = unlockedItems + ["ACE_atropine","ACE_fieldDressing","ACE_quikclot","ACE_bloodIV_250","ACE_epinephrine","ACE_morphine","ACE_personalAidKit","ACE_plasmaIV_250","ACE_salineIV_250","ACE_tourniquet","ACE_elasticBandage","ACE_packingBandage"];
-    	};
+      {
+      unlockedItems = unlockedItems + ["ACE_atropine","ACE_fieldDressing","ACE_quikclot","ACE_bloodIV_250","ACE_epinephrine","ACE_morphine","ACE_personalAidKit","ACE_plasmaIV_250","ACE_salineIV_250","ACE_tourniquet","ACE_elasticBandage","ACE_packingBandage"];
+      };
    };
 
 */
 
 if !(isnil "XLA_fnc_addVirtualItemCargo") then {
-	hayXLA = true;
+  hayXLA = true;
 };
 
 allItems = itemsAAF + opticasAAF + vests + cascos;
@@ -414,10 +414,10 @@ vehInGarage = vehInGarage + ["C_Van_01_transport_F","C_Offroad_01_F","C_Offroad_
 if (hayRHS) then {vehInGarage = vehInGarage + ["rhs_gaz66_r142_vdv"]};
 
 if (worldName == "Altis") then
-	{
-	{server setVariable [_x select 0,_x select 1]} forEach [["Therisa",154],["Zaros",371],["Poliakko",136],["Katalaki",95],["Alikampos",115],["Neochori",309],["Stavros",122],["Lakka",173],["AgiosDionysios",84],["Panochori",264],["Topolia",33],["Ekali",9],["Pyrgos",531],["Orino",45],["Neri",242],["Kore",133],["Kavala",660],["Aggelochori",395],["Koroni",32],["Gravia",291],["Anthrakia",143],["Syrta",151],["Negades",120],["Galati",151],["Telos",84],["Charkia",246],["Athira",342],["Dorida",168],["Ifestiona",48],["Chalkeia",214],["AgiosKonstantinos",39],["Abdera",89],["Panagia",91],["Nifi",24],["Rodopoli",212],["Kalithea",36],["Selakano",120],["Frini",69],["AgiosPetros",11],["Feres",92],["AgiaTriada",8],["Paros",396],["Kalochori",189],["Oreokastro",63],["Ioannina",48],["Delfinaki",29],["Sofia",179],["Molos",188]];
-	call compile preprocessFileLineNumbers "roadsDB.sqf";
-	};
+  {
+  {server setVariable [_x select 0,_x select 1]} forEach [["Therisa",154],["Zaros",371],["Poliakko",136],["Katalaki",95],["Alikampos",115],["Neochori",309],["Stavros",122],["Lakka",173],["AgiosDionysios",84],["Panochori",264],["Topolia",33],["Ekali",9],["Pyrgos",531],["Orino",45],["Neri",242],["Kore",133],["Kavala",660],["Aggelochori",395],["Koroni",32],["Gravia",291],["Anthrakia",143],["Syrta",151],["Negades",120],["Galati",151],["Telos",84],["Charkia",246],["Athira",342],["Dorida",168],["Ifestiona",48],["Chalkeia",214],["AgiosKonstantinos",39],["Abdera",89],["Panagia",91],["Nifi",24],["Rodopoli",212],["Kalithea",36],["Selakano",120],["Frini",69],["AgiosPetros",11],["Feres",92],["AgiaTriada",8],["Paros",396],["Kalochori",189],["Oreokastro",63],["Ioannina",48],["Delfinaki",29],["Sofia",179],["Molos",188]];
+  call compile preprocessFileLineNumbers "roadsDB.sqf";
+  };
 
 publicVariable "unlockedWeapons";
 publicVariable "unlockedRifles";

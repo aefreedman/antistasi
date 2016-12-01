@@ -27,15 +27,15 @@ _posroad = getPos _road;
 if (_cuenta > 4) exitWith {};
 
 if (_posroad distance _pos > 400) then
-	{
+  {
         _roadsCon = roadsConnectedto _road;
         if (count _roadsCon > 0) then
                 {
-        	_cercano = [controles,_posroad] call BIS_fnc_nearestPosition;
-        	if (getMarkerPos _cercano distance _posroad > 1000) then
-        		{
-        		_nombre = format ["control_%1", count controles];
-        		_mrk = createmarker [format ["%1", _nombre], _posroad];
+          _cercano = [controles,_posroad] call BIS_fnc_nearestPosition;
+          if (getMarkerPos _cercano distance _posroad > 1000) then
+            {
+            _nombre = format ["control_%1", count controles];
+            _mrk = createmarker [format ["%1", _nombre], _posroad];
                         _mrk setMarkerSize [30,30];
                         _mrk setMarkerShape "RECTANGLE";
                         _mrk setMarkerBrush "SOLID";
@@ -46,7 +46,7 @@ if (_posroad distance _pos > 400) then
                         marcadores pushBackUnique _nombre;
                         spawner setVariable [_nombre,false,true];
                         _cuenta = _cuenta + 1;
-        		};
+            };
                 };
-	};
+  };
 } forEach _roads;

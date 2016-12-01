@@ -3,12 +3,12 @@ File: UPSMON_DORESEARCH.sqf
 Author: Azroul13
 
 Description:
-	The script will assign a combat waypoint to the group
+  The script will assign a combat waypoint to the group
 
 Parameter(s):
 
 Returns:
-	nothing
+  nothing
 ****************************************************************/
 
 private ["_grp","_position","_currpos","_time"];

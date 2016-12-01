@@ -28,44 +28,44 @@ _unit unlinkItem _hmd;
 diag_log format ["primary: %1; items: %2; secondary: %3", _primaryWeapon, _primaryWeaponItems, _secondaryWeapon];
 
 _unit addEventHandler ["FIRED",
-	{
-	_unit = _this select 0;
-	if (captive _unit) then
-		{
-		if ({((side _x== side_red) or (side _x== side_green)) and ((_x knowsAbout _unit > 1.4) || (_x distance _unit < 200))} count allUnits > 0) then
-			{
-			_unit setCaptive false;
-			if (vehicle _unit != _unit) then {
-				{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",_x]}} forEach ((assignedCargo (vehicle _unit)) + (crew (vehicle _unit)));
-			};
-			}
-		else
-			{
-			_ciudad = [ciudades,_unit] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
-			_datos = server getVariable _ciudad;
-			if (random 100 < _datos select 2) then
-				{
-				if (_unit distance getMarkerPos _ciudad < _size * 1.5) then
-					{
-					_unit setCaptive false;
-					};
-				};
-			};
-		}
-	}
-	];
+  {
+  _unit = _this select 0;
+  if (captive _unit) then
+    {
+    if ({((side _x== side_red) or (side _x== side_green)) and ((_x knowsAbout _unit > 1.4) || (_x distance _unit < 200))} count allUnits > 0) then
+      {
+      _unit setCaptive false;
+      if (vehicle _unit != _unit) then {
+        {if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",_x]}} forEach ((assignedCargo (vehicle _unit)) + (crew (vehicle _unit)));
+      };
+      }
+    else
+      {
+      _ciudad = [ciudades,_unit] call BIS_fnc_nearestPosition;
+      _size = [_ciudad] call sizeMarker;
+      _datos = server getVariable _ciudad;
+      if (random 100 < _datos select 2) then
+        {
+        if (_unit distance getMarkerPos _ciudad < _size * 1.5) then
+          {
+          _unit setCaptive false;
+          };
+        };
+      };
+    }
+  }
+  ];
 
 _bases = bases + puestos + controles;
 while {(captive player) and (captive _unit)} do
-	{
-	sleep 1;
-	if ((vehicle _unit != _unit) and (not((typeOf vehicle _unit) in arrayCivVeh) || vehicle _unit in reportedVehs)) exitWith {};
-	_base = [_bases,player] call BIS_fnc_nearestPosition;
-	_size = [_base] call sizeMarker;
-	if ((_unit distance getMarkerPos _base < _size*2) and (_base in mrkAAF)) exitWith {_unit setCaptive false};
-	if ((primaryWeapon _unit != "") or (secondaryWeapon _unit != "") or (handgunWeapon _unit != "")) exitWith {};
-	};
+  {
+  sleep 1;
+  if ((vehicle _unit != _unit) and (not((typeOf vehicle _unit) in arrayCivVeh) || vehicle _unit in reportedVehs)) exitWith {};
+  _base = [_bases,player] call BIS_fnc_nearestPosition;
+  _size = [_base] call sizeMarker;
+  if ((_unit distance getMarkerPos _base < _size*2) and (_base in mrkAAF)) exitWith {_unit setCaptive false};
+  if ((primaryWeapon _unit != "") or (secondaryWeapon _unit != "") or (handgunWeapon _unit != "")) exitWith {};
+  };
 
 diag_log format ["lost cover: %1", _unit];
 
@@ -80,10 +80,10 @@ _unit setUnitPos "AUTO";
 _unit setBehaviour (behaviour leader _unit);
 _sinMochi = false;
 if ((backpack _unit == "") and (_secondaryWeapon == "")) then
-	{
-	_sinMochi = true;
-	_unit addbackpack "B_AssaultPack_blk";
-	};
+  {
+  _sinMochi = true;
+  _unit addbackpack "B_AssaultPack_blk";
+  };
 {if (_x != "") then {[_unit, _x, 1, 0] call BIS_fnc_addWeapon};} forEach [_primaryWeapon,_secondaryWeapon,_handGunWeapon];
 {_unit addPrimaryWeaponItem _x} forEach _primaryWeaponItems;
 {_unit addSecondaryWeaponItem _x} forEach _secondaryWeaponItems;

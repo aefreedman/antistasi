@@ -5,9 +5,9 @@ _jugador = _this select 1;
 //removeAllActions _unit;
 
 if (captive _jugador) then
-	{
-	[_jugador,false] remoteExec ["setCaptive",_jugador];
-	};
+  {
+  [_jugador,false] remoteExec ["setCaptive",_jugador];
+  };
 
 _jugador globalChat "You are free. Come with us!";
 _unit setDir (getDir _jugador);

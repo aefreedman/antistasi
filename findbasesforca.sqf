@@ -13,9 +13,9 @@ _busy = if (dateToNumber date > server getVariable _base) then {false} else {tru
 if (count _this > 1) then {_radio = true} else {_radio = [_base] call radioCheck};
 
 if ((!_busy) and (not (spawner getVariable _base))) then
-	{
-	if (((_pos distance _posbase < 5000) and (_radio)) or (_pos distance _posbase < 2000)) then {_bases = _bases + [_base]};
-	};
+  {
+  if (((_pos distance _posbase < 5000) and (_radio)) or (_pos distance _posbase < 2000)) then {_bases = _bases + [_base]};
+  };
 } forEach _basesAAF;
 if (count _bases > 0) then {_base = [_bases,_pos] call BIS_fnc_nearestPosition;} else {_base = ""};
 _base

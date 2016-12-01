@@ -5,11 +5,11 @@ Author: Azroul13
 Description:
 
 Parameter(s):
-	<--- Group
-	<--- position of the target)
+  <--- Group
+  <--- position of the target)
 
 Returns:
-	nothing
+  nothing
 ****************************************************************/
 
 private ["_grp","_AttackPos","_typeofgrp","_assignedvehicles","_dir","_npc","_dist","_retreatPos","_behaviour","_combatmode","_wpformation","_speedmode"];
@@ -27,24 +27,24 @@ _grp setvariable ["UPSMON_searchingpos",true];
 
 If ("car" in _typeofgrp || "ship" in _typeofgrp || "air" in _typeofgrp) then
 {
-	_dist = 500;
+  _dist = 500;
 };
 
 If ("arti" in _typeofgrp) then
 {
-	[_grp,_assignedvehicles,_grp getvariable ["UPSMON_GrpTarget",ObjNull]] call UPSMON_FireGun;
+  [_grp,_assignedvehicles,_grp getvariable ["UPSMON_GrpTarget",ObjNull]] call UPSMON_FireGun;
 };
 
 
 If (_AttackPos select 0 != 0 && _AttackPos select 1 != 0) then
 {
-	// angle from unit to target
-	_dir1 = [_AttackPos,getposATL _npc] call UPSMON_getDirPos;
-	_dir = [_dir1 +290,_dir1 +70];
+  // angle from unit to target
+  _dir1 = [_AttackPos,getposATL _npc] call UPSMON_getDirPos;
+  _dir = [_dir1 +290,_dir1 +70];
 }
 else
 {
-	_dir = [getposATL _npc,(_grp getvariable "UPSMON_Origin") select 2] call UPSMON_getDirPos;
+  _dir = [getposATL _npc,(_grp getvariable "UPSMON_Origin") select 2] call UPSMON_getDirPos;
 };
 
 _retreatPos = [_npc,_AttackPos,_dir,_dist] call UPSMON_SrchRetreatPos;

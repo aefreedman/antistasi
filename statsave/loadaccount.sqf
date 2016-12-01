@@ -1,31 +1,31 @@
 if (!isDedicated) then
-	{
-	["gogglesPlayer"] call fn_LoadStat;
-	["vestPlayer"] call fn_LoadStat;
-	["outfit"] call fn_LoadStat;
-	["hat"] call fn_LoadStat;
-	{player removeMagazine _x} forEach magazines player;
-	{player removeWeaponGlobal _x} forEach weapons player;
-	removeBackpackGlobal player;
-	if ("ItemGPS" in (assignedItems player)) then {player unlinkItem "ItemGPS"};
-	if ((!hayTFAR) and ("ItemRadio" in (assignedItems player))) then {player unlinkItem "ItemRadio"};
-	player setPos getMarkerPos "respawn_west";
-	if (isMultiplayer) then
-		{
-		if ([player] call isMember) then
-			{
-			["scorePlayer"] call fn_LoadStat;
-			["rankPlayer"] call fn_LoadStat;
-			};
-		["dinero"] call fn_LoadStat;
-		["personalGarage"] call fn_LoadStat;
-		diag_log "Antistasi: MP Personal player stats loaded";
-		}
-	else
-		{
-		diag_log "Antistasi: SP Personal player stats loaded";
-		};
-	};
+  {
+  ["gogglesPlayer"] call fn_LoadStat;
+  ["vestPlayer"] call fn_LoadStat;
+  ["outfit"] call fn_LoadStat;
+  ["hat"] call fn_LoadStat;
+  {player removeMagazine _x} forEach magazines player;
+  {player removeWeaponGlobal _x} forEach weapons player;
+  removeBackpackGlobal player;
+  if ("ItemGPS" in (assignedItems player)) then {player unlinkItem "ItemGPS"};
+  if ((!hayTFAR) and ("ItemRadio" in (assignedItems player))) then {player unlinkItem "ItemRadio"};
+  player setPos getMarkerPos "respawn_west";
+  if (isMultiplayer) then
+    {
+    if ([player] call isMember) then
+      {
+      ["scorePlayer"] call fn_LoadStat;
+      ["rankPlayer"] call fn_LoadStat;
+      };
+    ["dinero"] call fn_LoadStat;
+    ["personalGarage"] call fn_LoadStat;
+    diag_log "Antistasi: MP Personal player stats loaded";
+    }
+  else
+    {
+    diag_log "Antistasi: SP Personal player stats loaded";
+    };
+  };
 
 if (!isServer) exitWith {};
 statsLoaded = 0; publicVariable "statsLoaded";
@@ -85,14 +85,14 @@ _marcadores = mrkFIA + mrkAAF + campsTony + campsFIA;
 _posicion = getMarkerPos _x;
 _cercano = [_marcadores,_posicion] call BIS_fnc_nearestPosition;
 if (_cercano in mrkFIA) then
-	{
-	mrkAAF = mrkAAF - [_x];
-	mrkFIA = mrkFIA + [_x];
-	}
+  {
+  mrkAAF = mrkAAF - [_x];
+  mrkFIA = mrkFIA + [_x];
+  }
 else
-	{
-	mrkAAF = mrkAAF + [_x];
-	};
+  {
+  mrkAAF = mrkAAF + [_x];
+  };
 } forEach controles;
 
 {
@@ -104,83 +104,83 @@ _marcadores = _marcadores + controles;
 {
 
 if (_x in mrkFIA) then
-	{
-	private ["_mrkD"];
-	if (_x != "FIA_HQ") then
-		{
-		_mrkD = format ["Dum%1",_x];
-		_mrkD setMarkerColor "colorBLUFOR";
-		};
-	if (_x in aeropuertos) then
-		{
-		_mrkD setMarkerText format ["FIA Airport: %1",count (garrison getVariable _x)];
-		_mrkD setMarkerType "flag_FIA";
-		planesAAFmax = planesAAFmax - 1;
-	    helisAAFmax = helisAAFmax - 2;
-	    };
-	if (_x in bases) then
-		{
-		_mrkD setMarkerText format ["FIA Base: %1",count (garrison getVariable _x)];
-		_mrkD setMarkerType "flag_FIA";
-		APCAAFmax = APCAAFmax - 2;
-    	tanksAAFmax = tanksAAFmax - 1;
-		};
-	if (_x in puestos) then
-		{
-		_mrkD setMarkerText format ["FIA Outpost: %1",count (garrison getVariable _x)];
-		};
-	if (_x in ciudades) then
-		{
-		_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
-		if ((not (_power in mrkFIA)) or (_power in destroyedCities)) then
-			{
-			[_x,false] spawn apagon;
-			};
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	if ((_x in recursos) or (_x in fabricas)) then
-		{
-		if (_x in recursos) then {_mrkD setMarkerText format ["Resource: %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format ["Factory: %1",count (garrison getVariable _x)]};
-		_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
-		if ((not (_power in mrkFIA))  or (_power in destroyedCities)) then
-			{
-			[_x,false] spawn apagon;
-			};
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	if (_x in puertos) then
-		{
-		_mrkD setMarkerText format ["Sea Port: %1",count (garrison getVariable _x)];
-		};
-	if (_x in power) then
-		{
-		_mrkD setMarkerText format ["Power Plant: %1",count (garrison getVariable _x)];
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	};
+  {
+  private ["_mrkD"];
+  if (_x != "FIA_HQ") then
+    {
+    _mrkD = format ["Dum%1",_x];
+    _mrkD setMarkerColor "colorBLUFOR";
+    };
+  if (_x in aeropuertos) then
+    {
+    _mrkD setMarkerText format ["FIA Airport: %1",count (garrison getVariable _x)];
+    _mrkD setMarkerType "flag_FIA";
+    planesAAFmax = planesAAFmax - 1;
+      helisAAFmax = helisAAFmax - 2;
+      };
+  if (_x in bases) then
+    {
+    _mrkD setMarkerText format ["FIA Base: %1",count (garrison getVariable _x)];
+    _mrkD setMarkerType "flag_FIA";
+    APCAAFmax = APCAAFmax - 2;
+      tanksAAFmax = tanksAAFmax - 1;
+    };
+  if (_x in puestos) then
+    {
+    _mrkD setMarkerText format ["FIA Outpost: %1",count (garrison getVariable _x)];
+    };
+  if (_x in ciudades) then
+    {
+    _power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
+    if ((not (_power in mrkFIA)) or (_power in destroyedCities)) then
+      {
+      [_x,false] spawn apagon;
+      };
+    if (_x in destroyedCities) then {[_x] call destroyCity};
+    };
+  if ((_x in recursos) or (_x in fabricas)) then
+    {
+    if (_x in recursos) then {_mrkD setMarkerText format ["Resource: %1",count (garrison getVariable _x)]} else {_mrkD setMarkerText format ["Factory: %1",count (garrison getVariable _x)]};
+    _power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
+    if ((not (_power in mrkFIA))  or (_power in destroyedCities)) then
+      {
+      [_x,false] spawn apagon;
+      };
+    if (_x in destroyedCities) then {[_x] call destroyCity};
+    };
+  if (_x in puertos) then
+    {
+    _mrkD setMarkerText format ["Sea Port: %1",count (garrison getVariable _x)];
+    };
+  if (_x in power) then
+    {
+    _mrkD setMarkerText format ["Power Plant: %1",count (garrison getVariable _x)];
+    if (_x in destroyedCities) then {[_x] call destroyCity};
+    };
+  };
 
 if (_x in mrkAAF) then
-	{
-	if (_x in ciudades) then
-		{
-		_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
-		if ((not (_power in mrkAAF))  or (_power in destroyedCities)) then
-			{
-			[_x,false] spawn apagon;
-			};
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	if ((_x in recursos) or (_x in fabricas)) then
-		{
-		_power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
-		if ((not (_power in mrkAAF))  or (_power in destroyedCities)) then
-			{
-			[_x,false] spawn apagon;
-			};
-		if (_x in destroyedCities) then {[_x] call destroyCity};
-		};
-	if ((_x in power) and (_x in destroyedCities)) then {[_x] call destroyCity};
-	};
+  {
+  if (_x in ciudades) then
+    {
+    _power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
+    if ((not (_power in mrkAAF))  or (_power in destroyedCities)) then
+      {
+      [_x,false] spawn apagon;
+      };
+    if (_x in destroyedCities) then {[_x] call destroyCity};
+    };
+  if ((_x in recursos) or (_x in fabricas)) then
+    {
+    _power = [power, getMarkerPos _x] call BIS_fnc_nearestPosition;
+    if ((not (_power in mrkAAF))  or (_power in destroyedCities)) then
+      {
+      [_x,false] spawn apagon;
+      };
+    if (_x in destroyedCities) then {[_x] call destroyCity};
+    };
+  if ((_x in power) and (_x in destroyedCities)) then {[_x] call destroyCity};
+  };
 
 
 } forEach _marcadores;
@@ -198,25 +198,25 @@ publicVariable "mrkFIA";
 //call AAFassets;
 
 if (isMultiplayer) then
-	{
-	{
-	_jugador = _x;
-	if ([_jugador] call isMember) then
-		{
-		{_jugador removeMagazine _x} forEach magazines _jugador;
-		{_jugador removeWeaponGlobal _x} forEach weapons _jugador;
-		removeBackpackGlobal _jugador;
-		};
-	_jugador setPos (getMarkerPos "respawn_west");
-	} forEach playableUnits;
-	}
+  {
+  {
+  _jugador = _x;
+  if ([_jugador] call isMember) then
+    {
+    {_jugador removeMagazine _x} forEach magazines _jugador;
+    {_jugador removeWeaponGlobal _x} forEach weapons _jugador;
+    removeBackpackGlobal _jugador;
+    };
+  _jugador setPos (getMarkerPos "respawn_west");
+  } forEach playableUnits;
+  }
 else
-	{
-	{player removeMagazine _x} forEach magazines player;
-	{player removeWeaponGlobal _x} forEach weapons player;
-	removeBackpackGlobal player;
-	player setPos (getMarkerPos "respawn_west");
-	};
+  {
+  {player removeMagazine _x} forEach magazines player;
+  {player removeWeaponGlobal _x} forEach weapons player;
+  removeBackpackGlobal player;
+  player setPos (getMarkerPos "respawn_west");
+  };
 
 [] call arsenalManage;
 server setVariable ["genLMGlocked",true,true];
@@ -240,12 +240,12 @@ _base = [_x] call findBasesForCA;
 //if (_x == "puesto_13") then {_base = ""};
 _radio = [_x] call radioCheck;
 if ((_base != "") and (_radio) and (_x in mrkFIA) and (not(_x in smallCAmrk))) then
-	{
-	[_x] remoteExec ["patrolCA",HCattack];
-	sleep 5;
-	smallCAmrk pushBackUnique _x;
-	[_x] remoteExec ["autoGarrison",HCattack];
-	};
+  {
+  [_x] remoteExec ["patrolCA",HCattack];
+  sleep 5;
+  smallCAmrk pushBackUnique _x;
+  [_x] remoteExec ["autoGarrison",HCattack];
+  };
 } forEach _tmpCAmrk;
 publicVariable "smallCAmrk";
 

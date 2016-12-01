@@ -3,11 +3,11 @@ File: UPSMON_fnc_filter.sqf
 Author: Robalo
 
 Description:
-	Filter cover objects
+  Filter cover objects
 Parameter(s):
-	<--- Object
+  <--- Object
 Returns:
-	boolean
+  boolean
 ****************************************************************/
 private ["_type","_z","_bbox","_dz","_dy"]; 
     
@@ -24,7 +24,7 @@ if (isBurning _this) exitWith {false};
 if (["slop", (format ["%1", _this])] call BIS_fnc_inString) exitWith {false};
 if (["fence", (format ["%1", _this])] call BIS_fnc_inString) then 
 {
-	If (!(_this isKindOf "Strategic")) exitwith {false};
+  If (!(_this isKindOf "Strategic")) exitwith {false};
 };
  
 _type = typeOf _this; 
@@ -32,7 +32,7 @@ if (_type == "") then
 { 
     if (damage _this == 1) exitWith {false}; 
 } else { 
-	//if (_type in ["#soundonvehicle","#mark","#crater","#crateronvehicle","#soundonvehicle","#particlesource","#lightpoint","#slop"]) exitWith {false}; 
+  //if (_type in ["#soundonvehicle","#mark","#crater","#crateronvehicle","#soundonvehicle","#particlesource","#lightpoint","#slop"]) exitWith {false}; 
 };
    
 _z = (getPosATL _this) select 2; 

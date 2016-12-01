@@ -9,19 +9,19 @@ if ((not(_marcador in mrkAAF)) and (alive _x)) then {_chance = _chance + 2.25};
 if (debug) then {_chance = 100};
 
 if (random 100 < _chance) then
-	{
-	if (not revelar) then
-		{
-		[["TaskSucceeded", ["", "AAF Comms Intercepted"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
-		revelar = true; publicVariable "revelar";
-		[] remoteExec ["revealToPlayer"];
-		};
-	}
+  {
+  if (not revelar) then
+    {
+    [["TaskSucceeded", ["", "AAF Comms Intercepted"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+    revelar = true; publicVariable "revelar";
+    [] remoteExec ["revealToPlayer"];
+    };
+  }
 else
-	{
-	if (revelar) then
-		{
-		[["TaskFailed", ["", "AAF Comms Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
-		revelar = false; publicVariable "revelar";
-		};
-	};
+  {
+  if (revelar) then
+    {
+    [["TaskFailed", ["", "AAF Comms Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+    revelar = false; publicVariable "revelar";
+    };
+  };

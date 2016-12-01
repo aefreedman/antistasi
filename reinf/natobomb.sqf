@@ -1,6 +1,6 @@
 if (server getVariable "prestigeNATO" < 10) exitWith {hint "You lack of enough NATO Support to make this request"};
 if (!allowPlayerRecruit) exitWith {hint "Server is very loaded. \nWait one minute or change FPS settings in order to fulfill this request"};
-	if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
+  if (!([player] call hasRadio)) exitWith {hint "You need a radio in your inventory to be able to give orders to other squads"};
 _tipo = _this select 0;
 
 posicionTel = [];
@@ -88,8 +88,8 @@ waitUntil {sleep 1; (currentWaypoint group _plane == 4) or (!canMove _plane)};
 deleteMarker _mrkOrig;
 deleteMarker _mrkDest;
 if ((!canMove _plane) and (!isNull _plane)) then
-	{
-	sleep cleantime;
-	{deleteVehicle _x} forEach crew _plane; deleteVehicle _plane;
-	deleteGroup group _plane;
-	};
+  {
+  sleep cleantime;
+  {deleteVehicle _x} forEach crew _plane; deleteVehicle _plane;
+  deleteGroup group _plane;
+  };

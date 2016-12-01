@@ -19,9 +19,9 @@ _wp = _grupo addwaypoint [getpos _unit,0];
 
 {
 if (_x != vehicle _x) then
-	{
-	[_x] orderGetIn true;
-	};
+  {
+  [_x] orderGetIn true;
+  };
 } forEach units group player;
 
 hcShowBar false;

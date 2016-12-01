@@ -13,19 +13,19 @@ _grupo = createGroup side_blue;
 _tam = 1;
 
 while {true} do {
-	_road = _posicion nearRoads _tam;
-	if (count _road > 0) exitWith {};
-	_tam = _tam + 5;
+  _road = _posicion nearRoads _tam;
+  if (count _road > 0) exitWith {};
+  _tam = _tam + 5;
 };
 
 _roadcon = roadsConnectedto (_road select 0);
 _dirveh = [_road select 0, _roadcon select 0] call BIS_fnc_DirTo;
 
 if (hayUSAF) then {
-	0 = [getpos (_road select 0), _dirveh, call (compile (preprocessFileLineNumbers "Compositions\cmpUSAF_RB.sqf"))] call BIS_fnc_ObjectsMapper;
+  0 = [getpos (_road select 0), _dirveh, call (compile (preprocessFileLineNumbers "Compositions\cmpUSAF_RB.sqf"))] call BIS_fnc_ObjectsMapper;
 }
 else {
-	0 = [getpos (_road select 0), _dirveh, call (compile (preprocessFileLineNumbers "Compositions\cmpNATO_RB.sqf"))] call BIS_fnc_ObjectsMapper;
+  0 = [getpos (_road select 0), _dirveh, call (compile (preprocessFileLineNumbers "Compositions\cmpNATO_RB.sqf"))] call BIS_fnc_ObjectsMapper;
 };
 
 
@@ -33,10 +33,10 @@ _vehArray = [];
 _turretArray = [];
 _tempPos = [];
 {
-	 if (str typeof _x find (bluAPC select 0) > -1) then {_vehArray pushBack _x;};
-	 if (str typeof _x find (bluStatHMG select 0) > -1) then {_turretArray pushBack _x;};
-	 if (str typeof _x find (bluStatAA select 0) > -1) then {_turretArray pushBack _x;};
-	 if (str typeof _x find "Land_Camping_Light_F" > -1) then {_tempPos = _x;};
+   if (str typeof _x find (bluAPC select 0) > -1) then {_vehArray pushBack _x;};
+   if (str typeof _x find (bluStatHMG select 0) > -1) then {_turretArray pushBack _x;};
+   if (str typeof _x find (bluStatAA select 0) > -1) then {_turretArray pushBack _x;};
+   if (str typeof _x find "Land_Camping_Light_F" > -1) then {_tempPos = _x;};
 } forEach nearestObjects [_road select 0, [], 18];
 
 _veh = _vehArray select 0;
@@ -45,22 +45,22 @@ _AA1 = _turretArray select 1;
 _AA2 = _turretArray select 2;
 
 if (_NATOSupp < 50) then {
-	_AA1 enableSimulation false;
+  _AA1 enableSimulation false;
     _AA1 hideObjectGlobal true;
 
-	if !(hayUSAF) then {
-   		_AA2 enableSimulation false;
-    	_AA2 hideObjectGlobal true;
-	};
+  if !(hayUSAF) then {
+      _AA2 enableSimulation false;
+      _AA2 hideObjectGlobal true;
+  };
 }
 else {
-	_unit = _grupo createUnit [bluCrew, _posicion, [], 0, "NONE"];
-	_unit moveInGunner _AA1;
+  _unit = _grupo createUnit [bluCrew, _posicion, [], 0, "NONE"];
+  _unit moveInGunner _AA1;
 
-	if !(hayUSAF) then {
-		_unit = _grupo createUnit [bluCrew, _posicion, [], 0, "NONE"];
-		_unit moveInGunner _AA2;
-	};
+  if !(hayUSAF) then {
+    _unit = _grupo createUnit [bluCrew, _posicion, [], 0, "NONE"];
+    _unit moveInGunner _AA2;
+  };
 };
 
 sleep 1;
@@ -94,11 +94,11 @@ _unit moveInCommander _veh;
 waitUntil {sleep 1; (not(spawner getVariable _marcador)) or (({alive _x} count units _grupo == 0) && ({alive _x} count units _grupoInf == 0)) or (not(_marcador in puestosNATO))};
 
 if ({alive _x} count units _grupo == 0) then {
-	puestosNATO = puestosNATO - [_marcador]; publicVariable "puestosNATO";
-	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
-	_nul = [5,-5,_posicion] remoteExec ["citySupportChange",2];
-	deleteMarker _marcador;
-	[["TaskFailed", ["", "Roadblock Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+  puestosNATO = puestosNATO - [_marcador]; publicVariable "puestosNATO";
+  marcadores = marcadores - [_marcador]; publicVariable "marcadores";
+  _nul = [5,-5,_posicion] remoteExec ["citySupportChange",2];
+  deleteMarker _marcador;
+  [["TaskFailed", ["", "Roadblock Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
 };
 
 waitUntil {sleep 1; (not(spawner getVariable _marcador)) or (not(_marcador in puestosNATO))};

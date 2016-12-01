@@ -3,11 +3,11 @@ File: UPSMON_sample_terrain.sqf
 Author: Azroul13
 
 Description:
-	Get the Type of the terrain that surrounding the position ("inhabited"/"forest"/"sea"/"coast"/"undefined")
+  Get the Type of the terrain that surrounding the position ("inhabited"/"forest"/"sea"/"coast"/"undefined")
 Parameter(s):
-	<--- position
+  <--- position
 Returns:
-	Array [terrain type, value of the terrain]
+  Array [terrain type, value of the terrain]
 ****************************************************************/
 
 private ["_sample", "_sampleValue", "_sampleType"];

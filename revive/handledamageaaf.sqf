@@ -9,16 +9,16 @@ _proj = _this select 4;
 
 
 if (_part == "") then {
-	if (_dam > 0.6) then {[_unit,_unit] spawn cubrirConHumo};
+  if (_dam > 0.6) then {[_unit,_unit] spawn cubrirConHumo};
 }
 
 else {
-	if ((_dam > 0.95) && (_part == "head")) then {
-		if !(_proj call BIS_fnc_isThrowable) then {
-			removeHeadgear _unit;
-			_dam = 0.9;
-		};
-	};
+  if ((_dam > 0.95) && (_part == "head")) then {
+    if !(_proj call BIS_fnc_isThrowable) then {
+      removeHeadgear _unit;
+      _dam = 0.9;
+    };
+  };
 };
 
 //stavros sidechat format ["Final Daño_ %1. Parte %2",_dam,_part];

@@ -9,7 +9,7 @@ if (player != player getVariable ["owner",player]) exitWith {hint "You cannot bu
 
 _chequeo = false;
 {
-	if (((side _x == side_red) or (side _x == side_green)) and (_x distance player < 500) and (not(captive _x))) then {_chequeo = true};
+  if (((side _x == side_red) or (side _x == side_green)) and (_x distance player < 500) and (not(captive _x))) then {_chequeo = true};
 } forEach allUnits;
 
 if (_chequeo) exitWith {Hint "You cannot Recruit Units with enemies nearby"};
@@ -20,11 +20,11 @@ _tipounidad = _this select 0;
 _available = true;
 
 call {
-	if ((_tipounidad == "B_G_Soldier_AR_F") && (server getVariable "genLMGlocked")) exitWith {_available = false;};
-	if ((_tipounidad == "B_G_Soldier_GL_F") && (server getVariable "genGLlocked")) exitWith {_available = false;};
-	if ((_tipounidad == "B_G_Soldier_M_F") && (server getVariable "genSNPRlocked")) exitWith {_available = false;};
-	if ((_tipounidad == "B_G_Soldier_LAT_F") && (server getVariable "genATlocked")) exitWith {_available = false;};
-	if ((_tipounidad == "Soldier_AA") && (server getVariable "genAAlocked")) exitWith {_available = false;};
+  if ((_tipounidad == "B_G_Soldier_AR_F") && (server getVariable "genLMGlocked")) exitWith {_available = false;};
+  if ((_tipounidad == "B_G_Soldier_GL_F") && (server getVariable "genGLlocked")) exitWith {_available = false;};
+  if ((_tipounidad == "B_G_Soldier_M_F") && (server getVariable "genSNPRlocked")) exitWith {_available = false;};
+  if ((_tipounidad == "B_G_Soldier_LAT_F") && (server getVariable "genATlocked")) exitWith {_available = false;};
+  if ((_tipounidad == "Soldier_AA") && (server getVariable "genAAlocked")) exitWith {_available = false;};
 };
 
 if !(_available) exitWith {hint "Required weapon not unlocked yet."};
@@ -42,34 +42,34 @@ if (_coste > _resourcesFIA) exitWith {hint format ["You do not have enough money
 if ((count units group player) + (count units rezagados) > 9) exitWith {hint "Your squad is full or you have too many scattered units with no radio contact"};
 
 if !(_tipounidad == "Soldier_AA") then {
-	_unit = group player createUnit [_tipounidad, position player, [], 0, "NONE"];
+  _unit = group player createUnit [_tipounidad, position player, [], 0, "NONE"];
 }
 else {
-	_unit = group player createUnit ["B_G_Soldier_lite_F", position player, [], 0, "NONE"];
+  _unit = group player createUnit ["B_G_Soldier_lite_F", position player, [], 0, "NONE"];
 };
 
 if (!isMultiPlayer) then
-	{
-	_nul = [-1, - _coste] remoteExec ["resourcesFIA",2];
-	}
+  {
+  _nul = [-1, - _coste] remoteExec ["resourcesFIA",2];
+  }
 else
-	{
-	_nul = [-1, 0] remoteExec ["resourcesFIA",2];
-	[- _coste] call resourcesPlayer;
-	hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
-	};
+  {
+  _nul = [-1, 0] remoteExec ["resourcesFIA",2];
+  [- _coste] call resourcesPlayer;
+  hint "Soldier Recruited.\n\nRemember: if you use the group menu to switch groups you will lose control of your recruited AI";
+  };
 
 [_unit] spawn FIAinit;
 
 if (_tipounidad == "Soldier_AA") then {
-	_aal = genAALaunchers select 0;
-	[_unit,true,true,true,true] call randomRifle;
-	if (_aal in unlockedWeapons) then {
-		removeBackpackGlobal _unit;
-		_unit addBackpackGlobal "B_AssaultPack_blk";
-		[_unit, _aal, 2, AAmissile] call BIS_fnc_addWeapon;
-		_unit addMagazines [AAmissile, 1];
-	};
+  _aal = genAALaunchers select 0;
+  [_unit,true,true,true,true] call randomRifle;
+  if (_aal in unlockedWeapons) then {
+    removeBackpackGlobal _unit;
+    _unit addBackpackGlobal "B_AssaultPack_blk";
+    [_unit, _aal, 2, AAmissile] call BIS_fnc_addWeapon;
+    _unit addMagazines [AAmissile, 1];
+  };
 };
 
 _unit disableAI "AUTOCOMBAT";

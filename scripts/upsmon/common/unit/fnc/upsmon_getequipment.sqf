@@ -3,12 +3,12 @@ File: UPSMON_getequipment.sqf
 Author: Azroul13
 
 Description:
-	In order to respawn a unit with the same loadout
-	Called from UPSMON.sqf
+  In order to respawn a unit with the same loadout
+  Called from UPSMON.sqf
 Parameter(s):
-	<--- unit
+  <--- unit
 Returns:
-	Array of equipments
+  Array of equipments
 ****************************************************************/
 
 private ["_unit","_maguniformunit","_magbackunit","_magvestunit","_uniform","_headgear","_vest","_bag","_classbag","_itemsunit","_weaponsunit","_equipmentarray","_assigneditems"];
@@ -39,23 +39,23 @@ _secondaryweapon = [];
 _handgunweapon = [];
 If (primaryweapon _unit != "") then
 {
-	_primaryweapon pushback (primaryweapon _unit);
-	_primaryweapon pushback (primaryWeaponItems _unit);
-	_primaryweapon pushback ((getArray (configFile >> "CfgWeapons" >> (primaryweapon _unit) >> "magazines")) select 0);
+  _primaryweapon pushback (primaryweapon _unit);
+  _primaryweapon pushback (primaryWeaponItems _unit);
+  _primaryweapon pushback ((getArray (configFile >> "CfgWeapons" >> (primaryweapon _unit) >> "magazines")) select 0);
 };
 
 If (secondaryweapon _unit != "") then
 {
-	_secondaryweapon pushback (secondaryweapon _unit);
-	_secondaryweapon pushback (secondaryWeaponItems _unit);
-	_secondaryweapon pushback ((getArray (configFile >> "CfgWeapons" >> (secondaryweapon _unit) >> "magazines")) select 0);
+  _secondaryweapon pushback (secondaryweapon _unit);
+  _secondaryweapon pushback (secondaryWeaponItems _unit);
+  _secondaryweapon pushback ((getArray (configFile >> "CfgWeapons" >> (secondaryweapon _unit) >> "magazines")) select 0);
 };
 
 If (handgunWeapon _unit != "") then
 {
-	_handgunweapon pushback (handgunWeapon _unit);
-	_handgunweapon pushback (handgunItems _unit);
-	_handgunweapon pushback ((getArray (configFile >> "CfgWeapons" >> (handgunWeapon _unit) >> "magazines")) select 0);
+  _handgunweapon pushback (handgunWeapon _unit);
+  _handgunweapon pushback (handgunItems _unit);
+  _handgunweapon pushback ((getArray (configFile >> "CfgWeapons" >> (handgunWeapon _unit) >> "magazines")) select 0);
 };
 
 _weaponsunit = [_primaryweapon,_secondaryweapon,_handgunweapon];

@@ -12,12 +12,12 @@ _owner = _veh getVariable "duenyo";
 _exit = false;
 
 if (!_pool) then {
-	_owner = _veh getVariable "duenyo";
-	if (!isNil "_owner") then {
-		if (_owner isEqualType "") then {
-			if (getPlayerUID player != _owner) then {_exit = true};
-		};
-	};
+  _owner = _veh getVariable "duenyo";
+  if (!isNil "_owner") then {
+    if (_owner isEqualType "") then {
+      if (getPlayerUID player != _owner) then {_exit = true};
+    };
+  };
 };
 
 if (_exit) exitWith {hint "You are not owner of this vehicle and you cannot unlock it"};

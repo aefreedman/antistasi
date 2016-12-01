@@ -10,11 +10,11 @@ _s = antenas - mrkAAF;
 _c = 0;
 
 if (count _s > 0) then {
-	for [{_i=0},{_i<=((count _s)-1)},{_i=_i+1}] do {
-		_antenna = _s select _i;
-		_cercano = [marcadores, getPos _antenna] call BIS_fnc_nearestPosition;
-		if (_cercano in mrkFIA) then {_c = _c + 1};
-	};
+  for [{_i=0},{_i<=((count _s)-1)},{_i=_i+1}] do {
+    _antenna = _s select _i;
+    _cercano = [marcadores, getPos _antenna] call BIS_fnc_nearestPosition;
+    if (_cercano in mrkFIA) then {_c = _c + 1};
+  };
 };
 
 diag_log format ["s: %1", _c];
@@ -31,10 +31,10 @@ _l6 = ["Petros", _text];
 [[_l5, _l6],"SIDE",0.15] execVM "createConv.sqf";
 
 if (cuentaCA < 0) then {
-	cuentaCA = _delay * 60;
+  cuentaCA = _delay * 60;
 }
 else {
-	cuentaCA = cuentaCA + (_delay * 60);
+  cuentaCA = cuentaCA + (_delay * 60);
 };
 
 _jtime = dateToNumber [date select 0, date select 1, date select 2, date select 3, (date select 4) + _cd];

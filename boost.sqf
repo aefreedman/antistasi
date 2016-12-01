@@ -24,13 +24,13 @@ publicVariable "unlockedMagazines";
 publicVariable "unlockedItems";
 
 if (hayXLA) then {
-	[caja,unlockedWeapons,true,false] call XLA_fnc_addVirtualWeaponCargo;
-	[caja,unlockedMagazines,true,false] call XLA_fnc_addVirtualMagazineCargo;
-	[caja,unlockedItems,true,false] call XLA_fnc_addVirtualItemCargo;
+  [caja,unlockedWeapons,true,false] call XLA_fnc_addVirtualWeaponCargo;
+  [caja,unlockedMagazines,true,false] call XLA_fnc_addVirtualMagazineCargo;
+  [caja,unlockedItems,true,false] call XLA_fnc_addVirtualItemCargo;
 } else {
-	[caja,unlockedWeapons,true,false] call BIS_fnc_addVirtualWeaponCargo;
-	[caja,unlockedMagazines,true,false] call BIS_fnc_addVirtualMagazineCargo;
-	[caja,unlockedItems,true,false] call BIS_fnc_addVirtualItemCargo;
+  [caja,unlockedWeapons,true,false] call BIS_fnc_addVirtualWeaponCargo;
+  [caja,unlockedMagazines,true,false] call BIS_fnc_addVirtualMagazineCargo;
+  [caja,unlockedItems,true,false] call BIS_fnc_addVirtualItemCargo;
 };
 
 [unlockedWeapons] call weaponCheck;

@@ -3,18 +3,18 @@ File: UPSMON_throw_grenade.sqf
 Author: MONSADA
 
 Description:
-	Throw a grenade
+  Throw a grenade
 Parameter(s):
 
 Returns:
 
 ****************************************************************/
-private["_target","_npc","_time"];	
+private["_target","_npc","_time"];  
 
 _npc = _this select 0;
-_target = _this select 1;	
-	
-if (!alive _npc || (vehicle _npc) != _npc || !canmove _npc) exitwith{};	
+_target = _this select 1; 
+  
+if (!alive _npc || (vehicle _npc) != _npc || !canmove _npc) exitwith{}; 
 [_npc,_target] call UPSMON_dowatch;
 sleep 0.5;
 

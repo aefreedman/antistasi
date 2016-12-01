@@ -3,13 +3,13 @@ File: UPSMON_GetRespawnpos.sqf
 Author: Azroul13
 
 Description:
-	
+  
 Parameter(s):
-	<--- UPSMON parameters
+  <--- UPSMON parameters
 Returns:
-	Array of position
+  Array of position
 ****************************************************************/
-private["_Ucthis","_respawnpos","_npc"];	
+private["_Ucthis","_respawnpos","_npc"];  
 
 _Ucthis = _this select 0;
 _npc = _this select 1;

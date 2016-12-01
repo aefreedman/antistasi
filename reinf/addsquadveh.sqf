@@ -29,14 +29,14 @@ hint format ["Vehicle Assigned to %1 Squad", groupID _grupo];
 
 _owner = _veh getVariable "owner";
 if (!isNil "_owner") then
-	{
-	{unassignVehicle _x; _x leaveVehicle _veh} forEach units _owner;
-	};
+  {
+  {unassignVehicle _x; _x leaveVehicle _veh} forEach units _owner;
+  };
 
 if (count allTurrets [_veh, false] > 0) then
-			{
-			_veh allowCrewInImmobile true;
-			};
+      {
+      _veh allowCrewInImmobile true;
+      };
 
 _grupo addVehicle _veh;
 _veh setVariable ["owner",_grupo,true];

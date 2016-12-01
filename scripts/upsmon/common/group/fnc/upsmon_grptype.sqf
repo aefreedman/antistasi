@@ -3,11 +3,11 @@ File: UPSMON_grptype.sqf
 Author: Azroul13
 
 Description:
-	get the type of the group
+  get the type of the group
 Parameter(s):
-	<--- leader
+  <--- leader
 Returns:
-	----> Group type ("Isman"/"Iscar"/"IsAir"/"Isboat"/"Isdiver")
+  ----> Group type ("Isman"/"Iscar"/"IsAir"/"Isboat"/"Isdiver")
 ****************************************************************/
 private [];
 

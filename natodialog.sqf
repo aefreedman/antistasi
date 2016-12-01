@@ -12,17 +12,17 @@ _s = antenas - mrkAAF;
 _c = 0;
 
 if (count _s > 0) then {
-	for [{_i=0},{_i<=((count _s)-1)},{_i=_i+1}] do {
-		_antenna = _s select _i;
-		_cercano = [marcadores, getPos _antenna] call BIS_fnc_nearestPosition;
-		if (_cercano in mrkFIA) then {_c = _c + 1};
-	};
+  for [{_i=0},{_i<=((count _s)-1)},{_i=_i+1}] do {
+    _antenna = _s select _i;
+    _cercano = [marcadores, getPos _antenna] call BIS_fnc_nearestPosition;
+    if (_cercano in mrkFIA) then {_c = _c + 1};
+  };
 };
 
 
 if (_c < 1) exitWith {
-	_l1 = ["Radio Operator", "I cannot get NATO on the horn. I might have more luck if I were able to jerry-rig this radio to a proper radio tower..."];
-	[[_l1],"SIDE",0.15] execVM "createConv.sqf";
+  _l1 = ["Radio Operator", "I cannot get NATO on the horn. I might have more luck if I were able to jerry-rig this radio to a proper radio tower..."];
+  [[_l1],"SIDE",0.15] execVM "createConv.sqf";
 };
 */
 // /end
@@ -36,34 +36,34 @@ _costeNATO = 5;
 _textoHint = "";
 
 switch (_tipo) do {
-	case "NATOCA": {
-		_costeNATO = 20;
-		_textohint = "Click on the base or airport you want NATO to attack";
-	};
-	case "NATOArmor": {
-		_costeNATO = 20;
-		_textohint = "Click on the base from which you want NATO to attack";
-	};
-	case "NATOAmmo": {
-		_costeNATO = 5;
-		_textohint = "Click on the spot where you want the Ammodrop";
-	};
-	case "NATOArty": {
-		_costeNATO = 10;
-		_textohint = "Click on the base from which you want Artillery Support";
-	};
-	case "NATOCAS": {
-		_costeNATO = 10;
-		_textohint = "Click on the airport from which you want NATO to attack";
-	};
-	case "NATORoadblock": {
-		_costeNATO = 10;
-		_textohint = "Click on the spot where you want NATO to setup a roadblock";
-	};
-	case "NATOQRF": {
-		_costeNATO = 10;
-		_textohint = "Click on the base or airport/carrier from which you want NATO to dispatch a QRF";
-	};
+  case "NATOCA": {
+    _costeNATO = 20;
+    _textohint = "Click on the base or airport you want NATO to attack";
+  };
+  case "NATOArmor": {
+    _costeNATO = 20;
+    _textohint = "Click on the base from which you want NATO to attack";
+  };
+  case "NATOAmmo": {
+    _costeNATO = 5;
+    _textohint = "Click on the spot where you want the Ammodrop";
+  };
+  case "NATOArty": {
+    _costeNATO = 10;
+    _textohint = "Click on the base from which you want Artillery Support";
+  };
+  case "NATOCAS": {
+    _costeNATO = 10;
+    _textohint = "Click on the airport from which you want NATO to attack";
+  };
+  case "NATORoadblock": {
+    _costeNATO = 10;
+    _textohint = "Click on the spot where you want NATO to setup a roadblock";
+  };
+  case "NATOQRF": {
+    _costeNATO = 10;
+    _textohint = "Click on the base or airport/carrier from which you want NATO to dispatch a QRF";
+  };
 };
 
 _NATOSupp = server getVariable "prestigeNATO";
@@ -97,9 +97,9 @@ _loc = "spawnNATO";
 
 // roadblocks, only allowed on roads
 if (_tipo == "NATORoadblock") exitWith {
-	_check = isOnRoad _posicionTel;
-	if !(_check) exitWith {hint "Roadblocks can only be placed on roads."};
-	[_posicionTel] remoteExec [_tipo,HCattack];
+  _check = isOnRoad _posicionTel;
+  if !(_check) exitWith {hint "Roadblocks can only be placed on roads."};
+  [_posicionTel] remoteExec [_tipo,HCattack];
 };
 
 
@@ -108,75 +108,75 @@ if (_tipo == "NATOAmmo") exitWith {[_posiciontel,_NATOSupp] remoteExec [_tipo,HC
 _sitio = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
 
 if (_tipo == "NATOQRF") exitWith {
-	_sitioName = "the NATO carrier";
-	if ((_sitio in _bases) || (_sitio in _aeropuertos)) then {
-		_loc = _sitio;
-		_sitioName = [_sitio] call localizar;
-	};
+  _sitioName = "the NATO carrier";
+  if ((_sitio in _bases) || (_sitio in _aeropuertos)) then {
+    _loc = _sitio;
+    _sitioName = [_sitio] call localizar;
+  };
 
-	posicionTel = [];
-	hint format ["QRF departing from %1. Mark the target for the QRF.",_sitioName];
+  posicionTel = [];
+  hint format ["QRF departing from %1. Mark the target for the QRF.",_sitioName];
 
-	openMap true;
-	onMapSingleClick "posicionTel = _pos;";
+  openMap true;
+  onMapSingleClick "posicionTel = _pos;";
 
-	waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
-	onMapSingleClick "";
+  waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+  onMapSingleClick "";
 
-	if (!visibleMap) exitWith {};
+  if (!visibleMap) exitWith {};
 
-	_destino =+ posicionTel;
-	openMap false;
+  _destino =+ posicionTel;
+  openMap false;
 
-	if (surfaceIsWater _destino) exitWith {hint "No LCS available this decade, QRF is restricted to land."};
-	hint "QRF inbound.";
-	[_loc,_destino] remoteExec ["NATOQRF",HCattack];
+  if (surfaceIsWater _destino) exitWith {hint "No LCS available this decade, QRF is restricted to land."};
+  hint "QRF inbound.";
+  [_loc,_destino] remoteExec ["NATOQRF",HCattack];
 };
 
 if (_posicionTel distance getMarkerPos _sitio > 50) exitWith {hint "You must click near a map marker"};
 
 if (_tipo == "NATOArty") exitWith {
-	if (not(_sitio in _bases)) exitWith {hint "Artillery support can only be obtained from bases."};
-	[_sitio] remoteExec [_tipo,HCattack];
+  if (not(_sitio in _bases)) exitWith {hint "Artillery support can only be obtained from bases."};
+  [_sitio] remoteExec [_tipo,HCattack];
 };
 
 if (_tipo == "NATOArmor") then {
-	if (not(_sitio in _bases)) then {
-		_salir = true;
-		hint "You must click near a friendly base";
-	}
-	else {
-		posicionTel = [];
-		hint "Click on the Armored Column destination";
+  if (not(_sitio in _bases)) then {
+    _salir = true;
+    hint "You must click near a friendly base";
+  }
+  else {
+    posicionTel = [];
+    hint "Click on the Armored Column destination";
 
-		openMap true;
-		onMapSingleClick "posicionTel = _pos;";
+    openMap true;
+    onMapSingleClick "posicionTel = _pos;";
 
-		waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
-		onMapSingleClick "";
+    waitUntil {sleep 1; (count posicionTel > 0) or (!visibleMap)};
+    onMapSingleClick "";
 
-		if (!visibleMap) then {_salir = true};
+    if (!visibleMap) then {_salir = true};
 
-		_posicionTel =+ posicionTel;
-		openMap false;
-		_destino = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
-		if (_posicionTel distance getMarkerPos _destino > 50) then {
-			hint "You must click near a map marker";
-			_salir = true
-		}
-		else {
-			[_sitio,_destino] remoteExec ["NATOArmor",HCattack];
-		};
-	};
+    _posicionTel =+ posicionTel;
+    openMap false;
+    _destino = [marcadores, _posicionTel] call BIS_Fnc_nearestPosition;
+    if (_posicionTel distance getMarkerPos _destino > 50) then {
+      hint "You must click near a map marker";
+      _salir = true
+    }
+    else {
+      [_sitio,_destino] remoteExec ["NATOArmor",HCattack];
+    };
+  };
 };
 
 if (_tipo == "NATOCA") then {
-	if ((_sitio in ciudades) or (_sitio in controles) or (_sitio in colinas)) then {_salir = true; hint "NATO won't attack this kind of zone."};
-	if (_sitio in mrkFIA) then {_salir = true; hint "NATO Attacks may be only ordered on AAF controlled zones"};
+  if ((_sitio in ciudades) or (_sitio in controles) or (_sitio in colinas)) then {_salir = true; hint "NATO won't attack this kind of zone."};
+  if (_sitio in mrkFIA) then {_salir = true; hint "NATO Attacks may be only ordered on AAF controlled zones"};
 };
 
 if (_salir) exitWith {};
 
 if ((_tipo == "NATOCA") or (_tipo == "NATOArty")) then {
-	[_sitio] remoteExec [_tipo,HCattack];
+  [_sitio] remoteExec [_tipo,HCattack];
 };

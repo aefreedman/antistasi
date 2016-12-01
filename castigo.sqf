@@ -28,11 +28,11 @@ hint "If you are bored, I think there is a new episode on SpongeBob Square Pants
 sleep 5;
 _cuenta = _punish;
 while {_cuenta > 0} do
-	{
-	hint format ["Now watch the sights for the following %1 seconds.\n\nPlease be thankful this is a game. In reality you could be sentenced to death by a firing squad, this little punish is not that bad.", _cuenta];
-	sleep 1;
-	_cuenta = _cuenta -1;
-	};
+  {
+  hint format ["Now watch the sights for the following %1 seconds.\n\nPlease be thankful this is a game. In reality you could be sentenced to death by a firing squad, this little punish is not that bad.", _cuenta];
+  sleep 1;
+  _cuenta = _cuenta -1;
+  };
 hint "Enough then";
 disableUserInput false;
 player setpos getMarkerPos "respawn_west";

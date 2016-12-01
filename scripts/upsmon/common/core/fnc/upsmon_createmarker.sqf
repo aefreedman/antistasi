@@ -23,11 +23,11 @@ _m setmarkerColor _color;
 _m setMarkerShape _shape;
 If (_shape != "ICON") then 
 {
-	_m setMarkerSize _size;
-	_m setMarkerBrush _type
+  _m setMarkerSize _size;
+  _m setMarkerBrush _type
 }
 else
 {
-	_m setMarkerType _type;
-	If (count _this > 4) then {_m setMarkerText (_this select 4);};
+  _m setMarkerType _type;
+  If (count _this > 4) then {_m setMarkerText (_this select 4);};
 };

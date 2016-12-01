@@ -1,33 +1,33 @@
 /*
-	File: spawnGroup.sqf
-	Author: Joris-Jan van 't Land, modified by Thomas Ryan
+  File: spawnGroup.sqf
+  Author: Joris-Jan van 't Land, modified by Thomas Ryan
 
-	Description:
-	Function which handles the spawning of a dynamic group of characters.
-	The composition of the group can be passed to the function.
-	Alternatively a number can be passed and the function will spawn that
-	amount of characters with a random type.
+  Description:
+  Function which handles the spawning of a dynamic group of characters.
+  The composition of the group can be passed to the function.
+  Alternatively a number can be passed and the function will spawn that
+  amount of characters with a random type.
 
-	Parameter(s):
-	_this select 0: the group's starting position (Array)
-	_this select 1: the group's side (Side)
-	_this select 2: can be three different types:
-		- list of character types (Array)
-		- amount of characters (Number)
-		- CfgGroups entry (Config)
-	_this select 3: (optional) list of relative positions (Array)
-	_this select 4: (optional) list of ranks (Array)
-	_this select 5: (optional) skill range (Array)
-	_this select 6: (optional) ammunition count range (Array)
-	_this select 7: (optional) randomization controls (Array)
-		0: amount of mandatory units (Number)
-		1: spawn chance for the remaining units (Number)
-	_this select 8: (optional) azimuth (Number)
-	_this select 9: (optional) force precise position (Bool, default: true).
-	_this select 10: (optional) max. number of vehicles (Number, default: 10e10).
+  Parameter(s):
+  _this select 0: the group's starting position (Array)
+  _this select 1: the group's side (Side)
+  _this select 2: can be three different types:
+    - list of character types (Array)
+    - amount of characters (Number)
+    - CfgGroups entry (Config)
+  _this select 3: (optional) list of relative positions (Array)
+  _this select 4: (optional) list of ranks (Array)
+  _this select 5: (optional) skill range (Array)
+  _this select 6: (optional) ammunition count range (Array)
+  _this select 7: (optional) randomization controls (Array)
+    0: amount of mandatory units (Number)
+    1: spawn chance for the remaining units (Number)
+  _this select 8: (optional) azimuth (Number)
+  _this select 9: (optional) force precise position (Bool, default: true).
+  _this select 10: (optional) max. number of vehicles (Number, default: 10e10).
 
-	Returns:
-	The group (Group)
+  Returns:
+  The group (Group)
 */
 
 //Validate parameter count
@@ -43,22 +43,22 @@ _chars = [_this, 2, [], [[], 0, configFile]] call BIS_fnc_param;
 _charsType = typeName _chars;
 if (_charsType == (typeName [])) then
 {
-	_types = _chars;
+  _types = _chars;
 }
 else
 {
-	if (_charsType == (typeName 0)) then
-	{
-		//Only a count was given, so ask this function for a good composition.
-		_types = [_side, _chars] call BIS_fnc_returnGroupComposition;
-	}
-	else
-	{
-		if (_charsType == (typeName configFile)) then
-		{
-			_types = [];
-		};
-	};
+  if (_charsType == (typeName 0)) then
+  {
+    //Only a count was given, so ask this function for a good composition.
+    _types = [_side, _chars] call BIS_fnc_returnGroupComposition;
+  }
+  else
+  {
+    if (_charsType == (typeName configFile)) then
+    {
+      _types = [];
+    };
+  };
 };
 
 private ["_positions", "_ranks", "_skillRange", "_ammoRange", "_randomControls","_precisePosition","_maxVehicles"];
@@ -99,111 +99,111 @@ if (((count _ranks) > 0) && ((count _types) != (count _ranks))) exitWith {debugL
 //Convert a CfgGroups entry to types, positions and ranks.
 if (_charsType == (typeName configFile)) then
 {
-	_ranks = [];
-	_positions = [];
+  _ranks = [];
+  _positions = [];
 
-	for "_i" from 0 to ((count _chars) - 1) do
-	{
-		private ["_item"];
-		_item = _chars select _i;
+  for "_i" from 0 to ((count _chars) - 1) do
+  {
+    private ["_item"];
+    _item = _chars select _i;
 
-		if (isClass _item) then
-		{
-			_types = _types + [getText(_item >> "vehicle")];
-			_ranks = _ranks + [getText(_item >> "rank")];
-			_positions = _positions + [getArray(_item >> "position")];
-		};
-	};
+    if (isClass _item) then
+    {
+      _types = _types + [getText(_item >> "vehicle")];
+      _ranks = _ranks + [getText(_item >> "rank")];
+      _positions = _positions + [getArray(_item >> "position")];
+    };
+  };
 };
 
 private ["_grp","_vehicles","_isMan","_type"];
 _grp = createGroup _side;
-_vehicles = 0;		//spawned vehicles count
+_vehicles = 0;    //spawned vehicles count
 
 //Create the units according to the selected types.
 for "_i" from 0 to ((count _types) - 1) do
 {
-	//Check if max. of vehicles was already spawned
-	_type = _types select _i;
-	_isMan = getNumber(configFile >> "CfgVehicles" >> _type >> "isMan") == 1;
+  //Check if max. of vehicles was already spawned
+  _type = _types select _i;
+  _isMan = getNumber(configFile >> "CfgVehicles" >> _type >> "isMan") == 1;
 
-	if !(_isMan) then
-	{
-		_vehicles = _vehicles + 1;
-	};
+  if !(_isMan) then
+  {
+    _vehicles = _vehicles + 1;
+  };
 
-	if (_vehicles > _maxVehicles) exitWith {};
+  if (_vehicles > _maxVehicles) exitWith {};
 
-	//See if this unit should be skipped.
-	private ["_skip"];
-	_skip = false;
-	if (_minUnits != -1) then
-	{
-		//Has the mandatory minimum been reached?
-		if (_i > (_minUnits - 1)) then
-		{
-			//Has the spawn chance been satisfied?
-			if ((random 1) > _chance) then {_skip = true};
-		};
-	};
+  //See if this unit should be skipped.
+  private ["_skip"];
+  _skip = false;
+  if (_minUnits != -1) then
+  {
+    //Has the mandatory minimum been reached?
+    if (_i > (_minUnits - 1)) then
+    {
+      //Has the spawn chance been satisfied?
+      if ((random 1) > _chance) then {_skip = true};
+    };
+  };
 
-	if (!_skip) then
-	{
-		private ["_unit"];
+  if (!_skip) then
+  {
+    private ["_unit"];
 
-		//If given, use relative position.
-		private ["_itemPos"];
-		if ((count _positions) > 0) then
-		{
-			private ["_relPos"];
-			_relPos = _positions select _i;
-			_itemPos = [(_pos select 0) + (_relPos select 0), (_pos select 1) + (_relPos select 1)];
-		}
-		else
-		{
-			_itemPos = _pos;
-		};
+    //If given, use relative position.
+    private ["_itemPos"];
+    if ((count _positions) > 0) then
+    {
+      private ["_relPos"];
+      _relPos = _positions select _i;
+      _itemPos = [(_pos select 0) + (_relPos select 0), (_pos select 1) + (_relPos select 1)];
+    }
+    else
+    {
+      _itemPos = _pos;
+    };
 
-		//Is this a character or vehicle?
-		if (_isMan) then
-		{
-			_unit = _grp createUnit [_type, _itemPos, [], 0, "FORM"];
-			_unit setDir _azimuth;
-			sleep 0.5;
-		}
-		else
-		{
-			_unit = ([_itemPos, _azimuth, _type, _grp, _precisePosition] call BIS_fnc_spawnVehicle) select 0;
-		};
+    //Is this a character or vehicle?
+    if (_isMan) then
+    {
+      _unit = _grp createUnit [_type, _itemPos, [], 0, "FORM"];
+      _unit setDir _azimuth;
+      sleep 0.5;
+    }
+    else
+    {
+      _unit = ([_itemPos, _azimuth, _type, _grp, _precisePosition] call BIS_fnc_spawnVehicle) select 0;
+    };
 
-		//If given, set the unit's rank.
-		if ((count _ranks) > 0) then
-		{
-			[_unit,_ranks select _i] call bis_fnc_setRank;
-		};
+    //If given, set the unit's rank.
+    if ((count _ranks) > 0) then
+    {
+      [_unit,_ranks select _i] call bis_fnc_setRank;
+    };
 
-		//If a range was given, set a random skill.
-		if ((count _skillRange) > 0) then
-		{
-			private ["_minSkill", "_maxSkill", "_diff"];
-			_minSkill = _skillRange select 0;
-			_maxSkill = _skillRange select 1;
-			_diff = _maxSkill - _minSkill;
+    //If a range was given, set a random skill.
+    if ((count _skillRange) > 0) then
+    {
+      private ["_minSkill", "_maxSkill", "_diff"];
+      _minSkill = _skillRange select 0;
+      _maxSkill = _skillRange select 1;
+      _diff = _maxSkill - _minSkill;
 
-			_unit setUnitAbility (_minSkill + (random _diff));
-		};
+      _unit setUnitAbility (_minSkill + (random _diff));
+    };
 
-		//If a range was given, set a random ammo count.
-		if ((count _ammoRange) > 0) then
-		{
-			private ["_minAmmo", "_maxAmmo", "_diff"];
-			_minAmmo = _ammoRange select 0;
-			_maxAmmo = _ammoRange select 1;
-			_diff = _maxAmmo - _minAmmo;
+    //If a range was given, set a random ammo count.
+    if ((count _ammoRange) > 0) then
+    {
+      private ["_minAmmo", "_maxAmmo", "_diff"];
+      _minAmmo = _ammoRange select 0;
+      _maxAmmo = _ammoRange select 1;
+      _diff = _maxAmmo - _minAmmo;
 
-			_unit setVehicleAmmo (_minAmmo + (random _diff));
-		};
-	};
+      _unit setVehicleAmmo (_minAmmo + (random _diff));
+    };
+  };
 };
 
 
@@ -211,14 +211,14 @@ for "_i" from 0 to ((count _types) - 1) do
 private ["_newGrp"];
 _newGrp = createGroup _side;
 while {count units _grp > 0} do {
-	private ["_maxRank","_unit"];
-	_maxRank = -1;
-	_unit = objnull;
-	{
-		_rank = rankid _x;
-		if (_rank > _maxRank || (_rank == _maxRank && (group effectivecommander vehicle _unit == _newGrp) && effectivecommander vehicle _x == _x)) then {_maxRank = _rank; _unit = _x;};
-	} foreach units _grp;
-	[_unit] joinsilent _newGrp;
+  private ["_maxRank","_unit"];
+  _maxRank = -1;
+  _unit = objnull;
+  {
+    _rank = rankid _x;
+    if (_rank > _maxRank || (_rank == _maxRank && (group effectivecommander vehicle _unit == _newGrp) && effectivecommander vehicle _x == _x)) then {_maxRank = _rank; _unit = _x;};
+  } foreach units _grp;
+  [_unit] joinsilent _newGrp;
 };
 _newGrp selectleader (units _newGrp select 0);
 deletegroup _grp;

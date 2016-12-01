@@ -15,4 +15,4 @@ _pos = _this select 0;
 _type = _this select 1;
 
 _sign = _type createvehicle [0,0,0];
-_sign setpos _pos;	
+_sign setpos _pos;  

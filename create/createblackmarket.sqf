@@ -44,12 +44,12 @@ _unit setunitpos "up";
 waitUntil {sleep 5; (not(spawner getVariable _marcador)) or (not(_marcador in campsTony))};
 
 if ({alive _x} count units _grupo == 0) then
-	{
-	campsTony = campsTony - [_marcador]; publicVariable "campsTony";
-	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
-	deleteMarker _marcador;
-	[["TaskFailed", ["", "Camp Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
-	};
+  {
+  campsTony = campsTony - [_marcador]; publicVariable "campsTony";
+  marcadores = marcadores - [_marcador]; publicVariable "marcadores";
+  deleteMarker _marcador;
+  [["TaskFailed", ["", "Camp Lost"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+  };
 
 waitUntil {sleep 5; (not(spawner getVariable _marcador)) or (not(_marcador in campsTony))};
 
@@ -68,8 +68,8 @@ deleteGroup _grupo;
         or str typeof _x find "Land_Wreck_Ural_F" > -1
         or str typeof _x find "Land_TentDome_F" > -1
         or str typeof _x find "Land_Campfire_F" > -1))
-		then {
-        	_objs pushBack _x;
+    then {
+          _objs pushBack _x;
     };
 } forEach nearestObjects [_posicion, [], 15];
 

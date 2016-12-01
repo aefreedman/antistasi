@@ -21,9 +21,9 @@ _jugador setVariable ["drop_static",nil];
 
 /*
 for "_i" from 0 to (_jugador addAction ["",""]) do
-	{
-	_jugador removeAction _i;
-	};
+  {
+  _jugador removeAction _i;
+  };
 */
 _cosa addAction ["Move this asset", "Scripts\moveStatic.sqf",nil,0,false,true,"","(_this == stavros)"];
 

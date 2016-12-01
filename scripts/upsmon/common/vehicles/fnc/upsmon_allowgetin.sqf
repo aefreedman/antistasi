@@ -3,10 +3,10 @@ File: UPSMON_Allowgetin.sqf
 Author: MONSADA
 
 Description:
-	Allow unit to move in vehicle
+  Allow unit to move in vehicle
 Parameter(s):
-	<--- unit
+  <--- unit
 Returns:
-	Nothing
+  Nothing
 ****************************************************************/
 [_this] allowGetIn true;

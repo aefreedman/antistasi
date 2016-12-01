@@ -20,7 +20,7 @@ _textures = [
 
 _texturedVehicles = [];
 for "_i" from 0 to (count _vehicles - 1) do {
-	_s = (_vehicles select _i) + "_customTextures";
-	diag_log _s;
-	server setVariable [_s , _textures select _i, true];
+  _s = (_vehicles select _i) + "_customTextures";
+  diag_log _s;
+  server setVariable [_s , _textures select _i, true];
 };

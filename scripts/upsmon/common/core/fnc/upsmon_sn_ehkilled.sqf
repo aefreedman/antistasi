@@ -18,24 +18,24 @@ _grp = group _unit;
 
 if (!(_unit in UPSMON_GOTKILL_ARRAY)) then
 {
-	if (side _unit != side _shooter) then
-	{
-		_alliednear = false;
+  if (side _unit != side _shooter) then
+  {
+    _alliednear = false;
 
-		{
-			if (alive _x) then
-			{
-				if (getposATL _unit vectordistance getposATL _x <= 30) exitwith
-				{
-					_alliednear = true;
-				};
-			};
-		} foreach units _grp;
+    {
+      if (alive _x) then
+      {
+        if (getposATL _unit vectordistance getposATL _x <= 30) exitwith
+        {
+          _alliednear = true;
+        };
+      };
+    } foreach units _grp;
 
-		If (_alliednear) then
-		{
-			UPSMON_GOTKILL_ARRAY pushback _unit;
-			//if (UPSMON_Debug > 0) then {player globalchat format["UNIT: %1, SHOOTER :%2 %3",_unit,_shooter,side _shooter]};
-		};
-	};
+    If (_alliednear) then
+    {
+      UPSMON_GOTKILL_ARRAY pushback _unit;
+      //if (UPSMON_Debug > 0) then {player globalchat format["UNIT: %1, SHOOTER :%2 %3",_unit,_shooter,side _shooter]};
+    };
+  };
 };

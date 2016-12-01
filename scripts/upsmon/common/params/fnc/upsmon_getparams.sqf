@@ -3,11 +3,11 @@ File: UPSMON_GetParams.sqf
 Author: Azroul13
 
 Description:
-	Convert argument list to uppercase
+  Convert argument list to uppercase
 Parameter(s):
-	<--- Parameters
+  <--- Parameters
 Returns:
-	---> Parameters
+  ---> Parameters
 ****************************************************************/
 
 private["_Params","_UCthis","_i","_e"];
@@ -17,9 +17,9 @@ _UCthis = [];
 
 for [{_i=0},{_i<count _Params},{_i=_i+1}] do 
 {
-	_e=_Params select _i;
-	if (typeName _e=="STRING") then {_e=toUpper(_e)};
-	_UCthis set [_i,_e]
+  _e=_Params select _i;
+  if (typeName _e=="STRING") then {_e=toUpper(_e)};
+  _UCthis set [_i,_e]
 };
 
 _UCthis

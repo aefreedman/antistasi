@@ -27,32 +27,32 @@ _grupoHeli setGroupId ["UAV"];
 hint "NATO UAV will be available on HC module in a few seconds.";
 
 for "_i" from 1 to 1 do
-	{
-	_helifn = [_orig, 0, selectRandom bluUAV, side_blue] call bis_fnc_spawnvehicle;
-	_heli = _helifn select 0;
-	_vehiculos pushBack _heli;
-	createVehicleCrew _heli;
-	_heliCrew = crew _heli;
-	{[_x] spawn NATOinitCA; _soldados pushBack _x; [_x] join _grupoHeli} forEach _heliCrew;
-	_heli setPosATL [getPosATL _heli select 0, getPosATL _heli select 1, 1000];
-	_heli flyInHeight 300;
+  {
+  _helifn = [_orig, 0, selectRandom bluUAV, side_blue] call bis_fnc_spawnvehicle;
+  _heli = _helifn select 0;
+  _vehiculos pushBack _heli;
+  createVehicleCrew _heli;
+  _heliCrew = crew _heli;
+  {[_x] spawn NATOinitCA; _soldados pushBack _x; [_x] join _grupoHeli} forEach _heliCrew;
+  _heli setPosATL [getPosATL _heli select 0, getPosATL _heli select 1, 1000];
+  _heli flyInHeight 300;
 
-	sleep 10;
-	};
+  sleep 10;
+  };
 Stavros hcSetGroup [_grupoHeli];
 _grupoHeli setVariable ["isHCgroup", true, true];
 
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or ({alive _x} count _vehiculos == 0) or ({canMove _x} count _vehiculos == 0)};
 
 if (dateToNumber date > _fechalimnum) then
-	{
-	[["TaskSucceeded", ["", "NATO UAV finished"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
-	}
+  {
+  [["TaskSucceeded", ["", "NATO UAV finished"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+  }
 else
-	{
-	_tsk = ["NATOUAV",[side_blue,civilian],[format ["NATO is providing Air support from %1. They will be under our command until %2:%3.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"NATO UAV",_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
-	[-5,0] remoteExec ["prestige",2];
-	};
+  {
+  _tsk = ["NATOUAV",[side_blue,civilian],[format ["NATO is providing Air support from %1. They will be under our command until %2:%3.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"NATO UAV",_origen],_orig,"FAILED",5,true,true,"Attack"] call BIS_fnc_setTask;
+  [-5,0] remoteExec ["prestige",2];
+  };
 
 _nul = [0,_tsk] spawn borrarTask;
 

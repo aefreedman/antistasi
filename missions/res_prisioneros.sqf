@@ -23,48 +23,48 @@ _casas = nearestObjects [_posicion, ["house"], 50];
 _casa = "";
 _posibles = [];
 for "_i" from 0 to (count _casas) - 1 do
-	{
-	_casa = (_casas select _i);
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
-	if ((count _poscasa > 1) and (not (typeOf _casa in _blacklistbld))) then {_posibles = _posibles + [_casa];};
-	};
+  {
+  _casa = (_casas select _i);
+  _poscasa = [_casa] call BIS_fnc_buildingPositions;
+  if ((count _poscasa > 1) and (not (typeOf _casa in _blacklistbld))) then {_posibles = _posibles + [_casa];};
+  };
 
 if (count _posibles > 0) then
-	{
-	_casa = _posibles call BIS_Fnc_selectRandom;
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
-	_cuenta = (count _poscasa) - 1;
-	if (_cuenta > 10) then {_cuenta = 10};
-	}
+  {
+  _casa = _posibles call BIS_Fnc_selectRandom;
+  _poscasa = [_casa] call BIS_fnc_buildingPositions;
+  _cuenta = (count _poscasa) - 1;
+  if (_cuenta > 10) then {_cuenta = 10};
+  }
 else
-	{
-	_cuenta = round random 10;
-	for "_i" from 0 to _cuenta do
-		{
-		_postmp = [_posicion, 5, random 360] call BIS_Fnc_relPos;
-		_poscasa = _poscasa + [_postmp];
-		};
-	};
+  {
+  _cuenta = round random 10;
+  for "_i" from 0 to _cuenta do
+    {
+    _postmp = [_posicion, 5, random 360] call BIS_Fnc_relPos;
+    _poscasa = _poscasa + [_postmp];
+    };
+  };
 _grpPOW = createGroup side_blue;
 for "_i" from 0 to _cuenta do
-	{
-	_unit = _grpPOW createUnit ["b_g_survivor_F", (_poscasa select _i), [], 0, "NONE"];
-	_unit allowDamage false;
-	_unit setCaptive true;
-	_unit disableAI "MOVE";
-	_unit disableAI "AUTOTARGET";
-	_unit disableAI "TARGET";
-	_unit setUnitPos "UP";
-	_unit setBehaviour "CARELESS";
-	_unit allowFleeing 0;
-	//_unit disableAI "ANIM";
-	removeAllWeapons _unit;
-	removeAllAssignedItems _unit;
-	sleep 1;
-	//if (alive _unit) then {_unit playMove "UnaErcPoslechVelitele1";};
-	_POWS = _POWS + [_unit];
-	[[_unit,"prisionero"],"flagaction"] call BIS_fnc_MP;
-	};
+  {
+  _unit = _grpPOW createUnit ["b_g_survivor_F", (_poscasa select _i), [], 0, "NONE"];
+  _unit allowDamage false;
+  _unit setCaptive true;
+  _unit disableAI "MOVE";
+  _unit disableAI "AUTOTARGET";
+  _unit disableAI "TARGET";
+  _unit setUnitPos "UP";
+  _unit setBehaviour "CARELESS";
+  _unit allowFleeing 0;
+  //_unit disableAI "ANIM";
+  removeAllWeapons _unit;
+  removeAllAssignedItems _unit;
+  sleep 1;
+  //if (alive _unit) then {_unit playMove "UnaErcPoslechVelitele1";};
+  _POWS = _POWS + [_unit];
+  [[_unit,"prisionero"],"flagaction"] call BIS_fnc_MP;
+  };
 
 sleep 5;
 
@@ -73,53 +73,53 @@ sleep 5;
 waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_west" < 50)} count _POWs > 0) or (dateToNumber date > _fechalimnum)};
 
 if (dateToNumber date > _fechalimnum) then
-	{
-	if (not (spawner getVariable _marcador)) then
-		{
-		{
-		if (group _x == _grpPOW) then
-			{
-			_x setDamage 1;
-			};
-		} forEach _POWS;
-		}
-	else
-		{
-		{
-		if (group _x == _grpPOW) then
-			{
-			_x setCaptive false;
-			_x enableAI "MOVE";
-			_x doMove _posicion;
-			};
-		} forEach _POWS;
-		};
-	};
+  {
+  if (not (spawner getVariable _marcador)) then
+    {
+    {
+    if (group _x == _grpPOW) then
+      {
+      _x setDamage 1;
+      };
+    } forEach _POWS;
+    }
+  else
+    {
+    {
+    if (group _x == _grpPOW) then
+      {
+      _x setCaptive false;
+      _x enableAI "MOVE";
+      _x doMove _posicion;
+      };
+    } forEach _POWS;
+    };
+  };
 
 waitUntil {sleep 1; ({alive _x} count _POWs == 0) or ({(alive _x) and (_x distance getMarkerPos "respawn_west" < 50)} count _POWs > 0)};
 
 if ({alive _x} count _POWs == 0) then
-	{
-	_tsk = ["RES",[side_blue,civilian],[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"FAILED",5,true,true,"run"] call BIS_fnc_setTask;
-	{_x setCaptive false} forEach _POWs;
-	_cuenta = 2 * (count _POWs);
-	[_cuenta,0] remoteExec ["prestige",2];
-	[-10,stavros] call playerScoreAdd;
-	};
+  {
+  _tsk = ["RES",[side_blue,civilian],[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"FAILED",5,true,true,"run"] call BIS_fnc_setTask;
+  {_x setCaptive false} forEach _POWs;
+  _cuenta = 2 * (count _POWs);
+  [_cuenta,0] remoteExec ["prestige",2];
+  [-10,stavros] call playerScoreAdd;
+  };
 
 if ({(alive _x) and (_x distance getMarkerPos "respawn_west" < 50)} count _POWs > 0) then
-	{
-	_tsk = ["RES",[side_blue,civilian],[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"SUCCEEDED",5,true,true,"run"] call BIS_fnc_setTask;
-	_cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_west" < 150)} count _POWs;
-	_hr = 2 * (_cuenta);
-	_resourcesFIA = 100 * _cuenta;
-	[_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];
-	[0,10,_posicion] remoteExec ["citySupportChange",2];
-	[_cuenta,0] remoteExec ["prestige",2];
-	{if (_x distance getMarkerPos "respawn_west" < 500) then {[_cuenta,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
-	[round (_cuenta/2),stavros] call playerScoreAdd;
-	{[_x] join _grpPOW; [_x] orderGetin false} forEach _POWs;
-	};
+  {
+  _tsk = ["RES",[side_blue,civilian],[format ["A group of POWs is awaiting for execution in %1. We must rescue them before %2:%3. Bring them to HQ",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"POW Rescue",_marcador],_posicion,"SUCCEEDED",5,true,true,"run"] call BIS_fnc_setTask;
+  _cuenta = {(alive _x) and (_x distance getMarkerPos "respawn_west" < 150)} count _POWs;
+  _hr = 2 * (_cuenta);
+  _resourcesFIA = 100 * _cuenta;
+  [_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];
+  [0,10,_posicion] remoteExec ["citySupportChange",2];
+  [_cuenta,0] remoteExec ["prestige",2];
+  {if (_x distance getMarkerPos "respawn_west" < 500) then {[_cuenta,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+  [round (_cuenta/2),stavros] call playerScoreAdd;
+  {[_x] join _grpPOW; [_x] orderGetin false} forEach _POWs;
+  };
 
 sleep 60;
 {deleteVehicle _x} forEach _POWs;

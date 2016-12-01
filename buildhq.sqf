@@ -1,10 +1,10 @@
 private ["_pos","_rnd"];
 _movido = false;
 if (group petros != grupoPetros) then
-	{
-	_movido = true;
-	[petros] join grupoPetros;
-	};
+  {
+  _movido = true;
+  [petros] join grupoPetros;
+  };
 [[petros,"remove"],"flagaction"] call BIS_fnc_MP;
 petros disableAI "MOVE";
 petros disableAI "AUTOTARGET";
@@ -12,23 +12,23 @@ petros disableAI "AUTOTARGET";
 "FIA_HQ" setMarkerPos getPos petros;
 posHQ = getMarkerPos "respawn_west"; publicVariable "posHQ";
 if (isMultiplayer) then
-	{
-	caja hideObjectGlobal false;
-	cajaVeh hideObjectGlobal false;
-	mapa hideObjectGlobal false;
-	fuego hideObjectGlobal false;
-	bandera hideObjectGlobal false;
-	}
+  {
+  caja hideObjectGlobal false;
+  cajaVeh hideObjectGlobal false;
+  mapa hideObjectGlobal false;
+  fuego hideObjectGlobal false;
+  bandera hideObjectGlobal false;
+  }
 else
-	{
-	if (_movido) then {hint "Please wait while moving HQ Assets to selected position"};
-	//sleep 5
-	caja hideObject false;
-	cajaVeh hideObject false;
-	mapa hideObject false;
-	fuego hideObject false;
-	bandera hideObject false;
-	};
+  {
+  if (_movido) then {hint "Please wait while moving HQ Assets to selected position"};
+  //sleep 5
+  caja hideObject false;
+  cajaVeh hideObject false;
+  mapa hideObject false;
+  fuego hideObject false;
+  bandera hideObject false;
+  };
 fuego inflame true;
 "respawn_west" setMarkerAlpha 1;
 _pos = [getPos petros, 3, getDir petros] call BIS_Fnc_relPos;

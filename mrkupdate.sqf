@@ -13,4 +13,4 @@ if (_marcador in recursos) then {_mrkD setMarkerText format ["Resource: %1",coun
 if (_marcador in fabricas) then {_mrkD setMarkerText format ["Factory: %1",count (garrison getVariable _marcador)]} else {
 if (_marcador in puertos) then {_mrkD setMarkerText format ["Sea Port: %1",count (garrison getVariable _marcador)]} else {
 if (_marcador in power) then {_mrkD setMarkerText format ["Power Plant: %1",count (garrison getVariable _marcador)]};
-		};};};};};};
+    };};};};};};

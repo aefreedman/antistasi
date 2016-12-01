@@ -23,21 +23,21 @@ misiones pushBack _tsk; publicVariable "misiones";
 waitUntil {sleep 1;(dateToNumber date > _fechalimnum) or (not alive _antena) or (not(_marcador in mrkAAF))};
 
 if (dateToNumber date > _fechalimnum) then
-	{
-	_tsk = ["DES",[side_blue,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt AAF Communications Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-	//[5,0,_posicion] remoteExec ["citySupportChange",2];
-	[-10,stavros] call playerScoreAdd;
-	};
+  {
+  _tsk = ["DES",[side_blue,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt AAF Communications Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+  //[5,0,_posicion] remoteExec ["citySupportChange",2];
+  [-10,stavros] call playerScoreAdd;
+  };
 if ((not alive _antena) or (not(_marcador in mrkAAF))) then
-	{
-	sleep 15;
-	_tsk = ["DES",[side_blue,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt AAF Communications Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-	//[-5,0,_posicion] remoteExec ["citySupportChange",2];
-	[5,-5] remoteExec ["prestige",2];
-	[600] remoteExec ["timingCA",2];
-	{if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
-	[5,stavros] call playerScoreAdd;
-	};
+  {
+  sleep 15;
+  _tsk = ["DES",[side_blue,civilian],[format ["We need to destroy or take a Radio Tower in %1. This will interrupt AAF Communications Nework. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Destroy Radio Tower",_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+  //[-5,0,_posicion] remoteExec ["citySupportChange",2];
+  [5,-5] remoteExec ["prestige",2];
+  [600] remoteExec ["timingCA",2];
+  {if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+  [5,stavros] call playerScoreAdd;
+  };
 
 deleteMarker _mrkfin;
 

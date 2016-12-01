@@ -29,12 +29,12 @@ _dealer setunitpos "up";
 waitUntil {sleep 5; (not(spawner getVariable _marcador)) or (not(_marcador in nomadPos))};
 
 if ({alive _x} count units _grupo == 0) then
-	{
-	nomadPos = nomadPos - [_marcador]; publicVariable "nomadPos";
-	marcadores = marcadores - [_marcador]; publicVariable "marcadores";
-	deleteMarker _marcador;
-	[["TaskFailed", ["", "Nomad is gone"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
-	};
+  {
+  nomadPos = nomadPos - [_marcador]; publicVariable "nomadPos";
+  marcadores = marcadores - [_marcador]; publicVariable "marcadores";
+  deleteMarker _marcador;
+  [["TaskFailed", ["", "Nomad is gone"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+  };
 
 {deleteVehicle _x} forEach units _grpDealer;
 deleteGroup _grpDealer;

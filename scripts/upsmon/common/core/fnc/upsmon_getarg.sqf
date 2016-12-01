@@ -17,5 +17,5 @@ _list=_this select 2;
 _a=-1; 
 {_a=_a+1; _v=format["%1",_list select _a]; 
 if (_v==_cmd) then {_arg=(_list select _a+1)}} foreach _list; 
-	
+  
 _arg

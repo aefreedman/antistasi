@@ -15,12 +15,12 @@ if (_chance < 20) then {_chance = 20};
 sleep 5;
 
 if (round random 100 < _chance) then
-	{
-	_unit globalChat "Okay, I'll tell you everything I know";
-	[_unit] call intelFound;
-	}
+  {
+  _unit globalChat "Okay, I'll tell you everything I know";
+  [_unit] call intelFound;
+  }
 else
-	{
-	_unit globalChat "Screw you!";
-	};
+  {
+  _unit globalChat "Screw you!";
+  };
 

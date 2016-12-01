@@ -24,48 +24,48 @@ if (not(_veh isKindOf "AllVehicles")) exitWith {hint "The vehicle you are lookin
 
 _exit = false;
 if (!_pool) then
-	{
-	_owner = _veh getVariable "duenyo";
-	if (!isNil "_owner") then
-		{
-		if (_owner isEqualType "") then
-			{
-			if (getPlayerUID player != _owner) then {_exit = true};
-			};
-		};
-	};
+  {
+  _owner = _veh getVariable "duenyo";
+  if (!isNil "_owner") then
+    {
+    if (_owner isEqualType "") then
+      {
+      if (getPlayerUID player != _owner) then {_exit = true};
+      };
+    };
+  };
 
 if (_exit) exitWith {hint "You are not owner of this vehicle and you cannot garage it"};
 
 if (_veh in staticsToSave) then {staticsToSave = staticsToSave - [_veh]; publicVariable "staticsToSave"};
 
 if (server getVariable "lockTransfer") exitWith {
-	{
-		if (_x distance caja < 20) then {
-			[petros,"hint","Currently unloading another ammobox. Please wait a few seconds."] remoteExec ["commsMP",_x];
-		};
-	} forEach playableUnits;
+  {
+    if (_x distance caja < 20) then {
+      [petros,"hint","Currently unloading another ammobox. Please wait a few seconds."] remoteExec ["commsMP",_x];
+    };
+  } forEach playableUnits;
 };
 [_veh,true] call vaciar;
 if (_veh in reportedVehs) then {reportedVehs = reportedVehs - [_veh]; publicVariable "reportedVehs"};
 if (_veh isKindOf "StaticWeapon") then {deleteVehicle _veh};
 
 if ((count FIA_texturedVehicles > 0) && !(_tipoVeh in FIA_texturedVehicles)) then {
-	for "_i" from 0 to (count FIA_texturedVehicleConfigs - 1) do {
-		if ((_tipoVeh == configName (inheritsFrom (FIA_texturedVehicleConfigs select _i))) || (configName (inheritsFrom (configFile >> "CfgVehicles" >> _tipoVeh)) == configName (inheritsFrom (FIA_texturedVehicleConfigs select _i)))) exitWith {
-			_tipoVeh = configName (FIA_texturedVehicleConfigs select _i);
-		};
-	};
+  for "_i" from 0 to (count FIA_texturedVehicleConfigs - 1) do {
+    if ((_tipoVeh == configName (inheritsFrom (FIA_texturedVehicleConfigs select _i))) || (configName (inheritsFrom (configFile >> "CfgVehicles" >> _tipoVeh)) == configName (inheritsFrom (FIA_texturedVehicleConfigs select _i)))) exitWith {
+      _tipoVeh = configName (FIA_texturedVehicleConfigs select _i);
+    };
+  };
 };
 
 if (_pool) then
-	{
-	vehInGarage = vehInGarage + [_tipoVeh];
-	publicVariable "vehInGarage";
-	hint "Vehicle added to FIA Garage";
-	}
+  {
+  vehInGarage = vehInGarage + [_tipoVeh];
+  publicVariable "vehInGarage";
+  hint "Vehicle added to FIA Garage";
+  }
 else
-	{
-	personalGarage = personalGarage + [_tipoVeh];
-	hint "Vehicle added to Personal Garage";
-	};
+  {
+  personalGarage = personalGarage + [_tipoVeh];
+  hint "Vehicle added to Personal Garage";
+  };

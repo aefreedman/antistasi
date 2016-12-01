@@ -3,14 +3,14 @@ File: UPSMON_GetGroupbehaviour.sqf
 Author: Azroul13
 
 Description:
-	Get unit behaviour
+  Get unit behaviour
 Parameter(s):
-	<--- leader
-	<--- UPSMON parameters
+  <--- leader
+  <--- UPSMON parameters
 Returns:
-	---> behaviour of the group
+  ---> behaviour of the group
 ****************************************************************/
-private["_npc","_Ucthis","_behaviour"];	
+private["_npc","_Ucthis","_behaviour"]; 
 
 _npc = _this select 0;
 _Ucthis = _this select 1;

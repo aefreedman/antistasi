@@ -17,9 +17,9 @@ _pos = [];
 _pGroup = group player;
 
 {
-	_unit = _x;
-	_unit allowDamage false;
-	_unit setPosATL _posicionTel;
+  _unit = _x;
+  _unit allowDamage false;
+  _unit setPosATL _posicionTel;
 } forEach units _pGroup;
 
 openMap false;

@@ -3,13 +3,13 @@
 //Author: Azroul13
 
 //Description:
-//	Check if the unit not facing something that block his view
+//  Check if the unit not facing something that block his view
 //Parameter(s):
-//	<--- Unit
-//	<--- unit direction
-//	<--- Height
+//  <--- Unit
+//  <--- unit direction
+//  <--- Height
 //Returns:
-//	boolean
+//  boolean
 //****************************************************************
 private ["_see","_infront","_uposASL","_opp","_adj","_hyp","_eyes","_obstruction","_angle"];
 
@@ -19,17 +19,17 @@ _hyp = _this select 2;
 
 
 _eyes = eyepos _unit;
-	
+  
 _adj = _hyp * (cos _angle);
 _opp = sqrt ((_hyp*_hyp) - (_adj * _adj));
 
 _infront = if ((_angle) >=  180) then 
 {
-	[(_eyes select 0) - _opp,(_eyes select 1) + _adj,(_eyes select 2)]
+  [(_eyes select 0) - _opp,(_eyes select 1) + _adj,(_eyes select 2)]
 } 
 else 
 {
-	[(_eyes select 0) + _opp,(_eyes select 1) + _adj,(_eyes select 2)]
+  [(_eyes select 0) + _opp,(_eyes select 1) + _adj,(_eyes select 2)]
 };
 
 _obstruction = (lineintersectswith [_eyes,_infront,_unit]) select 0;

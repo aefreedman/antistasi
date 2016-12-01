@@ -3,9 +3,9 @@ _presente = false;
 
 {
 if ((side _x == side_green) or (side _x == side_red)) then
-	{
-	if ([500,1,_x,"BLUFORSpawn"] call distanceUnits) then {_presente = true};
-	};
+  {
+  if ([500,1,_x,"BLUFORSpawn"] call distanceUnits) then {_presente = true};
+  };
 } forEach allUnits;
 if (_presente) exitWith {hint "You cannot rest with enemies near our units"};
 if ("AtaqueAAF" in misiones) exitWith {hint "You cannot rest while AAF or CSAT is counterattacking"};

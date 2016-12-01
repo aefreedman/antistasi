@@ -3,13 +3,13 @@ File: UPSMON_GetRespawndelay.sqf
 Author: Azroul13
 
 Description:
-	
+  
 Parameter(s):
-	<--- UPSMON parameters
+  <--- UPSMON parameters
 Returns:
-	Number
+  Number
 ****************************************************************/
-private["_Ucthis","_respawndelay"];	
+private["_Ucthis","_respawndelay"]; 
 
 _Ucthis = _this select 0;
 

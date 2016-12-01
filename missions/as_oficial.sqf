@@ -4,8 +4,8 @@ _marcador = _this select 0;
 _source = _this select 1;
 
 if (_source == "mil") then {
-	_val = server getVariable "milActive";
-	server setVariable ["milActive", _val + 1, true];
+  _val = server getVariable "milActive";
+  server setVariable ["milActive", _val + 1, true];
 };
 
 _posicion = getMarkerPos _marcador;
@@ -31,27 +31,27 @@ _nul = [leader _grp, _marcador, "SAFE", "SPAWNED", "NOVEH", "NOFOLLOW"] execVM "
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _oficial)};
 
 if (not alive _oficial) then
-	{
-	_tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
-	//[3,0] remoteExec ["prestige",2];
-	[0,300] remoteExec ["resourcesFIA",2];
-	//[-5,10,_posicion] remoteExec ["citySupportChange",2];
-	[1800] remoteExec ["timingCA",2];
-	{if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"BLUFORSpawn"] call distanceUnits);
-	[5,stavros] call playerScoreAdd;
-	[_marcador,30] call addTimeForIdle;
-	}
+  {
+  _tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  //[3,0] remoteExec ["prestige",2];
+  [0,300] remoteExec ["resourcesFIA",2];
+  //[-5,10,_posicion] remoteExec ["citySupportChange",2];
+  [1800] remoteExec ["timingCA",2];
+  {if (isPlayer _x) then {[10,_x] call playerScoreAdd}} forEach ([500,0,_posicion,"BLUFORSpawn"] call distanceUnits);
+  [5,stavros] call playerScoreAdd;
+  [_marcador,30] call addTimeForIdle;
+  }
 else
-	{
-	_tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
-	[-600] remoteExec ["timingCA",2];
-	[-10,stavros] call playerScoreAdd;
-	[_marcador,-30] call addTimeForIdle;
-	};
+  {
+  _tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  [-600] remoteExec ["timingCA",2];
+  [-10,stavros] call playerScoreAdd;
+  [_marcador,-30] call addTimeForIdle;
+  };
 
 if (_source == "mil") then {
-	_val = server getVariable "milActive";
-	server setVariable ["milActive", _val - 1, true];
+  _val = server getVariable "milActive";
+  server setVariable ["milActive", _val - 1, true];
 };
 
 {deleteVehicle _x} forEach units _grp;

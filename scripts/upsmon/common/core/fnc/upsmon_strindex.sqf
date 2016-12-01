@@ -22,10 +22,10 @@ if (_lh < _ln) exitWith {-1};
 _arr=[_hay] call UPSMON_StrToArray;
 for "_i" from 0 to (_lh-_ln) do 
 {
-	_tmp="";
-	for "_j" from _i to (_i+_ln-1) do {
-		_tmp=_tmp + (_arr select _j);
-	};
-	if (_tmp==_ndl) exitWith {_out=_i};
+  _tmp="";
+  for "_j" from _i to (_i+_ln-1) do {
+    _tmp=_tmp + (_arr select _j);
+  };
+  if (_tmp==_ndl) exitWith {_out=_i};
 };
 _out

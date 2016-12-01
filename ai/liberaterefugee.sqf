@@ -6,9 +6,9 @@ _jugador = _this select 1;
 
 _jugador globalChat "You are free. Come with us!";
 if (captive _jugador) then
-	{
-	[_jugador,false] remoteExec ["setCaptive",_jugador];
-	};
+  {
+  [_jugador,false] remoteExec ["setCaptive",_jugador];
+  };
 sleep 3;
 _unit globalChat "Thank you. I owe you my life!";
 _unit enableAI "MOVE";

@@ -12,27 +12,27 @@ _haslos = _this select 6;
 
 If (_grp getvariable ["UPSMON_Grpmission",""] != "RETREAT") then
 {
-	If (UPSMON_SURRENDER) then
-	{
-		If ((random 100) <= (call (compile format ["UPSMON_%1_SURRENDER",(_grp getvariable ["UPSMON_Origin",[]]) select 5]))) then
-		{
-			If (!("air" in _typeofgrp)) then
-			{
-				If (_ratio > 2 || ((count units _grp) == count _unitsneedammo) || (_supstatus != "")) then
-				{
-					If (_supstatus == "SUPRESSED") then
-					{
-						If (_dist < 300) then
-						{
-							If (_haslos) then
-							{
-								_grp setvariable ["UPSMON_Grpmission","SURRENDER"];
-								_grpstatus = "BLUE";
-							};						
-						};
-					};
-				};
-			};
-		};
-	};
+  If (UPSMON_SURRENDER) then
+  {
+    If ((random 100) <= (call (compile format ["UPSMON_%1_SURRENDER",(_grp getvariable ["UPSMON_Origin",[]]) select 5]))) then
+    {
+      If (!("air" in _typeofgrp)) then
+      {
+        If (_ratio > 2 || ((count units _grp) == count _unitsneedammo) || (_supstatus != "")) then
+        {
+          If (_supstatus == "SUPRESSED") then
+          {
+            If (_dist < 300) then
+            {
+              If (_haslos) then
+              {
+                _grp setvariable ["UPSMON_Grpmission","SURRENDER"];
+                _grpstatus = "BLUE";
+              };            
+            };
+          };
+        };
+      };
+    };
+  };
 };

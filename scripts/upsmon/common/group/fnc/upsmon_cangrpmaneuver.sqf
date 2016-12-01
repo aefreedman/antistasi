@@ -10,25 +10,25 @@ _maneuver = false;
 
 If (!_nowp) then
 {
-	If (count _attackpos > 0) then
-	{
-		If (!("static" in _typeofgrp)) then
-		{
-			If (!("arti" in _typeofgrp)) then
-			{
-				If (!("supply" in _typeofgrp)) then
-				{
-					If (_grp getvariable ["UPSMON_TIMEORDER",time] <= time) then
-					{
-						If (_grp getvariable ["UPSMON_Grpmission",""] != "TRANSPORT") then
-						{
-							_maneuver = true;
-						};
-					};
-				};
-			};
-		};
-	};
+  If (count _attackpos > 0) then
+  {
+    If (!("static" in _typeofgrp)) then
+    {
+      If (!("arti" in _typeofgrp)) then
+      {
+        If (!("supply" in _typeofgrp)) then
+        {
+          If (_grp getvariable ["UPSMON_TIMEORDER",time] <= time) then
+          {
+            If (_grp getvariable ["UPSMON_Grpmission",""] != "TRANSPORT") then
+            {
+              _maneuver = true;
+            };
+          };
+        };
+      };
+    };
+  };
 };
 
 _maneuver;

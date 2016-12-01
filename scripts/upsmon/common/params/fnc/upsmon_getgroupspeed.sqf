@@ -3,14 +3,14 @@ File: UPSMON_GetGroupspeed.sqf
 Author: Azroul13
 
 Description:
-	Get unit speed mode
+  Get unit speed mode
 Parameter(s):
-	<--- leader
-	<--- UPSMON parameters
+  <--- leader
+  <--- UPSMON parameters
 Returns:
-	---> speed mode
+  ---> speed mode
 ****************************************************************/
-private["_npc","_Ucthis","_speed"];	
+private["_npc","_Ucthis","_speed"]; 
 
 _npc = _this select 0;
 _Ucthis = _this select 1;
@@ -23,4 +23,4 @@ if ("LIMITED" in _UCthis) then {_speed = "LIMITED"};
 if ("NORMAL" in _UCthis) then {_speed = "NORMAL"}; 
 if ("FULL" in _UCthis || _noslow == "NOSLOW") then {_speed = "FULL"};
 
-_speed	
+_speed  

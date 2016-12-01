@@ -12,45 +12,45 @@ _cancion = "LeadTrack01_F";
 
 while {musicON} do
 
-	{
-	sleep 3;
-	_newstance = behaviour player;
-	//hint format ["El jugador está en esta stance: %1", _newstance]; sleep 3;
-	if ((_newstance != _stance) or (cambioMUS)) then
-		{
-		removeAllMusicEventHandlers "MusicStop";
-		_stance = _newstance;
-		if (_newstance == "COMBAT") then
-			{
-			_cancion = _combat call BIS_Fnc_selectRandom;
-			};
-		if (_newstance == "STEALTH") then
-			{
-			_cancion = _stealth call BIS_Fnc_selectRandom;
-			};
-		if ((_newstance == "AWARE") or (_newstance == "SAFE")) then
-			{
-			if ((daytime > 18) or (daytime < 6)) then
-				{
-				_cancion = _normalnoche call BIS_Fnc_selectRandom;
-				};
-			if ((daytime > 5) or (daytime < 19)) then
-				{
-				_cancion = _normaldia call BIS_Fnc_selectRandom;
-				};
-			};
-		cambioMUS = true;
-		5 fadeMusic 0;
-		};
+  {
+  sleep 3;
+  _newstance = behaviour player;
+  //hint format ["El jugador está en esta stance: %1", _newstance]; sleep 3;
+  if ((_newstance != _stance) or (cambioMUS)) then
+    {
+    removeAllMusicEventHandlers "MusicStop";
+    _stance = _newstance;
+    if (_newstance == "COMBAT") then
+      {
+      _cancion = _combat call BIS_Fnc_selectRandom;
+      };
+    if (_newstance == "STEALTH") then
+      {
+      _cancion = _stealth call BIS_Fnc_selectRandom;
+      };
+    if ((_newstance == "AWARE") or (_newstance == "SAFE")) then
+      {
+      if ((daytime > 18) or (daytime < 6)) then
+        {
+        _cancion = _normalnoche call BIS_Fnc_selectRandom;
+        };
+      if ((daytime > 5) or (daytime < 19)) then
+        {
+        _cancion = _normaldia call BIS_Fnc_selectRandom;
+        };
+      };
+    cambioMUS = true;
+    5 fadeMusic 0;
+    };
 
-	if (cambioMUS) then
-		{
-		_EH = addMusicEventHandler ["MusicStop", {cambioMUS = true}];
-		cambioMUS = false;
-		sleep 5;
-		1 fadeMusic 0.5;
-		playmusic _cancion;
-		};
-	};
+  if (cambioMUS) then
+    {
+    _EH = addMusicEventHandler ["MusicStop", {cambioMUS = true}];
+    cambioMUS = false;
+    sleep 5;
+    1 fadeMusic 0.5;
+    playmusic _cancion;
+    };
+  };
 1 fadeMusic 0.5;
 playMusic "";

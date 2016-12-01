@@ -8,13 +8,13 @@ _unitsnear = nearestobjects [getposATL _npc,["CAManBase","TANK","CAR"],100];
 _nbr = 0;
 
 {
-	If (alive _x) then
-	{
-		If (_x in _enies) then
-		{
-			_nbr = _nbr +1;
-		};
-	}
+  If (alive _x) then
+  {
+    If (_x in _enies) then
+    {
+      _nbr = _nbr +1;
+    };
+  }
 } foreach _unitsnear;
 
 _nbr

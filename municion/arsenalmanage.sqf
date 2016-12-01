@@ -15,31 +15,31 @@ _fnc_getCfgforCategory = {
 };
 
 _fnc_updateVirtualCargo = {
-	params["_object", "_category"];
+  params["_object", "_category"];
 
-	switch(_category) do {
+  switch(_category) do {
     case "WEAPON": {
-			lockedWeapons = lockedWeapons - [_object];
-			[_object] spawn weaponCheck;
-		  [caja,[_object],true,false] call XLA_fnc_addVirtualWeaponCargo;
-		};
+      lockedWeapons = lockedWeapons - [_object];
+      [_object] spawn weaponCheck;
+      [caja,[_object],true,false] call XLA_fnc_addVirtualWeaponCargo;
+    };
     case "MAGAZINE": {
-			[caja,[_object],true,false] call XLA_fnc_addVirtualMagazineCargo;
-		};
+      [caja,[_object],true,false] call XLA_fnc_addVirtualMagazineCargo;
+    };
     case "BACKPACK": {
-			lockedMochis = lockedMochis - [_object];
-		  [caja,[_object],true,false] call XLA_fnc_addVirtualBackpackCargo;
-		};
+      lockedMochis = lockedMochis - [_object];
+      [caja,[_object],true,false] call XLA_fnc_addVirtualBackpackCargo;
+    };
     default {
-			[caja,[_object],true,false] call XLA_fnc_addVirtualItemCargo;
-		};
+      [caja,[_object],true,false] call XLA_fnc_addVirtualItemCargo;
+    };
   };
 };
 
 _fnc_addBackToInventory = {
-	params["_object", "_category", "_quantity"];
+  params["_object", "_category", "_quantity"];
 
-	switch(_category) do {
+  switch(_category) do {
     case "WEAPON": { caja addWeaponCargoGlobal [_object,_quantity] };
     case "MAGAZINE": { caja addMagazineCargoGlobal [_object,_quantity] };
     case "BACKPACK": { caja addBackpackCargoGlobal [_object,_quantity] };
@@ -48,9 +48,9 @@ _fnc_addBackToInventory = {
 };
 
 _fnc_classnameBase = {
-	params["_object", "_category"];
+  params["_object", "_category"];
 
-	switch(_category) do {
+  switch(_category) do {
     case "WEAPON": { [_object] call BIS_fnc_baseWeapon };
     case "BACKPACK": { [_object] call BIS_fnc_basicBackpack };
     default { _object };
@@ -113,10 +113,10 @@ clearItemCargoGlobal caja;
   private _baseClass = _x select 2;
   private _numFullClass = _x select 3;
   private _numBaseClass = _x select 4;
-	private _unlockedList = [_category] call fnc_getUnlockedVariableforCategory;
-	if ([_baseClass, _numBaseClass, _category, _unlockedList] call fnc_attemptUnlock) then {
+  private _unlockedList = [_category] call fnc_getUnlockedVariableforCategory;
+  if ([_baseClass, _numBaseClass, _category, _unlockedList] call fnc_attemptUnlock) then {
     [_baseClass, _category, _unlockedList] call _fnc_unlock;
-	} else {
+  } else {
     // Return to inventory.
     [_fullClass, _category, _numFullClass] call _fnc_addBackToInventory;
   };

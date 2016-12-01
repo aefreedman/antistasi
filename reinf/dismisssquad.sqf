@@ -29,30 +29,30 @@ sleep 3} forEach _groups;
 sleep 100;
 
 {
-	_grupo = _x;
-	_vs = [];
-	{
-		if (alive _x) then {
-			_hr = _hr + 1;
-			_resourcesFIA = _resourcesFIA + (server getVariable (typeOf _x));
-			if (!isNull (assignedVehicle _x)) then {
-				_veh = assignedVehicle _x;
-				if !((typeOf _veh) in _vs) then {
-					_vs pushBack (typeOf _veh);
-					if ((typeOf _veh) in vehFIA) then {
-						_resourcesFIA = _resourcesFIA + ([(typeOf _veh)] call vehiclePrice);
-						if (count attachedObjects _veh > 0) then {
-							_subVeh = (attachedObjects _veh) select 0;
-							_resourcesFIA = _resourcesFIA + ([(typeOf _subVeh)] call vehiclePrice);
-							deleteVehicle _subVeh;
-						};
-						deleteVehicle _veh;
-					};
-				};
-			};
-		};
-		deleteVehicle _x;
-	} forEach units _grupo;
-	deleteGroup _grupo;
-	} forEach _groups;
+  _grupo = _x;
+  _vs = [];
+  {
+    if (alive _x) then {
+      _hr = _hr + 1;
+      _resourcesFIA = _resourcesFIA + (server getVariable (typeOf _x));
+      if (!isNull (assignedVehicle _x)) then {
+        _veh = assignedVehicle _x;
+        if !((typeOf _veh) in _vs) then {
+          _vs pushBack (typeOf _veh);
+          if ((typeOf _veh) in vehFIA) then {
+            _resourcesFIA = _resourcesFIA + ([(typeOf _veh)] call vehiclePrice);
+            if (count attachedObjects _veh > 0) then {
+              _subVeh = (attachedObjects _veh) select 0;
+              _resourcesFIA = _resourcesFIA + ([(typeOf _subVeh)] call vehiclePrice);
+              deleteVehicle _subVeh;
+            };
+            deleteVehicle _veh;
+          };
+        };
+      };
+    };
+    deleteVehicle _x;
+  } forEach units _grupo;
+  deleteGroup _grupo;
+  } forEach _groups;
 _nul = [_hr,_resourcesFIA] remoteExec ["resourcesFIA",2];

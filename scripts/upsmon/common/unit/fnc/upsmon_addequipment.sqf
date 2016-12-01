@@ -3,11 +3,11 @@ File: UPSMON_addequipment.sqf
 Author: Azroul13
 
 Description:
-	Add the equipment collected from UPSMON_getequipment function
+  Add the equipment collected from UPSMON_getequipment function
 Parameter(s):
-	<--- unit
+  <--- unit
 Returns:
-	Nothing
+  Nothing
 ****************************************************************/
 private ["_unit","_clonearray","_uniform","_headgear","_vest","_classbag","_itemsunit","_assigneditems","_allmag","_weaponsunit","_array1","_array2","_index","_magazineName","_count","_weapon","_item","_item1","_item2","_item3","_magweapon1","_magweapon2"];
 _unit = _this select 0;
@@ -35,43 +35,43 @@ If (_headgear != "") then {_unit addHeadgear _headgear;};
 If (_classbag != "") then {_unit addBackpack _classbag;};
 
 {
-	_unit addItem _x;
+  _unit addItem _x;
 } foreach _itemsunit;
 
 {
-	_unit addItem _x;
-	_unit assignItem _x;
+  _unit addItem _x;
+  _unit assignItem _x;
 } foreach _assigneditems;
 
 {
-	If (count _x > 0) then 
-	{
-		_array1 = _x select 0;
-		_array2 = _x select 1;
-		_index = -1;
-		{
-			_index = _index + 1;
-			_magazineName = _x;
-			_count = _array2 select _index;
-			_unit addMagazines [_magazineName, _count];
-		} foreach _array1;
-	};
+  If (count _x > 0) then 
+  {
+    _array1 = _x select 0;
+    _array2 = _x select 1;
+    _index = -1;
+    {
+      _index = _index + 1;
+      _magazineName = _x;
+      _count = _array2 select _index;
+      _unit addMagazines [_magazineName, _count];
+    } foreach _array1;
+  };
 } foreach _allmag;
 
 _index = -1;
 
 {
-	_index = _index + 1;
-	If (count _x > 0) then
-	{
-		_weapon = _x select 0;
-		_items = _x select 1;
-		_magweapon = _x select 2; 
-		
-		if (_index == 0) then {{_item = _x; If (_item != "") then {_unit addPrimaryWeaponItem _item;}} foreach _items;};
-		if (_index == 2) then {{_item = _x; If (_item != "") then {_unit addHandgunItem _item;}} foreach _items;};
-		
-		_unit addMagazineGlobal _magweapon;
-		_unit addWeaponGlobal _weapon;
-	};
+  _index = _index + 1;
+  If (count _x > 0) then
+  {
+    _weapon = _x select 0;
+    _items = _x select 1;
+    _magweapon = _x select 2; 
+    
+    if (_index == 0) then {{_item = _x; If (_item != "") then {_unit addPrimaryWeaponItem _item;}} foreach _items;};
+    if (_index == 2) then {{_item = _x; If (_item != "") then {_unit addHandgunItem _item;}} foreach _items;};
+    
+    _unit addMagazineGlobal _magweapon;
+    _unit addWeaponGlobal _weapon;
+  };
 } foreach _weaponsunit;

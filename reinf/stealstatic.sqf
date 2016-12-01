@@ -20,32 +20,32 @@ _tipoB1 = "";
 _tipoB2 = "";
 
 switch _tipoEst do {
-	case statMG: {
-		_tipoB1 = statMGBackpacks select 0;
-		_tipoB2 = statMGBackpacks select 1;
-	};
-	case statAA: {
-		_tipoB1 = statAABackpacks select 0;
-		_tipoB2 = statAABackpacks select 1;
-	};
-	case statAT: {
-		_tipoB1 = statATBackpacks select 0;
-		_tipoB2 = statATBackpacks select 1;
-	};
-	case statMortar: {
-		_tipoB1 = statMortarBackpacks select 0;
-		_tipoB2 = statMortarBackpacks select 1;
-	};
-	case statMGlow: {
-		_tipoB1 = statMGlowBackpacks select 0;
-		_tipoB2 = statMGlowBackpacks select 1;
-	};
-	case statMGtower: {
-		_tipoB1 = statMGtowerBackpacks select 0;
-		_tipoB2 = statMGtowerBackpacks select 1;
-	};
-	default {hint "You cannot steal this weapon."};
-	};
+  case statMG: {
+    _tipoB1 = statMGBackpacks select 0;
+    _tipoB2 = statMGBackpacks select 1;
+  };
+  case statAA: {
+    _tipoB1 = statAABackpacks select 0;
+    _tipoB2 = statAABackpacks select 1;
+  };
+  case statAT: {
+    _tipoB1 = statATBackpacks select 0;
+    _tipoB2 = statATBackpacks select 1;
+  };
+  case statMortar: {
+    _tipoB1 = statMortarBackpacks select 0;
+    _tipoB2 = statMortarBackpacks select 1;
+  };
+  case statMGlow: {
+    _tipoB1 = statMGlowBackpacks select 0;
+    _tipoB2 = statMGlowBackpacks select 1;
+  };
+  case statMGtower: {
+    _tipoB1 = statMGtowerBackpacks select 0;
+    _tipoB2 = statMGtowerBackpacks select 1;
+  };
+  default {hint "You cannot steal this weapon."};
+  };
 
 _posicion1 = [_jugador, 1, (getDir _jugador) - 90] call BIS_fnc_relPos;
 _posicion2 = [_jugador, 1, (getDir _jugador) + 90] call BIS_fnc_relPos;
@@ -64,25 +64,25 @@ _bag2 = _tipoB2 createVehicle _posicion2;
 
 /*
 if (_cercano in controles) then
-	{
+  {
 
 
-	_jugador addEventHandler ["WeaponDisassembled",
-		{
-		_jugador = _this select 0;
-		_bag1 = objectParent (_this select 1);
-		_bag2 = objectParent (_this select 2);
+  _jugador addEventHandler ["WeaponDisassembled",
+    {
+    _jugador = _this select 0;
+    _bag1 = objectParent (_this select 1);
+    _bag2 = objectParent (_this select 2);
 
-		_posicion1 set [2, 0];
-		_posicion2 set [2, 0];
-		_bag1 setVehiclePosition [_posicion1, [], 2, "NONE"];
-		_bag2 setVehiclePosition [_posicion2, [], 2, "NONE"];
-		//_bag1 setPos _posicion1;
-		//_bag2 setPos _posicion2;
-		_jugador removeEventHandler ["WeaponDisassembled", 0];
-		}
-	];
-	};
+    _posicion1 set [2, 0];
+    _posicion2 set [2, 0];
+    _bag1 setVehiclePosition [_posicion1, [], 2, "NONE"];
+    _bag2 setVehiclePosition [_posicion2, [], 2, "NONE"];
+    //_bag1 setPos _posicion1;
+    //_bag2 setPos _posicion2;
+    _jugador removeEventHandler ["WeaponDisassembled", 0];
+    }
+  ];
+  };
 
 hint "Static Weapon stolen, it won't despawn when you move it or leave the area";
 

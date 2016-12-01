@@ -4,24 +4,24 @@ _posiblesB = _this select 1;
 
 _textA = "None";
 if (count _posiblesA > 0) then {
-	_textA = _posiblesA select 0;
+  _textA = _posiblesA select 0;
 };
 if (count _posiblesA > 1) then {
-	for "_i" from 1 to ((count _posiblesA) - 1) do {
-		_textA = _textA + ", ";
-		_textA = _textA + (_posiblesA select _i);
-	};
+  for "_i" from 1 to ((count _posiblesA) - 1) do {
+    _textA = _textA + ", ";
+    _textA = _textA + (_posiblesA select _i);
+  };
 };
 
 _textB = "None";
 if (count _posiblesB > 0) then {
-	_textB = _posiblesB select 0;
+  _textB = _posiblesB select 0;
 };
 if (count _posiblesB > 1) then {
-	for "_i" from 1 to ((count _posiblesB) - 1) do {
-		_textB = _textB + ", ";
-		_textB = _textB + (_posiblesB select _i);
-	};
+  for "_i" from 1 to ((count _posiblesB) - 1) do {
+    _textB = _textB + ", ";
+    _textB = _textB + (_posiblesB select _i);
+  };
 };
 
 _sitio = "none";
@@ -46,9 +46,9 @@ _sitio = [ciudades, _posicionTel] call BIS_Fnc_nearestPosition;
 if !((_sitio in _posiblesA) || (_sitio in _posiblesB)) exitWith {openMap false; hint "No mission for you, mate!";};
 
 if (_sitio in _posiblesB) then {
-	[_sitio] remoteExec ["PR_Brainwash",HCgarrisons];
+  [_sitio] remoteExec ["PR_Brainwash",HCgarrisons];
 }
 else {
-	[_sitio] remoteExec ["PR_Pamphlet",HCgarrisons];
+  [_sitio] remoteExec ["PR_Pamphlet",HCgarrisons];
 };
 openMap false;

@@ -3,22 +3,22 @@ File: UPSMON_throw_grenade.sqf
 Author: MONSADA
 
 Description:
-	Throw a grenade
+  Throw a grenade
 Parameter(s):
 
 Returns:
 
 ****************************************************************/
-private["_target","_npc","_dir","_time"];	
+private["_target","_npc","_dir","_time"]; 
 
 _npc = _this select 0;
-_target = _this select 1;	
-	
+_target = _this select 1; 
+  
 sleep random 1.5;
-if (!alive _npc || (vehicle _npc) != _npc || !canmove _npc) exitwith{};	
+if (!alive _npc || (vehicle _npc) != _npc || !canmove _npc) exitwith{}; 
 
 _npc forcespeed 0;
-_npc disableAI "MOVE";	
+_npc disableAI "MOVE";  
 _npc disableAI "TARGET";
 _npc disableAI "AUTOTARGET";
 
@@ -35,7 +35,7 @@ _time = time + 20;
 (group _npc) setvariable ["UPSMON_SmokeTime",_time];
 sleep 1;
 _npc forcespeed -1;
-_npc enableAI "MOVE";	
+_npc enableAI "MOVE"; 
 _npc enableAI "TARGET";
 _npc enableAI "AUTOTARGET";
 _npc dowatch ObjNull;

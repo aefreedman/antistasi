@@ -1,8 +1,8 @@
 // XLA fixed arsenal
 if (hayXLA) then {
-	["AmmoboxInit",[caja,false,{true},"Arsenal",true]] call XLA_fnc_arsenal;
+  ["AmmoboxInit",[caja,false,{true},"Arsenal",true]] call XLA_fnc_arsenal;
 } else {
-	["AmmoboxInit",[caja,false,{true}]] call BIS_fnc_arsenal;
+  ["AmmoboxInit",[caja,false,{true}]] call BIS_fnc_arsenal;
 };
 
 //["AmmoboxInit",[caja,false,{true},"Arsenal",true]] call XLA_fnc_arsenal;

@@ -15,13 +15,13 @@ _cmd=_this select 0;
 _arg=_this select 1; 
 _list=_this select 2; 
 _a=-1; 
-{	
-	_a=_a+1; 
-	_v= format ["%1", _list select _a]; 
-	if (_v==_cmd) then 
-	{
-		_a=_a+1; 
-		_list set [_a,_arg];
-	};
+{ 
+  _a=_a+1; 
+  _v= format ["%1", _list select _a]; 
+  if (_v==_cmd) then 
+  {
+    _a=_a+1; 
+    _list set [_a,_arg];
+  };
 } foreach _list; 
 _list

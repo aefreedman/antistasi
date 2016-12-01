@@ -9,13 +9,13 @@ _coste = (2*(server getVariable "B_G_Soldier_exp_F")) + (["B_G_Van_01_transport_
 [-2,-1*_coste] remoteExecCall [resourcesFIA,2];
 
 if (_tipo == "ATMine") then
-	{
-	_tipoMuni = atMine;
-	};
+  {
+  _tipoMuni = atMine;
+  };
 if (_tipo == "APERSMine") then
-	{
-	_tipoMuni = apMine;
-	};
+  {
+  _tipoMuni = apMine;
+  };
 
 _magazines = getMagazineCargo caja;
 _typeMagazines = _magazines select 0;
@@ -23,26 +23,26 @@ _cantMagazines = _magazines select 1;
 _newCantMagazines = [];
 
 for "_i" from 0 to (count _typeMagazines) - 1 do
-	{
-	if ((_typeMagazines select _i) != _tipoMuni) then
-		{
-		_newCantMagazines pushBack (_cantMagazines select _i);
-		}
-	else
-		{
-		_cuantasHay = (_cantMagazines select _i);
-		_cuantasHay = _cuantasHay - _cantidad;
-		if (_cuantasHay < 0) then {_cuentasHay = 0};
-		_newCantMagazines pushBack _cuantasHay;
-		};
-	};
+  {
+  if ((_typeMagazines select _i) != _tipoMuni) then
+    {
+    _newCantMagazines pushBack (_cantMagazines select _i);
+    }
+  else
+    {
+    _cuantasHay = (_cantMagazines select _i);
+    _cuantasHay = _cuantasHay - _cantidad;
+    if (_cuantasHay < 0) then {_cuentasHay = 0};
+    _newCantMagazines pushBack _cuantasHay;
+    };
+  };
 
 clearMagazineCargoGlobal caja;
 
 for "_i" from 0 to (count _typeMagazines) - 1 do
-	{
-	caja addMagazineCargoGlobal [_typeMagazines select _i,_newCantMagazines select _i];
-	};
+  {
+  caja addMagazineCargoGlobal [_typeMagazines select _i,_newCantMagazines select _i];
+  };
 
 _mrk = createMarker [format ["Minefield%1", random 1000], _posicionTel];
 _mrk setMarkerShape "ELLIPSE";
@@ -64,11 +64,11 @@ _grupo setGroupId ["MineF"];
 
 _tam = 10;
 while {true} do
-	{
-	_roads = getMarkerPos "respawn_west" nearRoads _tam;
-	if (count _roads < 1) then {_tam = _tam + 10};
-	if (count _roads > 0) exitWith {};
-	};
+  {
+  _roads = getMarkerPos "respawn_west" nearRoads _tam;
+  if (count _roads < 1) then {_tam = _tam + 10};
+  if (count _roads > 0) exitWith {};
+  };
 _road = _roads select 0;
 _pos = position _road findEmptyPosition [1,30,"B_G_Van_01_transport_F"];
 
@@ -87,60 +87,60 @@ _camion allowCrewInImmobile true;
 waitUntil {sleep 1; (!alive _camion) or ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0))};
 
 if ((_camion distance _posicionTel < 50) and ({alive _x} count units _grupo > 0)) then
-	{
-	if (isPlayer leader _grupo) then
-		{
-		_owner = player getVariable ["owner",player];
-		//removeAllActions player;  ----- might cause issues
-		selectPlayer _owner;
-		(leader _grupo) setVariable ["owner",player,true];
-		{[_x] joinsilent group player} forEach units group player;
-		group player selectLeader player;
-		hint "";
-		};
-	stavros hcRemoveGroup _grupo;
-	[[petros,"hint","Engineer Team deploying mines."],"commsMP"] call BIS_fnc_MP;
-	_nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "SHOWMARKER"] execVM "scripts\UPSMON.sqf";
-	sleep 30*_cantidad;
-	if ((alive _camion) and ({alive _x} count units _grupo > 0)) then
-		{
-		{deleteVehicle _x} forEach units _grupo;
-		deleteGroup _grupo;
-		deleteVehicle _camion;
-		for "_i" from 1 to _cantidad do
-			{
-			_mina = createMine [_tipo,_posicionTel,[],100];
-			side_blue revealMine _mina;
-			};
-		_tsk = ["Mines",[side_blue,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
-		sleep 15;
-		//_nul = [_tsk,true] call BIS_fnc_deleteTask;
-		_nul = [0,_tsk] spawn borrarTask;
-		[2,_coste] remoteExec ["resourcesFIA",2];
-		}
-	else
-		{
-		_tsk = ["Mines",[side_blue,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
-		sleep 15;
-		stavros hcRemoveGroup _grupo;
-		//_nul = [_tsk,true] call BIS_fnc_deleteTask;
-		_nul = [0,_tsk] spawn borrarTask;
-		{deleteVehicle _x} forEach units _grupo;
-		deleteGroup _grupo;
-		deleteVehicle _camion;
-		deleteMarker _mrk;
-		};
-	}
+  {
+  if (isPlayer leader _grupo) then
+    {
+    _owner = player getVariable ["owner",player];
+    //removeAllActions player;  ----- might cause issues
+    selectPlayer _owner;
+    (leader _grupo) setVariable ["owner",player,true];
+    {[_x] joinsilent group player} forEach units group player;
+    group player selectLeader player;
+    hint "";
+    };
+  stavros hcRemoveGroup _grupo;
+  [[petros,"hint","Engineer Team deploying mines."],"commsMP"] call BIS_fnc_MP;
+  _nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "SHOWMARKER"] execVM "scripts\UPSMON.sqf";
+  sleep 30*_cantidad;
+  if ((alive _camion) and ({alive _x} count units _grupo > 0)) then
+    {
+    {deleteVehicle _x} forEach units _grupo;
+    deleteGroup _grupo;
+    deleteVehicle _camion;
+    for "_i" from 1 to _cantidad do
+      {
+      _mina = createMine [_tipo,_posicionTel,[],100];
+      side_blue revealMine _mina;
+      };
+    _tsk = ["Mines",[side_blue,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"SUCCEEDED",5,true,true,"Map"] call BIS_fnc_setTask;
+    sleep 15;
+    //_nul = [_tsk,true] call BIS_fnc_deleteTask;
+    _nul = [0,_tsk] spawn borrarTask;
+    [2,_coste] remoteExec ["resourcesFIA",2];
+    }
+  else
+    {
+    _tsk = ["Mines",[side_blue,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
+    sleep 15;
+    stavros hcRemoveGroup _grupo;
+    //_nul = [_tsk,true] call BIS_fnc_deleteTask;
+    _nul = [0,_tsk] spawn borrarTask;
+    {deleteVehicle _x} forEach units _grupo;
+    deleteGroup _grupo;
+    deleteVehicle _camion;
+    deleteMarker _mrk;
+    };
+  }
 else
-	{
-	_tsk = ["Mines",[side_blue,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
-	sleep 15;
-	stavros hcRemoveGroup _grupo;
-	//_nul = [_tsk,true] call BIS_fnc_deleteTask;
-	_nul = [0,_tsk] spawn borrarTask;
-	{deleteVehicle _x} forEach units _grupo;
-	deleteGroup _grupo;
-	deleteVehicle _camion;
-	deleteMarker _mrk;
-	};
+  {
+  _tsk = ["Mines",[side_blue,civilian],[format ["An Engineer Team has been deployed at your command with High Command Option. Once they reach the position, they will start to deploy %1 mines in the area. Cover them in the meantime.",_cantidad],"Minefield Deploy",_mrk],_posicionTel,"FAILED",5,true,true,"Map"] call BIS_fnc_setTask;
+  sleep 15;
+  stavros hcRemoveGroup _grupo;
+  //_nul = [_tsk,true] call BIS_fnc_deleteTask;
+  _nul = [0,_tsk] spawn borrarTask;
+  {deleteVehicle _x} forEach units _grupo;
+  deleteGroup _grupo;
+  deleteVehicle _camion;
+  deleteMarker _mrk;
+  };
 

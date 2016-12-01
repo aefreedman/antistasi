@@ -7,24 +7,24 @@ diag_log format ["timingCA -- number of bases: %1", count _fb];
 
 
 if (count _fb > 0) then {
-	if (count _fb == 1) then {
-		_tiempo = _tiempo * 0.9;
-	}
-	else {
-		if (count _fb == 2) then {
-			_tiempo = _tiempo * 0.75;
-		}
-		else {
-			if ((count _fb == 3) && (skillAAF < 10)) then {
-			_tiempo = _tiempo * 0.5;
-			}
-			else {
-				if (count _fb > 3) then {
-					_tiempo = _tiempo * 0.3;
-				};
-			};
-		};
-	};
+  if (count _fb == 1) then {
+    _tiempo = _tiempo * 0.9;
+  }
+  else {
+    if (count _fb == 2) then {
+      _tiempo = _tiempo * 0.75;
+    }
+    else {
+      if ((count _fb == 3) && (skillAAF < 10)) then {
+      _tiempo = _tiempo * 0.5;
+      }
+      else {
+        if (count _fb > 3) then {
+          _tiempo = _tiempo * 0.3;
+        };
+      };
+    };
+  };
 };
 
 diag_log format ["timingCA -- number: %1", _tiempo];

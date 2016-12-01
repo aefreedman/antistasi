@@ -52,26 +52,26 @@ waitUntil {sleep 2; (_heli distance _posicion < 300) or (!canMove _heli) or (dat
 stavros hcRemoveGroup _grupoHeli;
 
 if (_heli distance _posicion < 300) then
-	{
-	_chute = createVehicle ["B_Parachute_02_F", [100, 100, 200], [], 0, 'FLY'];
+  {
+  _chute = createVehicle ["B_Parachute_02_F", [100, 100, 200], [], 0, 'FLY'];
     _chute setPos [getPosASL _heli select 0, getPosASL _heli select 1, (getPosASL _heli select 2) - 50];
     _crate = createVehicle ["B_supplyCrate_F", position _chute, [], 0, 'NONE'];
     _crate attachTo [_chute, [0, 0, -1.3]];
     _nul = [_crate,_NATOSupp] call NATOCrate;
      _vehiculos = _vehiculos + [_chute,_crate];
     _wp3 = _grupoHeli addWaypoint [_orig, 0];
-	_wp3 setWaypointType "MOVE";
-	_wp3 setWaypointSpeed "FULL";
+  _wp3 setWaypointType "MOVE";
+  _wp3 setWaypointSpeed "FULL";
     waitUntil {position _crate select 2 < 0.5 || isNull _chute};
 
     _tsk = ["NATOAmmo",[side_blue,civilian],["Our Commander asked NATO for an ammunition supply drop. Command the transport with your HC module and bring it to the designated position.Go there and pick those weapons.","NATO Ammodrop",_mrkfin],_posicion,"SUCCEEDED",5,true,true,"rifle"] call BIS_fnc_setTask;
-	_humo = "SmokeShellBlue" createVehicle position _crate;
-	_vehiculos = _vehiculos + [_humo];
-	}
+  _humo = "SmokeShellBlue" createVehicle position _crate;
+  _vehiculos = _vehiculos + [_humo];
+  }
 else
-	{
-	_tsk = ["NATOAmmo",[side_blue,civilian],["Our Commander asked NATO for an ammunition supply drop. Command the transport with your HC module and bring it to the designated position.Go there and pick those weapons.","NATO Ammodrop",_mrkfin],_posicion,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
-	};
+  {
+  _tsk = ["NATOAmmo",[side_blue,civilian],["Our Commander asked NATO for an ammunition supply drop. Command the transport with your HC module and bring it to the designated position.Go there and pick those weapons.","NATO Ammodrop",_mrkfin],_posicion,"FAILED",5,true,true,"rifle"] call BIS_fnc_setTask;
+  };
 
 sleep 15;
 

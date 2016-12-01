@@ -6,7 +6,7 @@ _toDelete = nearestObjects [markerPos "base_4", ["WeaponHolderSimulated", "Groun
 //_toDelete = _toDelete + ((markerPos "base_4") nearObjects ["Default", 16000]); // fix for bug with detecting satchels
 for "_i" from 0 to ((count _toDelete) - 1) do
 {
-	deleteVehicle (_toDelete select _i);
+  deleteVehicle (_toDelete select _i);
 };
 
 {deleteVehicle _x} forEach allDead;

@@ -21,11 +21,11 @@ _tx=_this select 2;
 _ty=_this select 3; 
 _xout=if (_a!=0) then 
 {
-	_cx+ (_cd*_tx - _sd*_ty)
+  _cx+ (_cd*_tx - _sd*_ty)
 } else 
 {
-	_cx+_tx
+  _cx+_tx
 }; 
 _yout=if (_a!=0) then {_cy+ (_sd*_tx + _cd*_ty)} else {_cy+_ty}; 
-	
+  
 [_xout,_yout,0]

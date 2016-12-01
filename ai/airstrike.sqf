@@ -33,27 +33,27 @@ _wp1 setWaypointType "MOVE";
 _wp1 setWaypointSpeed "LIMITED";
 _wp1 setWaypointBehaviour "CARELESS";
 if (_tipoavion in opCASFW) then
-	{
-	if ((_marcador in bases) or (_marcador in aeropuertos)) then
-		{
-		_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"];
-		}
-	else
-		{
-		if (_marcador in ciudades) then
-			{
-			_wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"];
-			}
-		else
-			{
-			_wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"];
-			};
-		};
-	}
+  {
+  if ((_marcador in bases) or (_marcador in aeropuertos)) then
+    {
+    _wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"];
+    }
+  else
+    {
+    if (_marcador in ciudades) then
+      {
+      _wp1 setWaypointStatements ["true", "[this,""NAPALM""] execVM 'AI\airbomb.sqf'"];
+      }
+    else
+      {
+      _wp1 setWaypointStatements ["true", "[this,""CLUSTER""] execVM 'AI\airbomb.sqf'"];
+      };
+    };
+  }
 else
-	{
-	_wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"];
-	};
+  {
+  _wp1 setWaypointStatements ["true", "[this] execVM 'AI\airbomb.sqf'"];
+  };
 
 _wp2 = _grupoplane addWaypoint [_pos2, 1];
 _wp2 setWaypointSpeed "LIMITED";

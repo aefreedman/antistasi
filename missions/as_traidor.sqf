@@ -4,8 +4,8 @@ _marcador = _this select 0;
 _source = _this select 1;
 
 if (_source == "civ") then {
-	_val = server getVariable "civActive";
-	server setVariable ["civActive", _val + 1, true];
+  _val = server getVariable "civActive";
+  server setVariable ["civActive", _val + 1, true];
 };
 
 _posicion = getMarkerPos _marcador;
@@ -19,11 +19,11 @@ _casas = nearestObjects [_posicion, ["house"], _tam];
 _poscasa = [];
 _casa = _casas select 0;
 while {count _poscasa < 3} do
-	{
-	_casa = _casas call BIS_Fnc_selectRandom;
-	_poscasa = [_casa] call BIS_fnc_buildingPositions;
-	if (count _poscasa < 3) then {_casas = _casas - [_casa]};
-	};
+  {
+  _casa = _casas call BIS_Fnc_selectRandom;
+  _poscasa = [_casa] call BIS_fnc_buildingPositions;
+  if (count _poscasa < 3) then {_casas = _casas - [_casa]};
+  };
 
 _max = (count _poscasa) - 1;
 _rnd = floor random _max;
@@ -56,10 +56,10 @@ _dirVeh = 0;
 _roads = [];
 _radius = 20;
 while {count _roads == 0} do
-	{
-	_roads = (getPos _casa) nearRoads _radius;
-	_radius = _radius + 10;
-	};
+  {
+  _roads = (getPos _casa) nearRoads _radius;
+  _radius = _radius + 10;
+  };
 
 _road = _roads select 0;
 _roadcon = roadsConnectedto _road;
@@ -89,88 +89,88 @@ _tipogrupo = selectRandom infSquad;
 _grupo = [_posicion, side_green, (cfgInf >> _tipogrupo)] call BIS_Fnc_spawnGroup;
 sleep 1;
 if (random 10 < 2.5) then
-	{
-	_perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
-	[_perro] spawn guardDog;
-	};
+  {
+  _perro = _grupo createUnit ["Fin_random_F",_posicion,[],0,"FORM"];
+  [_perro] spawn guardDog;
+  };
 _nul = [leader _grupo, _mrk, "SAFE","SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
 {[_x] spawn genInitBASES} forEach units _grupo;
 
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _traidor) or ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,"BLUFORSpawn"] call distanceUnits) > 0)};
 
 if ({_traidor knowsAbout _x > 1.4} count ([500,0,_traidor,"BLUFORSpawn"] call distanceUnits) > 0) then
-	{
-	//hint "You have been discovered. The traitor is fleeing to the nearest base. Go and kill him!";
-	_tsk = ["AST",[side_blue,civilian],[format ["A traitor has scheduled a meeting with CSAT in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and CSAT presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
-	{_x enableAI "MOVE"} forEach units _grptraidor;
-	_traidor assignAsDriver _veh;
-	[_traidor] orderGetin true;
-	_wp0 = _grptraidor addWaypoint [_posVeh, 0];
-	_wp0 setWaypointType "GETIN";
-	_wp1 = _grptraidor addWaypoint [_posBase,1];
-	_wp1 setWaypointType "MOVE";
-	_wp1 setWaypointBehaviour "CARELESS";
-	_wp1 setWaypointSpeed "FULL";
-	};
+  {
+  //hint "You have been discovered. The traitor is fleeing to the nearest base. Go and kill him!";
+  _tsk = ["AST",[side_blue,civilian],[format ["A traitor has scheduled a meeting with CSAT in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and CSAT presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  {_x enableAI "MOVE"} forEach units _grptraidor;
+  _traidor assignAsDriver _veh;
+  [_traidor] orderGetin true;
+  _wp0 = _grptraidor addWaypoint [_posVeh, 0];
+  _wp0 setWaypointType "GETIN";
+  _wp1 = _grptraidor addWaypoint [_posBase,1];
+  _wp1 setWaypointType "MOVE";
+  _wp1 setWaypointBehaviour "CARELESS";
+  _wp1 setWaypointSpeed "FULL";
+  };
 
 waitUntil  {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _traidor) or (_traidor distance _posBase < 20)};
 
 if (not alive _traidor) then
-	{
-	_tsk = ["AST",[side_blue,civilian],[format ["A traitor has scheduled a meeting with CSAT in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and CSAT presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
-	[0,3] remoteExec ["prestige",2];
-	[0,300] remoteExec ["resourcesFIA",2];
-	//[-5,0,_marcador] remoteExec ["citySupportChange",2];
-	{
-	if (!isPlayer _x) then
-		{
-		_skill = skill _x;
-		_skill = _skill + 0.1;
-		_x setSkill _skill;
-		}
-	else
-		{
-		[10,_x] call playerScoreAdd;
-		};
-	} forEach ([_tam,0,_posicion,"BLUFORSpawn"] call distanceUnits);
-	[5,stavros] call playerScoreAdd;
+  {
+  _tsk = ["AST",[side_blue,civilian],[format ["A traitor has scheduled a meeting with CSAT in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and CSAT presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  [0,3] remoteExec ["prestige",2];
+  [0,300] remoteExec ["resourcesFIA",2];
+  //[-5,0,_marcador] remoteExec ["citySupportChange",2];
+  {
+  if (!isPlayer _x) then
+    {
+    _skill = skill _x;
+    _skill = _skill + 0.1;
+    _x setSkill _skill;
+    }
+  else
+    {
+    [10,_x] call playerScoreAdd;
+    };
+  } forEach ([_tam,0,_posicion,"BLUFORSpawn"] call distanceUnits);
+  [5,stavros] call playerScoreAdd;
 
-	}
+  }
 else
-	{
-	_tsk = ["AST",[side_blue,civilian],[format ["A traitor has scheduled a meeting with CSAT in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and CSAT presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
-	[-10,stavros] call playerScoreAdd;
-	if (dateToNumber date > _fechalimnum) then
-		{
-		_hrT = server getVariable "hr";
-		_resourcesFIAT = server getVariable "resourcesFIA";
-		[-1*(round(_hrT/3)),-1*(round(_resourcesFIAT/3))] remoteExec ["resourcesFIA",2];
-		}
-	else
-		{
-		if (isPlayer Stavros) then
-			{
-			if (!("DEF_HQ" in misiones)) then
-				{
-				[] remoteExec ["ataqueHQ",HCattack];
-				};
-			}
-		else
-			{
-			_minasFIA = allmines - (detectedMines side_red);
-			if (count _minasFIA > 0) then
-				{
-				{if (random 100 < 30) then {side_red revealMine _x;}} forEach _minasFIA;
-				};
-			};
-		};
-	};
+  {
+  _tsk = ["AST",[side_blue,civilian],[format ["A traitor has scheduled a meeting with CSAT in %1. Kill him before he provides enough intel to give us trouble. Do this before %2:%3. We don't where exactly this meeting will happen. You will recognise the building by the nearby Offroad and CSAT presence.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Traitor",_marcador],_traidor,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  [-10,stavros] call playerScoreAdd;
+  if (dateToNumber date > _fechalimnum) then
+    {
+    _hrT = server getVariable "hr";
+    _resourcesFIAT = server getVariable "resourcesFIA";
+    [-1*(round(_hrT/3)),-1*(round(_resourcesFIAT/3))] remoteExec ["resourcesFIA",2];
+    }
+  else
+    {
+    if (isPlayer Stavros) then
+      {
+      if (!("DEF_HQ" in misiones)) then
+        {
+        [] remoteExec ["ataqueHQ",HCattack];
+        };
+      }
+    else
+      {
+      _minasFIA = allmines - (detectedMines side_red);
+      if (count _minasFIA > 0) then
+        {
+        {if (random 100 < 30) then {side_red revealMine _x;}} forEach _minasFIA;
+        };
+      };
+    };
+  };
 
 _nul = [1200,_tsk] spawn borrarTask;
 
 if (_source == "civ") then {
-	_val = server getVariable "civActive";
-	server setVariable ["civActive", _val - 1, true];
+  _val = server getVariable "civActive";
+  server setVariable ["civActive", _val - 1, true];
 };
 
 waitUntil {sleep 1; !([distanciaSPWN,1,_veh,"BLUFORSpawn"] call distanceUnits)};

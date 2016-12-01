@@ -22,9 +22,9 @@ _basesAAF = bases - mrkFIA;
 _bases = [];
 _base = "";
 {
-	_base = _x;
-	_posbase = getMarkerPos _base;
-	if ((_targetPosition distance _posbase < 7500) and (_targetPosition distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
+  _base = _x;
+  _posbase = getMarkerPos _base;
+  if ((_targetPosition distance _posbase < 7500) and (_targetPosition distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
 } forEach _basesAAF;
 if (count _bases > 0) then {_base = [_bases,_targetPosition] call BIS_fnc_nearestPosition;} else {_base = ""};
 
@@ -35,9 +35,9 @@ _airports = [];
 _airport = "";
 _posAirport = [];
 {
-	_airport = _x;
-	_posAirport = getMarkerPos _airport;
-	if ((_targetPosition distance _posAirport < 7500) and (_targetPosition distance _posAirport > 1500) and (not (spawner getVariable _airport))) then {_airports = _airports + [_airport]}
+  _airport = _x;
+  _posAirport = getMarkerPos _airport;
+  if ((_targetPosition distance _posAirport < 7500) and (_targetPosition distance _posAirport > 1500) and (not (spawner getVariable _airport))) then {_airports = _airports + [_airport]}
 } forEach _airportsAAF;
 if (count _airports > 0) then {_airport = [_airports, _targetPosition] call BIS_fnc_nearestPosition; _posAirport = getMarkerPos _airport;} else {_airport = ""};
 
@@ -81,12 +81,12 @@ _grafArray pushBack _graf5;
 {_x reveal propTruck} forEach (allPlayers - hcArray);
 propTruck setVariable ["destino",_targetName,true];
 propTruck addEventHandler ["GetIn",
-	{
-	if (_this select 1 == "driver") then {
-		_texto = format ["Bring this gear to %1",(_this select 0) getVariable "destino"];
-		_texto remoteExecCall ["hint",_this select 2];
-	};
-	}
+  {
+  if (_this select 1 == "driver") then {
+    _texto = format ["Bring this gear to %1",(_this select 0) getVariable "destino"];
+    _texto remoteExecCall ["hint",_this select 2];
+  };
+  }
 ];
 
 [propTruck,"Mission Vehicle"] spawn inmuneConvoy;
@@ -97,10 +97,10 @@ server setVariable ["BCactive", false, true];
 
 // dispatch a small QRF
 if !(_airport == "") then {
-	[_airport, _targetPosition, _targetMarker, _tiempolim, "transport", "small"] remoteExec ["enemyQRF",HCattack];
+  [_airport, _targetPosition, _targetMarker, _tiempolim, "transport", "small"] remoteExec ["enemyQRF",HCattack];
 }
 else {
-	[_base, _targetPosition, _targetMarker, _tiempolim, "transport", "small"] remoteExec ["enemyQRF",HCattack];
+  [_base, _targetPosition, _targetMarker, _tiempolim, "transport", "small"] remoteExec ["enemyQRF",HCattack];
 };
 
 // wait until the truck is in the target area or dead
@@ -117,61 +117,61 @@ _active = false;
 // once the vehicle has arrived at its destination and is stationary, enable the activation action
 while {(alive propTruck) && (dateToNumber date < _fechalimnum) && !(server getVariable "BCactive")} do {
 
-	while {(alive propTruck) && (dateToNumber date < _fechalimnum) && (propTruck distance _targetPosition < 150) && !(server getVariable "BCactive")} do {
-		if (!(_active) && (speed propTruck < 1)) then {
-			_active = true;
-			[[propTruck,"toggle_device"],"flagaction"] call BIS_fnc_MP;
-			server setVariable ["BCdisabled", false, true];
-		};
-		if ((_active) && (speed propTruck > 1)) then {
-			_active = false;
-			[[propTruck,"remove"],"flagaction"] call BIS_fnc_MP;
-			server setVariable ["BCdisabled", true, true];
-		};
-		sleep 1;
-	};
-	sleep 1;
+  while {(alive propTruck) && (dateToNumber date < _fechalimnum) && (propTruck distance _targetPosition < 150) && !(server getVariable "BCactive")} do {
+    if (!(_active) && (speed propTruck < 1)) then {
+      _active = true;
+      [[propTruck,"toggle_device"],"flagaction"] call BIS_fnc_MP;
+      server setVariable ["BCdisabled", false, true];
+    };
+    if ((_active) && (speed propTruck > 1)) then {
+      _active = false;
+      [[propTruck,"remove"],"flagaction"] call BIS_fnc_MP;
+      server setVariable ["BCdisabled", true, true];
+    };
+    sleep 1;
+  };
+  sleep 1;
 };
 
 // if the device hasn't been activated, the mission failed
 if !(server getVariable "BCactive") then {
-	_break = true;
+  _break = true;
 };
 
 if (_break) exitWith {
-	_tsk = ["PR",[side_blue,civilian],[format ["You failed to set up the gear before %2:%3.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Establish Propaganda Station",_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-	[5,-5,_targetMarker] remoteExec ["citySupportChange",2];
-	[-10,stavros] call playerScoreAdd;
+  _tsk = ["PR",[side_blue,civilian],[format ["You failed to set up the gear before %2:%3.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Establish Propaganda Station",_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+  [5,-5,_targetMarker] remoteExec ["citySupportChange",2];
+  [-10,stavros] call playerScoreAdd;
 
-	_nul = [1200,_tsk] spawn borrarTask;
+  _nul = [1200,_tsk] spawn borrarTask;
 
-	waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
-	deleteVehicle propTruck;
+  waitUntil {sleep 1;(!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits))};
+  deleteVehicle propTruck;
 };
 
 // create & spawn the propaganda site
 _PRsite =
 [
-	["Land_BagFence_Round_F",[1.57227,1.87622,-0.00130129],99.7986,1,0,[0,-0],"","",true,false],
-	["Land_Sacks_heap_F",[2.81982,-0.622803,0],323.257,1,0,[0,0],"","",true,false],
-	["Land_Loudspeakers_F",[3.146,0.9729,0],0,1,0,[0,0],"","",true,false],
-	["Land_PortableLight_single_F",[3.54053,-2.40137,0],228.698,1,0,[0,0],"","",true,false],
-	["Land_Leaflet_02_F",[4.14307,-1.47192,0.688],183.52,1,0,[-90,-90],"","",true,false],
-	["Land_Leaflet_02_F",[4.1499,-1.65796,0.688],180,1,0,[-90,-90],"","",true,false],
-	["Land_WoodenBox_F",[4.52734,0.615967,4.76837e-007],152.102,1,0,[6.94714e-005,1.89471e-005],"","",true,false],
-	["Land_Leaflet_02_F",[4.2959,-1.56104,0.688],198.517,1,0,[-90,-90],"","",true,false],
-	["Land_Leaflet_02_F",[4.27979,-1.82007,0.688],216.361,1,0,[-90,-90],"","",true,false],
-	["Land_Leaflet_02_F",[4.49463,-1.39014,0.688],156.16,1,0,[-90,-90],"","",true,false],
-	["Land_WoodenCrate_01_F",[4.44775,-1.86304,4.76837e-007],0.000621233,1,0.0256633,[-5.14494e-005,-0.000126096],"","",true,false],
-	["Land_WoodenBox_F",[4.82568,0.0627441,0],329.984,1,0,[-4.90935e-005,1.14739e-006],"","",true,false],
-	["Land_BagFence_Round_F",[3.896,3.3252,-0.00130129],193.76,1,0,[0,0],"","",true,false],
-	["Land_Leaflet_02_F",[4.58105,-1.7041,0.688],127.235,1,0,[-90,-90],"","",true,false],
-	["Land_WoodenCrate_01_stack_x3_F",[3.84229,-3.79712,0],0,1,0,[0,0],"","",true,false],
-	["Flag_FIA_F",[5.04297,-2.52319,0],0,1,0,[0,0],"","",true,false],
-	["Land_Sacks_heap_F",[6.08154,1.64722,0],27.137,1,0,[0,0],"","",true,false],
-	["Land_PortableLight_single_F",[5.90527,2.94946,0],18.0931,1,0,[0,0],"","",true,false],
-	["Land_Graffiti_05_F",[6.84229,-0.0407715,2.28578],128.676,1,0,[0,-0],"","",true,false],
-	["SignAd_SponsorS_F",[6.84619,-0.0651855,6.67572e-006],130.045,1,0,[0,-0],"","",true,false]
+  ["Land_BagFence_Round_F",[1.57227,1.87622,-0.00130129],99.7986,1,0,[0,-0],"","",true,false],
+  ["Land_Sacks_heap_F",[2.81982,-0.622803,0],323.257,1,0,[0,0],"","",true,false],
+  ["Land_Loudspeakers_F",[3.146,0.9729,0],0,1,0,[0,0],"","",true,false],
+  ["Land_PortableLight_single_F",[3.54053,-2.40137,0],228.698,1,0,[0,0],"","",true,false],
+  ["Land_Leaflet_02_F",[4.14307,-1.47192,0.688],183.52,1,0,[-90,-90],"","",true,false],
+  ["Land_Leaflet_02_F",[4.1499,-1.65796,0.688],180,1,0,[-90,-90],"","",true,false],
+  ["Land_WoodenBox_F",[4.52734,0.615967,4.76837e-007],152.102,1,0,[6.94714e-005,1.89471e-005],"","",true,false],
+  ["Land_Leaflet_02_F",[4.2959,-1.56104,0.688],198.517,1,0,[-90,-90],"","",true,false],
+  ["Land_Leaflet_02_F",[4.27979,-1.82007,0.688],216.361,1,0,[-90,-90],"","",true,false],
+  ["Land_Leaflet_02_F",[4.49463,-1.39014,0.688],156.16,1,0,[-90,-90],"","",true,false],
+  ["Land_WoodenCrate_01_F",[4.44775,-1.86304,4.76837e-007],0.000621233,1,0.0256633,[-5.14494e-005,-0.000126096],"","",true,false],
+  ["Land_WoodenBox_F",[4.82568,0.0627441,0],329.984,1,0,[-4.90935e-005,1.14739e-006],"","",true,false],
+  ["Land_BagFence_Round_F",[3.896,3.3252,-0.00130129],193.76,1,0,[0,0],"","",true,false],
+  ["Land_Leaflet_02_F",[4.58105,-1.7041,0.688],127.235,1,0,[-90,-90],"","",true,false],
+  ["Land_WoodenCrate_01_stack_x3_F",[3.84229,-3.79712,0],0,1,0,[0,0],"","",true,false],
+  ["Flag_FIA_F",[5.04297,-2.52319,0],0,1,0,[0,0],"","",true,false],
+  ["Land_Sacks_heap_F",[6.08154,1.64722,0],27.137,1,0,[0,0],"","",true,false],
+  ["Land_PortableLight_single_F",[5.90527,2.94946,0],18.0931,1,0,[0,0],"","",true,false],
+  ["Land_Graffiti_05_F",[6.84229,-0.0407715,2.28578],128.676,1,0,[0,-0],"","",true,false],
+  ["SignAd_SponsorS_F",[6.84619,-0.0651855,6.67572e-006],130.045,1,0,[0,-0],"","",true,false]
 ];
 
 _posSiteBackup = (position propTruck) findEmptyPosition [1,25,"I_MBT_03_cannon_F"];
@@ -180,22 +180,22 @@ _objectsToDelete = [_posSite, random 360, _PRsite] call BIS_fnc_ObjectsMapper;
 
 // remove crew from the truck, lock it, turn off the engine
 {
-	_x action ["eject", propTruck];
+  _x action ["eject", propTruck];
 } forEach (crew (propTruck));
 propTruck lock 2;
 propTruck engineOn false;
 
 // reveal the truck's location to all nearby enemies, blow the cover of all nearby friendlies
 {
-	_amigo = _x;
-	if (captive _amigo) then {
-		[_amigo,false] remoteExec ["setCaptive",_amigo];
-	};
-	{
-		if ((side _x == side_green) and (_x distance propTruck < distanciaSPWN)) then {
-			if (_x distance propTruck < 300) then {_x doMove position propTruck} else {_x reveal [_amigo,4]};
-		};
-	} forEach allUnits;
+  _amigo = _x;
+  if (captive _amigo) then {
+    [_amigo,false] remoteExec ["setCaptive",_amigo];
+  };
+  {
+    if ((side _x == side_green) and (_x distance propTruck < distanciaSPWN)) then {
+      if (_x distance propTruck < 300) then {_x doMove position propTruck} else {_x reveal [_amigo,4]};
+    };
+  } forEach allUnits;
 } forEach ([300,0,propTruck,"BLUFORSpawn"] call distanceUnits);
 
 /*
@@ -209,12 +209,12 @@ default setting based on number of players online
 _timing = [5,10,16];
 _comp = ["QRF_air_mixed_small", "QRF_land_mixed_small", "CSAT_small"];
 if (isMultiplayer) then {
-	_timing = [0,5,10,20];
-	_comp = ["QRF_air_mixed_small", "QRF_land_mixed_large", "QRF_land_transport_large","CSAT_small"];
-	if (count (allPlayers - entities "HeadlessClient_F") > 3) then {
-		_timing = [0,1,4,8,15,16,25];
-		_comp = ["QRF_land_mixed_large", "QRF_air_mixed_small", "QRF_land_transport_large", "QRF_air_transport_large", "QRF_land_mixed_large", "QRF_air_mixed_large","CSAT_large"];
-	};
+  _timing = [0,5,10,20];
+  _comp = ["QRF_air_mixed_small", "QRF_land_mixed_large", "QRF_land_transport_large","CSAT_small"];
+  if (count (allPlayers - entities "HeadlessClient_F") > 3) then {
+    _timing = [0,1,4,8,15,16,25];
+    _comp = ["QRF_land_mixed_large", "QRF_air_mixed_small", "QRF_land_transport_large", "QRF_air_transport_large", "QRF_land_mixed_large", "QRF_air_mixed_large","CSAT_large"];
+  };
 };
 
 0 = [_targetMarker, 30, _timing, _comp] spawn attackWaves;
@@ -235,43 +235,43 @@ _active = false;
 // truck is alive, deployed, timer below maximum, conscious players within 250m
 while {(server getVariable "BCactive") && (alive propTruck) && ({(side _x isEqualTo side_blue) && (_x distance propTruck < 300)} count allPlayers > 0) && (_counter < _duration)} do {
 
-	// alive, deployed, timer below maximum, blufor alive, no opfor/greenfor, conscious players within 250m
-	while {(server getVariable "BCactive") &&
-	(alive propTruck) &&
-	!({_x getVariable ["inconsciente",false]} count ([300,0, propTruck,"BLUFORSpawn"] call distanceUnits) == count ([300,0, propTruck,"BLUFORSpawn"] call distanceUnits)) &&
-	({((side _x == side_green) || (side _x == side_red)) && (_x distance propTruck < 50)} count allUnits == 0)} do {
+  // alive, deployed, timer below maximum, blufor alive, no opfor/greenfor, conscious players within 250m
+  while {(server getVariable "BCactive") &&
+  (alive propTruck) &&
+  !({_x getVariable ["inconsciente",false]} count ([300,0, propTruck,"BLUFORSpawn"] call distanceUnits) == count ([300,0, propTruck,"BLUFORSpawn"] call distanceUnits)) &&
+  ({((side _x == side_green) || (side _x == side_red)) && (_x distance propTruck < 50)} count allUnits == 0)} do {
 
-		// activate the timer
-		if !(_active) then {
-			_active = true;
-			[[petros,"globalChat","Hold this position for as long as you can! They will throw a lot at you, so be prepared!"],"commsMP"] call BIS_fnc_MP;
-		};
+    // activate the timer
+    if !(_active) then {
+      _active = true;
+      [[petros,"globalChat","Hold this position for as long as you can! They will throw a lot at you, so be prepared!"],"commsMP"] call BIS_fnc_MP;
+    };
 
-		// timer display as hints
-		_info = format ["Timer is at: %1", _counter];
-		//{if (isPlayer _x) then {[petros,"hint", _info] remoteExec ["commsMP",_x]}} forEach ([300,0,propTruck,"BLUFORSpawn"] call distanceUnits);
-		{
-			if (isPlayer _x) then {
-				// warn players at the edge of the area to not stray too far
-				if (_x distance propTruck > 250) then {
-					_info = "Stay within 250m of the station!";
-				};
-				[petros,"hint", _info] remoteExec ["commsMP",_x];
-			};
-		} forEach (allPlayers - entities "HeadlessClient_F");
+    // timer display as hints
+    _info = format ["Timer is at: %1", _counter];
+    //{if (isPlayer _x) then {[petros,"hint", _info] remoteExec ["commsMP",_x]}} forEach ([300,0,propTruck,"BLUFORSpawn"] call distanceUnits);
+    {
+      if (isPlayer _x) then {
+        // warn players at the edge of the area to not stray too far
+        if (_x distance propTruck > 250) then {
+          _info = "Stay within 250m of the station!";
+        };
+        [petros,"hint", _info] remoteExec ["commsMP",_x];
+      };
+    } forEach (allPlayers - entities "HeadlessClient_F");
 
-		_counter = _counter + 1;
-		sleep 1;
-	};
+    _counter = _counter + 1;
+    sleep 1;
+  };
 
-	// suspend the timer when enemies breach the perimeter
-	if (_counter < _duration) then {
-		_active = false;
+  // suspend the timer when enemies breach the perimeter
+  if (_counter < _duration) then {
+    _active = false;
 
-		if (({((side _x == side_green) || (side _x == side_red)) && (_x distance propTruck < 50)} count allUnits != 0) and (alive propTruck)) then {[[petros,"hint","Hostile forces near the terminal!"],"commsMP"] call BIS_fnc_MP};
+    if (({((side _x == side_green) || (side _x == side_red)) && (_x distance propTruck < 50)} count allUnits != 0) and (alive propTruck)) then {[[petros,"hint","Hostile forces near the terminal!"],"commsMP"] call BIS_fnc_MP};
 
-		waitUntil {sleep 1; (!alive propTruck) || !(server getVariable "BCactive") || ({(side _x == side_green) and (_x distance propTruck < 50)} count allUnits == 0)};
-	};
+    waitUntil {sleep 1; (!alive propTruck) || !(server getVariable "BCactive") || ({(side _x == side_green) and (_x distance propTruck < 50)} count allUnits == 0)};
+  };
 };
 
 // stop the attack script from spawning additional waves
@@ -286,31 +286,31 @@ _prestige: minimum additional city support for surpassing the minTimer
 _minTimer = 600;
 _prestige = 0;
 if (_counter < _minTimer) then {
-	_break = true;
+  _break = true;
 }
 else {
-	_prestige = 10 + floor ((_counter - _minTimer) / 80);
+  _prestige = 10 + floor ((_counter - _minTimer) / 80);
 };
 
 // inform players about timer at the end of the mission
 _info = format ["You held the area clear for %1 minutes and %2 seconds.", floor (_counter / 60), _counter mod 60];
 if (_break) then {
-	_info = format ["You held the area clear for only %1 minutes and %2 seconds.", floor (_counter / 60), _counter mod 60];
+  _info = format ["You held the area clear for only %1 minutes and %2 seconds.", floor (_counter / 60), _counter mod 60];
 };
 {if (isPlayer _x) then {[petros,"hint", _info] remoteExec ["commsMP",_x]}} forEach ([300,0,propTruck,"BLUFORSpawn"] call distanceUnits);
 
 
 // failure if you held out for less than 10 minutes
 if (_break) then {
-	_tsk = ["PR",[side_blue,civilian],[format ["You held the position for less than 10 minutes.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Establish Propaganda Station",_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-	[5,-5,_targetMarker] remoteExec ["citySupportChange",2];
-	[-10,stavros] call playerScoreAdd;
+  _tsk = ["PR",[side_blue,civilian],[format ["You held the position for less than 10 minutes.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Establish Propaganda Station",_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+  [5,-5,_targetMarker] remoteExec ["citySupportChange",2];
+  [-10,stavros] call playerScoreAdd;
 }
 else {
-	_tsk = ["PR",[side_blue,civilian],[format ["You managed to hold the position long enough to inspire the population.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Establish Propaganda Station",_targetMarker],_targetPosition,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
-	[0,_prestige,_targetMarker] remoteExec ["citySupportChange",2];
-	{if (_x distance _targetPosition < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
-	[5,stavros] call playerScoreAdd;
+  _tsk = ["PR",[side_blue,civilian],[format ["You managed to hold the position long enough to inspire the population.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Establish Propaganda Station",_targetMarker],_targetPosition,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
+  [0,_prestige,_targetMarker] remoteExec ["citySupportChange",2];
+  {if (_x distance _targetPosition < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+  [5,stavros] call playerScoreAdd;
 };
 
 _nul = [1200,_tsk] spawn borrarTask;
@@ -319,15 +319,15 @@ waitUntil {sleep 1;(!([distanciaSPWN,1,propTruck,"BLUFORSpawn"] call distanceUni
 deleteVehicle propTruck;
 
 {
-	_x enableSimulation false;
-	_x hideObjectGlobal true;
+  _x enableSimulation false;
+  _x hideObjectGlobal true;
 } foreach _grafArray;
 
 // remove the propaganda site
 waitUntil {sleep 1; (not([distanciaSPWN,1,_targetPosition,"BLUFORSpawn"] call distanceUnits))};
 {
-	_x enableSimulation false;
-	_x hideObjectGlobal true;
+  _x enableSimulation false;
+  _x hideObjectGlobal true;
 } foreach _objectsToDelete;
 
 

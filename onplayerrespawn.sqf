@@ -41,9 +41,9 @@ _nuevo setVariable ["rango",_rango,true];
 disableUserInput false;
 //_nuevo enableSimulation true;
 if (_viejo == stavros) then
-	{
-	[_nuevo] call stavrosInit;
-	};
+  {
+  [_nuevo] call stavrosInit;
+  };
 
 
 removeAllItemsWithMagazines _nuevo;
@@ -54,121 +54,121 @@ if ((not("ItemGPS" in unlockedItems)) and ("ItemGPS" in (assignedItems _nuevo)))
 if ((!hayTFAR) and ("ItemRadio" in (assignedItems player)) and (not("ItemRadio" in unlockedItems))) then {player unlinkItem "ItemRadio"};
 if (!isPlayer (leader group player)) then {(group player) selectLeader player};
 player addEventHandler ["FIRED",
-	{
-	_player = _this select 0;
-	if (captive _player) then
-		{
-		if ({((side _x== side_red) or (side _x== side_green)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
-			{
-			_player setCaptive false;
-			if (vehicle _player != _player) then
-				{
-				{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",_x];}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)));
-				};
-			}
-		else
-			{
-			_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
-			_datos = server getVariable _ciudad;
-			if (random 100 < _datos select 2) then
-				{
-				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
-					{
-					_player setCaptive false;
-					if (vehicle _player != _player) then
-						{
-						{if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",_x];}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)));
-						};
-					};
-				};
-			};
-		}
-	}
-	];
+  {
+  _player = _this select 0;
+  if (captive _player) then
+    {
+    if ({((side _x== side_red) or (side _x== side_green)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+      {
+      _player setCaptive false;
+      if (vehicle _player != _player) then
+        {
+        {if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",_x];}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)));
+        };
+      }
+    else
+      {
+      _ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
+      _size = [_ciudad] call sizeMarker;
+      _datos = server getVariable _ciudad;
+      if (random 100 < _datos select 2) then
+        {
+        if (_player distance getMarkerPos _ciudad < _size * 1.5) then
+          {
+          _player setCaptive false;
+          if (vehicle _player != _player) then
+            {
+            {if (isPlayer _x) then {[_x,false] remoteExec ["setCaptive",_x];}} forEach ((assignedCargo (vehicle _player)) + (crew (vehicle _player)));
+            };
+          };
+        };
+      };
+    }
+  }
+  ];
 
 player addEventHandler ["InventoryOpened",
-	{
-	_control = false;
-	//if !(isnull (uinamespace getvariable ["BIS_fnc_arsenal_cam",objnull])) then
-	if (_this select 1 == caja) then
-		{
-		if !([_this select 0] call isMember) then
-			{
-			_control = true;
-			hint "You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.";
-			};
-		};
-	_control
-	}];
+  {
+  _control = false;
+  //if !(isnull (uinamespace getvariable ["BIS_fnc_arsenal_cam",objnull])) then
+  if (_this select 1 == caja) then
+    {
+    if !([_this select 0] call isMember) then
+      {
+      _control = true;
+      hint "You are not in the Member's List of this Server.\n\nAsk the Commander in order to be allowed to access the HQ Ammobox.\n\nIn the meantime you may use the other box to store equipment and share it with others.";
+      };
+    };
+  _control
+  }];
 player addEventHandler ["Fired",
-		{
-		_tipo = _this select 1;
-		if ((_tipo == "Put") or (_tipo == "Throw")) then
-			{
-			if (player distance petros < 50) then
-				{
-				deleteVehicle (_this select 6);
-				if (_tipo == "Put") then
-					{
-					if (player distance petros < 10) then {[player,60] spawn castigo};
-					};
-				};
-			};
-		}];
+    {
+    _tipo = _this select 1;
+    if ((_tipo == "Put") or (_tipo == "Throw")) then
+      {
+      if (player distance petros < 50) then
+        {
+        deleteVehicle (_this select 6);
+        if (_tipo == "Put") then
+          {
+          if (player distance petros < 10) then {[player,60] spawn castigo};
+          };
+        };
+      };
+    }];
 player addEventHandler ["HandleHeal",
-	{
-	_player = _this select 0;
-	if (captive _player) then
-		{
-		if ({((side _x== side_red) or (side _x== side_green)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
-			{
-			_player setCaptive false;
-			}
-		else
-			{
-			_ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
-			_size = [_ciudad] call sizeMarker;
-			_datos = server getVariable _ciudad;
-			if (random 100 < _datos select 2) then
-				{
-				if (_player distance getMarkerPos _ciudad < _size * 1.5) then
-					{
-					_player setCaptive false;
-					};
-				};
-			};
-		}
-	}
-	];
+  {
+  _player = _this select 0;
+  if (captive _player) then
+    {
+    if ({((side _x== side_red) or (side _x== side_green)) and (_x knowsAbout player > 1.4)} count allUnits > 0) then
+      {
+      _player setCaptive false;
+      }
+    else
+      {
+      _ciudad = [ciudades,_player] call BIS_fnc_nearestPosition;
+      _size = [_ciudad] call sizeMarker;
+      _datos = server getVariable _ciudad;
+      if (random 100 < _datos select 2) then
+        {
+        if (_player distance getMarkerPos _ciudad < _size * 1.5) then
+          {
+          _player setCaptive false;
+          };
+        };
+      };
+    }
+  }
+  ];
 player addEventHandler ["WeaponAssembled",
-	{
-	private ["_veh"];
-	_veh = _this select 1;
-	if (_veh isKindOf "StaticWeapon") then
-		{
-		if (not(_veh in staticsToSave)) then
-			{
-			staticsToSave pushBack _veh;
-			publicVariable "staticsToSave";
-			[_veh] spawn VEHinit;
-			};
-		}
-	else
-		{
-		_veh addEventHandler ["Killed",{[_this select 0] remoteExec ["postmortem",2]}];
-		};
-	}];
+  {
+  private ["_veh"];
+  _veh = _this select 1;
+  if (_veh isKindOf "StaticWeapon") then
+    {
+    if (not(_veh in staticsToSave)) then
+      {
+      staticsToSave pushBack _veh;
+      publicVariable "staticsToSave";
+      [_veh] spawn VEHinit;
+      };
+    }
+  else
+    {
+    _veh addEventHandler ["Killed",{[_this select 0] remoteExec ["postmortem",2]}];
+    };
+  }];
 player addEventHandler ["WeaponDisassembled",
-		{
-		_bag1 = _this select 1;
-		_bag2 = _this select 2;
-		//_bag1 = objectParent (_this select 1);
-		//_bag2 = objectParent (_this select 2);
-		[_bag1] spawn VEHinit;
-		[_bag2] spawn VEHinit;
-		}
-	];
+    {
+    _bag1 = _this select 1;
+    _bag2 = _this select 2;
+    //_bag1 = objectParent (_this select 1);
+    //_bag2 = objectParent (_this select 2);
+    [_bag1] spawn VEHinit;
+    [_bag2] spawn VEHinit;
+    }
+  ];
 [0,true] remoteExec ["pBarMP",player];
 [true] execVM "reinitY.sqf";
 statistics= [] execVM "statistics.sqf";

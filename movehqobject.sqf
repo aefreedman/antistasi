@@ -19,9 +19,9 @@ player setVariable ["drop_HQ",nil];
 //removeAllActions _jugador;
 /*
 for "_i" from 0 to (_jugador addAction ["",""]) do
-	{
-	_jugador removeAction _i;
-	};
+  {
+  _jugador removeAction _i;
+  };
 */
 _cosa addAction ["Move this asset", "moveHQObject.sqf",nil,0,false,true,"","(_this == stavros)"];
 

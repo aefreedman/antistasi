@@ -26,9 +26,9 @@ _basesAAF = bases - mrkFIA;
 _bases = [];
 _base = "";
 {
-	_base = _x;
-	_posbase = getMarkerPos _base;
-	if ((_posicion distance _posbase < 7500) and (_posicion distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
+  _base = _x;
+  _posbase = getMarkerPos _base;
+  if ((_posicion distance _posbase < 7500) and (_posicion distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
 } forEach _basesAAF;
 if (count _bases > 0) then {_base = [_bases,_posicion] call BIS_fnc_nearestPosition;} else {_base = ""};
 
@@ -37,11 +37,11 @@ _posbase = getMarkerPos _base;
 _nombreOrig = [_base] call localizar;
 
 while {true} do {
-	sleep 0.1;
-	_poscrash = [_posicion,2000,random 360] call BIS_fnc_relPos;
-	_nfMarker = [_fMarkers,_poscrash] call BIS_fnc_nearestPosition;
-	_nhMarker = [_hMarkers,_poscrash] call BIS_fnc_nearestPosition;
-	if ((!surfaceIsWater _poscrash) && (_poscrash distance _posHQ < 4000) && (getMarkerPos _nfMarker distance _poscrash > 500) && (getMarkerPos _nhMarker distance _poscrash > 800)) exitWith {};
+  sleep 0.1;
+  _poscrash = [_posicion,2000,random 360] call BIS_fnc_relPos;
+  _nfMarker = [_fMarkers,_poscrash] call BIS_fnc_nearestPosition;
+  _nhMarker = [_hMarkers,_poscrash] call BIS_fnc_nearestPosition;
+  if ((!surfaceIsWater _poscrash) && (_poscrash distance _posHQ < 4000) && (getMarkerPos _nfMarker distance _poscrash > 500) && (getMarkerPos _nhMarker distance _poscrash > 800)) exitWith {};
 };
 
 _tipoVeh = "C_Van_01_transport_F";
@@ -100,11 +100,11 @@ sleep 30;
 _tam = 100;
 
 while {true} do
-	{
-	_roads = _posbase nearRoads _tam;
-	if (count _roads > 0) exitWith {};
-	_tam = _tam + 50;
-	};
+  {
+  _roads = _posbase nearRoads _tam;
+  if (count _roads > 0) exitWith {};
+  _tam = _tam + 50;
+  };
 
 _road = _roads select 0;
 
@@ -151,132 +151,132 @@ _mrkfin = createMarker [format ["REC%1", random 100], _poscrash];
 _mrkfin setMarkerShape "ICON";
 
 if ((not alive _sTruck) or (dateToNumber date > _fechalimnum)) then {
-	_tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-	[5,-5,_posicion] remoteExec ["citySupportChange",2];
-	[-10,stavros] call playerScoreAdd;
+  _tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+  [5,-5,_posicion] remoteExec ["citySupportChange",2];
+  [-10,stavros] call playerScoreAdd;
 }
 else {
-	_tsk = ["LOG",[side_blue,civilian],[format ["Secure the vehicle, load the cargo, and deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_poscrash,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
+  _tsk = ["LOG",[side_blue,civilian],[format ["Secure the vehicle, load the cargo, and deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_poscrash,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
-	_cuenta = 120;
-	_counter = 0;
+  _cuenta = 120;
+  _counter = 0;
 
-	_active = false;
+  _active = false;
 
-	{_amigo = _x;
-		if (captive _amigo) then {
-			[_amigo,false] remoteExec ["setCaptive",_amigo];
-		};
-		{
-			if ((side _x == side_green) and (_x distance _posCrash < distanciaSPWN)) then {
-			if (_x distance _posCrash < 300) then {_x doMove _posCrash} else {_x reveal [_amigo,4]};
-			};
-			if ((side _x == civilian) and (_x distance _posCrash < 300)) then {_x doMove position _sTruck};
-		} forEach allUnits;
-	} forEach ([300,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
+  {_amigo = _x;
+    if (captive _amigo) then {
+      [_amigo,false] remoteExec ["setCaptive",_amigo];
+    };
+    {
+      if ((side _x == side_green) and (_x distance _posCrash < distanciaSPWN)) then {
+      if (_x distance _posCrash < 300) then {_x doMove _posCrash} else {_x reveal [_amigo,4]};
+      };
+      if ((side _x == civilian) and (_x distance _posCrash < 300)) then {_x doMove position _sTruck};
+    } forEach allUnits;
+  } forEach ([300,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
 
 
-	while {(_counter < _cuenta) and (alive _sTruck) and (dateToNumber date < _fechalimnum)} do {
+  while {(_counter < _cuenta) and (alive _sTruck) and (dateToNumber date < _fechalimnum)} do {
 
-		while {(_counter < _cuenta) and (_sTruck distance _posCrash < 40) and (alive _sTruck) and !({_x getVariable ["inconsciente",false]} count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits) == count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits)) and ({(side _x == side_green) and (_x distance _sTruck < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum)} do {
+    while {(_counter < _cuenta) and (_sTruck distance _posCrash < 40) and (alive _sTruck) and !({_x getVariable ["inconsciente",false]} count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits) == count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits)) and ({(side _x == side_green) and (_x distance _sTruck < 50)} count allUnits == 0) and (dateToNumber date < _fechalimnum)} do {
 
-			if !(_active) then {
-				{if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
-				_active = true;
-				[[petros,"globalChat","Guard the truck!"],"commsMP"] call BIS_fnc_MP;
-			};
+      if !(_active) then {
+        {if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
+        _active = true;
+        [[petros,"globalChat","Guard the truck!"],"commsMP"] call BIS_fnc_MP;
+      };
 
-			_counter = _counter + 1;
-  			sleep 1;
+      _counter = _counter + 1;
+        sleep 1;
 
-			};
+      };
 
-		if (_counter < _cuenta) then {
-			_counter = 0;
-			_active = false;
-			{if (isPlayer _x) then {[0,true] remoteExec ["pBarMP",_x]}} forEach ([100,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
+    if (_counter < _cuenta) then {
+      _counter = 0;
+      _active = false;
+      {if (isPlayer _x) then {[0,true] remoteExec ["pBarMP",_x]}} forEach ([100,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
 
-			if (((_sTruck distance _posCrash > 40) or (not([80,1,_sTruck,"BLUFORSpawn"] call distanceUnits)) or ({(side _x == side_green) and (_x distance _sTruck < 50)} count allUnits != 0)) and (alive _sTruck)) then {[[petros,"hint","Hold this position and keep the truck near the supplies while they are being loaded."],"commsMP"] call BIS_fnc_MP};
-			waitUntil {sleep 1; (!alive _sTruck) or ((_sTruck distance _posCrash < 40) and ([80,1,_sTruck,"BLUFORSpawn"] call distanceUnits) and ({(side _x == side_green) and (_x distance _sTruck < 50)} count allUnits == 0)) or (dateToNumber date > _fechalimnum)};
-		};
-		if ((alive _sTruck) and !(_counter < _cuenta)) exitWith {
-			_formato = format ["Good to go. Deliver these supplies to %1 on the double.",_nombredest];
-			{if (isPlayer _x) then {[petros,"hint",_formato] remoteExec ["commsMP",_x]}} forEach ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
-			_crate1 attachTo [_sTruck,[0.3,-1.0,-0.4]];
-			_crate2 attachTo [_sTruck,[-0.3,-1.0,-0.4]];
-			_crate3 attachTo [_sTruck,[0,-1.6,-0.4]];
-			_crate4 attachTo [_sTruck,[0,-2.0,-0.4]];
-		};
-	};
-	_mrkTarget = createMarker [format ["REC%1", random 100], _posicion];
-	_mrkTarget setMarkerShape "ICON";
-	_active = false;
+      if (((_sTruck distance _posCrash > 40) or (not([80,1,_sTruck,"BLUFORSpawn"] call distanceUnits)) or ({(side _x == side_green) and (_x distance _sTruck < 50)} count allUnits != 0)) and (alive _sTruck)) then {[[petros,"hint","Hold this position and keep the truck near the supplies while they are being loaded."],"commsMP"] call BIS_fnc_MP};
+      waitUntil {sleep 1; (!alive _sTruck) or ((_sTruck distance _posCrash < 40) and ([80,1,_sTruck,"BLUFORSpawn"] call distanceUnits) and ({(side _x == side_green) and (_x distance _sTruck < 50)} count allUnits == 0)) or (dateToNumber date > _fechalimnum)};
+    };
+    if ((alive _sTruck) and !(_counter < _cuenta)) exitWith {
+      _formato = format ["Good to go. Deliver these supplies to %1 on the double.",_nombredest];
+      {if (isPlayer _x) then {[petros,"hint",_formato] remoteExec ["commsMP",_x]}} forEach ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
+      _crate1 attachTo [_sTruck,[0.3,-1.0,-0.4]];
+      _crate2 attachTo [_sTruck,[-0.3,-1.0,-0.4]];
+      _crate3 attachTo [_sTruck,[0,-1.6,-0.4]];
+      _crate4 attachTo [_sTruck,[0,-2.0,-0.4]];
+    };
+  };
+  _mrkTarget = createMarker [format ["REC%1", random 100], _posicion];
+  _mrkTarget setMarkerShape "ICON";
+  _active = false;
 
-	_tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkTarget],_posicion,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
+  _tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkTarget],_posicion,"AUTOASSIGNED",5,true,true,"Heal"] call BIS_fnc_setTask;
 
-	waitUntil {sleep 1; (not alive _sTruck) or (dateToNumber date > _fechalimnum) or (_sTruck distance _posicion < 40)};
+  waitUntil {sleep 1; (not alive _sTruck) or (dateToNumber date > _fechalimnum) or (_sTruck distance _posicion < 40)};
 
-	if ((alive _sTruck) and (dateToNumber date < _fechalimnum)) then {
-		_sTruck setFuel 0;
-		_counter = 0;
-		_cuenta = 10;
-		while {(_counter < _cuenta) and (alive _sTruck) and !({_x getVariable ["inconsciente",false]} count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits) == count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits)) and (dateToNumber date < _fechalimnum)} do {
+  if ((alive _sTruck) and (dateToNumber date < _fechalimnum)) then {
+    _sTruck setFuel 0;
+    _counter = 0;
+    _cuenta = 10;
+    while {(_counter < _cuenta) and (alive _sTruck) and !({_x getVariable ["inconsciente",false]} count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits) == count ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits)) and (dateToNumber date < _fechalimnum)} do {
 
-			if !(_active) then {
-				{if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
-				_active = true;
-				[[petros,"globalChat","Leave the vehicle here, they'll come pick it up."],"commsMP"] call BIS_fnc_MP;
-			};
+      if !(_active) then {
+        {if (isPlayer _x) then {[(_cuenta - _counter),false] remoteExec ["pBarMP",_x]}} forEach ([80,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
+        _active = true;
+        [[petros,"globalChat","Leave the vehicle here, they'll come pick it up."],"commsMP"] call BIS_fnc_MP;
+      };
 
-			_counter = _counter + 1;
-  			sleep 1;
+      _counter = _counter + 1;
+        sleep 1;
 
-			};
-			{
-				_x action ["eject", _sTruck];
-			} forEach (crew (_sTruck));
-			sleep 1;
-			_sTruck lock 2;
-			{if (isPlayer _x) then {[_sTruck,true] remoteExec ["fnc_lockVehicle",_x];}} forEach ([100,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
+      };
+      {
+        _x action ["eject", _sTruck];
+      } forEach (crew (_sTruck));
+      sleep 1;
+      _sTruck lock 2;
+      {if (isPlayer _x) then {[_sTruck,true] remoteExec ["fnc_lockVehicle",_x];}} forEach ([100,0,_sTruck,"BLUFORSpawn"] call distanceUnits);
 
-			if (alive _sTruck) then {
-				[[petros,"hint","Supplies Delivered"],"commsMP"] call BIS_fnc_MP;
-				_tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
-				[0,15,_marcador] remoteExec ["citySupportChange",2];
-				[5,0] remoteExec ["prestige",2];
-				{if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
-				[5,stavros] call playerScoreAdd;
+      if (alive _sTruck) then {
+        [[petros,"hint","Supplies Delivered"],"commsMP"] call BIS_fnc_MP;
+        _tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
+        [0,15,_marcador] remoteExec ["citySupportChange",2];
+        [5,0] remoteExec ["prestige",2];
+        {if (_x distance _posicion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+        [5,stavros] call playerScoreAdd;
 
-				if (random 10 < 5) then {
-					if (random 10 < 5) then {
-						for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
-							_cosa = minasAAF call BIS_Fnc_selectRandom;
-							_num = 1 + (floor random 5);
-							if (not(_cosa in unlockedMagazines)) then {cajaVeh addMagazineCargoGlobal [_cosa, _num]};
-						};
-					}
-					else {
-						for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
-							_cosa = genOptics call BIS_Fnc_selectRandom;
-							_num = 1 + (floor random 5);
-							if (not(_cosa in unlockedItems)) then {cajaVeh addItemCargoGlobal [_cosa, _num]};
-						};
-					};
-					[[petros,"globalChat","Someone dropped off a crate near HQ while you were gone. Check the vehicle ammo box."],"commsMP"] call BIS_fnc_MP;
-				};
+        if (random 10 < 5) then {
+          if (random 10 < 5) then {
+            for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
+              _cosa = minasAAF call BIS_Fnc_selectRandom;
+              _num = 1 + (floor random 5);
+              if (not(_cosa in unlockedMagazines)) then {cajaVeh addMagazineCargoGlobal [_cosa, _num]};
+            };
+          }
+          else {
+            for [{_i=1},{_i<=(1 + round random 2)},{_i=_i+1}] do {
+              _cosa = genOptics call BIS_Fnc_selectRandom;
+              _num = 1 + (floor random 5);
+              if (not(_cosa in unlockedItems)) then {cajaVeh addItemCargoGlobal [_cosa, _num]};
+            };
+          };
+          [[petros,"globalChat","Someone dropped off a crate near HQ while you were gone. Check the vehicle ammo box."],"commsMP"] call BIS_fnc_MP;
+        };
 
-			}
-			else {
-				_tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-				[5,-5,_posicion] remoteExec ["citySupportChange",2];
-				[-10,stavros] call playerScoreAdd;
-			};
-	}
-	else {
-			_tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
-			[5,-5,_posicion] remoteExec ["citySupportChange",2];
-			[-10,stavros] call playerScoreAdd;
-	};
+      }
+      else {
+        _tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+        [5,-5,_posicion] remoteExec ["citySupportChange",2];
+        [-10,stavros] call playerScoreAdd;
+      };
+  }
+  else {
+      _tsk = ["LOG",[side_blue,civilian],[format ["We've had word from our informant that a sympathetic cell has sent supplies to %1. They ran into an AAF patrol and had to abandon the truck. Find and secure the vehicle, then deliver the supplies to the people in %1 before %2:%3. AAF command has probably dispatched a patrol from %4 to retrieve the goods, so you better hurry. Note: no cargo left behind!",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4, _nombreOrig],"Supply Recovery",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
+      [5,-5,_posicion] remoteExec ["citySupportChange",2];
+      [-10,stavros] call playerScoreAdd;
+  };
 };
 
 _crate1 enableSimulation false;

@@ -9,16 +9,16 @@ _buildings = _posicion nearobjects ["house",_size];
 
 {
 if (random 100 < 70) then
-	{
-	for "_i" from 1 to 7 do
-		{
-		_x sethit [format ["dam%1",_i],1];
-		_x sethit [format ["dam %1",_i],1];
-		};
-	}
+  {
+  for "_i" from 1 to 7 do
+    {
+    _x sethit [format ["dam%1",_i],1];
+    _x sethit [format ["dam %1",_i],1];
+    };
+  }
 else
-	{
-	_x setDamage 1;
-	};
+  {
+  _x setDamage 1;
+  };
 } forEach _buildings;
 

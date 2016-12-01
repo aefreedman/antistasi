@@ -16,11 +16,11 @@ _bldgs = nearestObjects [_position, ["house"], _range];
 _posbldg = [];
 _bldg = _bldgs select 0;
 while {count _posbldg < 3} do
-	{
-	_bldg = _bldgs call BIS_Fnc_selectRandom;
-	_posbldg = [_bldg] call BIS_fnc_buildingPositions;
-	if (count _posbldg < 3) then {_bldgs = _bldgs - [_bldg]};
-	};
+  {
+  _bldg = _bldgs call BIS_Fnc_selectRandom;
+  _posbldg = [_bldg] call BIS_fnc_buildingPositions;
+  if (count _posbldg < 3) then {_bldgs = _bldgs - [_bldg]};
+  };
 
 _posDealer = selectRandom _posbldg;
 _nombredest = [_site] call localizar;
@@ -45,23 +45,23 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || (not alive _dealer) ||
 
 _acc = false;
 while {({(side _x == side_blue) && (_x distance _dealer < 500)} count allPlayers < 1) && ({(side _x isEqualTo civilian) && (_x distance _dealer < 500)} count allPlayers > 0) && (dateToNumber date < _fechalimnum)} do {
-	if ({(side _x isEqualTo civilian) && (_x distance _dealer < 2)} count allPlayers > 0) then {
-		_acc = true;
-		_mrkDealer = createMarker [format ["Nomad%1", random 100], _posDealer];
-		_mrkDealer setMarkerShape "ICON";
-	};
+  if ({(side _x isEqualTo civilian) && (_x distance _dealer < 2)} count allPlayers > 0) then {
+    _acc = true;
+    _mrkDealer = createMarker [format ["Nomad%1", random 100], _posDealer];
+    _mrkDealer setMarkerShape "ICON";
+  };
 
-	if (({(side _x isEqualTo civilian) && (_x distance _dealer < 200)} count allPlayers < 1) && (_acc)) exitWith {};
+  if (({(side _x isEqualTo civilian) && (_x distance _dealer < 200)} count allPlayers < 1) && (_acc)) exitWith {};
 };
 
 
 diag_log format ["left the loop, acc:%1", _acc];
 
 if ((_acc) && ({(side _x isEqualTo civilian) && (_x distance _dealer < 200)} count allPlayers < 1)) then {
-	_tsk = ["FND",[side_blue,civilian],[format ["A former associate of Petros' is trying to leave Altis. His departure is scheduled for %2:%3. If you manage to get to him in time, you might be able to convince him to stay and support our case. Unfortunatly, we are unaware of his current location, but he was spotted near %1. Most likely, he'll have taken shelter in a building...",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the Veteran",_site],_posDealer,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
+  _tsk = ["FND",[side_blue,civilian],[format ["A former associate of Petros' is trying to leave Altis. His departure is scheduled for %2:%3. If you manage to get to him in time, you might be able to convince him to stay and support our case. Unfortunatly, we are unaware of his current location, but he was spotted near %1. Most likely, he'll have taken shelter in a building...",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the Veteran",_site],_posDealer,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
 }
 else {
-	_tsk = ["FND",[side_blue,civilian],[format ["A former associate of Petros' is trying to leave Altis. His departure is scheduled for %2:%3. If you manage to get to him in time, you might be able to convince him to stay and support our case. Unfortunatly, we are unaware of his current location, but he was spotted near %1. Most likely, he'll have taken shelter in a building...",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the Veteran",_site],_posDealer,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
+  _tsk = ["FND",[side_blue,civilian],[format ["A former associate of Petros' is trying to leave Altis. His departure is scheduled for %2:%3. If you manage to get to him in time, you might be able to convince him to stay and support our case. Unfortunatly, we are unaware of his current location, but he was spotted near %1. Most likely, he'll have taken shelter in a building...",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the Veteran",_site],_posDealer,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
 };
 
 

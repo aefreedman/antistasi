@@ -9,21 +9,21 @@ _variable = _this select 3;//"OPFORSpawn" o "BLUFORSpawn" según queramos ver un
 _result = false;
 
 if (_modo == 0) then
-	{
-	_result = [];
-	{
-	if (_x getVariable [_variable,false]) then
-		{
-		if (_x distance _referencia < _distancia) then
-			{
-			_result pushBack _x;
-			};
-		};
-	} forEach allUnits;
-	}
+  {
+  _result = [];
+  {
+  if (_x getVariable [_variable,false]) then
+    {
+    if (_x distance _referencia < _distancia) then
+      {
+      _result pushBack _x;
+      };
+    };
+  } forEach allUnits;
+  }
 else
-	{
-	{if ((_x getvariable [_variable,false]) and (_x distance _referencia < _distancia)) exitWith {_result = true}} count allUnits;
-	};
+  {
+  {if ((_x getvariable [_variable,false]) and (_x distance _referencia < _distancia)) exitWith {_result = true}} count allUnits;
+  };
 
 _result

@@ -5,7 +5,7 @@ _oldUnit = stavros;
 
 if (!isNil "_grupos") then {
   {
-  	_oldUnit hcRemoveGroup _x;
+    _oldUnit hcRemoveGroup _x;
   } forEach _grupos;
 };
 
@@ -19,28 +19,28 @@ stavros synchronizeObjectsAdd [HC_comandante];
 HC_comandante synchronizeObjectsAdd [stavros];
 //apoyo synchronizeObjectsAdd [stavros];
 if (!isNil "_grupos") then {
-  	{_unit hcSetGroup [_x]} forEach _grupos;
+    {_unit hcSetGroup [_x]} forEach _grupos;
 }
 else {
-	{
-		if (_x getVariable ["isHCgroup",false]) then {
-			_unit hcSetGroup [_x];
-		};
-		/*
-	if (_x getVariable ["esNATO",false]) then
-		{
-		diag_log format ["NATO group: %1", _x];
-		_unit hcSetGroup [_x];
-		};
-	if ((leader _x getVariable ["BLUFORSpawn",false]) and (!isPlayer leader _x)) then
-		{
-		_unit hcSetGroup [_x];
-		diag_log format ["BLUFOR group: %1", _x];
-		};
-		*/
-	} forEach allGroups;
+  {
+    if (_x getVariable ["isHCgroup",false]) then {
+      _unit hcSetGroup [_x];
+    };
+    /*
+  if (_x getVariable ["esNATO",false]) then
+    {
+    diag_log format ["NATO group: %1", _x];
+    _unit hcSetGroup [_x];
+    };
+  if ((leader _x getVariable ["BLUFORSpawn",false]) and (!isPlayer leader _x)) then
+    {
+    _unit hcSetGroup [_x];
+    diag_log format ["BLUFOR group: %1", _x];
+    };
+    */
+  } forEach allGroups;
 };
 
 if (isNull _oldUnit) then {
-	[_oldUnit,[group _oldUnit]] remoteExec ["hcSetGroup",_oldUnit];
+  [_oldUnit,[group _oldUnit]] remoteExec ["hcSetGroup",_oldUnit];
 };

@@ -26,28 +26,28 @@ _coste = 0;
 _hr = 0;
 
 if (_tipo != "delete") then
-	{
-	_escarretera = isOnRoad _posicionTel;
+  {
+  _escarretera = isOnRoad _posicionTel;
 
-	_tipogrupo = "IRG_SniperTeam_M";
+  _tipogrupo = "IRG_SniperTeam_M";
 
-	if (_escarretera) then
-		{
-		_tipogrupo = "IRG_InfTeam_AT";
-		_coste = _coste + (["B_G_Offroad_01_armed_F"] call vehiclePrice) + (server getVariable "B_G_Soldier_F");
-		_hr = _hr + 1;
-		};
+  if (_escarretera) then
+    {
+    _tipogrupo = "IRG_InfTeam_AT";
+    _coste = _coste + (["B_G_Offroad_01_armed_F"] call vehiclePrice) + (server getVariable "B_G_Soldier_F");
+    _hr = _hr + 1;
+    };
 
-	_formato = (configfile >> "CfgGroups" >> "West" >> "Guerilla" >> "Infantry" >> _tipogrupo);
-	_unidades = [_formato] call groupComposition;
-	{_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _unidades;
-	}
+  _formato = (configfile >> "CfgGroups" >> "West" >> "Guerilla" >> "Infantry" >> _tipogrupo);
+  _unidades = [_formato] call groupComposition;
+  {_coste = _coste + (server getVariable _x); _hr = _hr +1} forEach _unidades;
+  }
 else
-	{
-	_mrk = [puestosFIA,_posicionTel] call BIS_fnc_nearestPosition;
-	_pos = getMarkerPos _mrk;
-	if (_posicionTel distance _pos >10) exitWith {hint "No post nearby"};
-	};
+  {
+  _mrk = [puestosFIA,_posicionTel] call BIS_fnc_nearestPosition;
+  _pos = getMarkerPos _mrk;
+  if (_posicionTel distance _pos >10) exitWith {hint "No post nearby"};
+  };
 //if ((_tipo == "delete") and (_posicionTel distance _pos >10)) exitWith {hint "No post nearby"};
 
 _resourcesFIA = server getVariable "resourcesFIA";
@@ -56,8 +56,8 @@ _hrFIA = server getVariable "hr";
 if (((_resourcesFIA < _coste) or (_hrFIA < _hr)) and (_tipo!= "delete")) exitWith {hint format ["You lack of resources to build this Outpost or Roadblock \n %1 HR and %2 € needed",_hr,_coste]};
 
 if (_tipo != "delete") then
-	{
-	[-_hr,-_coste] remoteExec ["resourcesFIA",2];
-	};
+  {
+  [-_hr,-_coste] remoteExec ["resourcesFIA",2];
+  };
 
  [[_tipo,_posicionTel],"crearPuestosFIA"] call BIS_fnc_MP

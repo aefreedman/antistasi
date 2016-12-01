@@ -53,18 +53,18 @@ _grupos = _grupos + [_grupo];
 waitUntil {sleep 1; (not (spawner getVariable _marcador))  or ({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados)};
 
 if (({alive _x} count _soldados == 0) or ({fleeing _x} count _soldados == {alive _x} count _soldados)) then
-	{
-	_nul = [-5,0,_posicion] remoteExec ["citySupportChange",2];
-	[["TaskSucceeded", ["", "Outpost Cleansed"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
-	_mrk = format ["Dum%1",_marcador];
-	deleteMarker _mrk;
-	mrkAAF = mrkAAF - [_marcador];
-	mrkFIA = mrkFIA + [_marcador];
-	publicVariable "mrkAAF";
-	publicVariable "mrkFIA";
-	//[_marcador] spawn patrolCA;
-	[_posicion] remoteExec ["patrolCA",HCattack];
-	};
+  {
+  _nul = [-5,0,_posicion] remoteExec ["citySupportChange",2];
+  [["TaskSucceeded", ["", "Outpost Cleansed"]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
+  _mrk = format ["Dum%1",_marcador];
+  deleteMarker _mrk;
+  mrkAAF = mrkAAF - [_marcador];
+  mrkFIA = mrkFIA + [_marcador];
+  publicVariable "mrkAAF";
+  publicVariable "mrkFIA";
+  //[_marcador] spawn patrolCA;
+  [_posicion] remoteExec ["patrolCA",HCattack];
+  };
 
 waitUntil {sleep 1; not (spawner getVariable _marcador)};
 

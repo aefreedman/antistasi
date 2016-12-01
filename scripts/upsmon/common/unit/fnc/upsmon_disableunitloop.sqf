@@ -1,7 +1,7 @@
 /****************************************************************
 
 ****************************************************************/
-private["_unit"];	
+private["_unit"]; 
 
 _unit = _this select 0;
 
@@ -9,10 +9,10 @@ waituntil {IsNull _unit || !alive _unit || !IsNull ((group _unit) getvariable ["
 
 if (!IsNull _unit) then
 {
-	If (alive _unit) then
-	{
-		_unit switchmove "";
-		_unit enableAI "MOVE";
-		_unit setvariable ["UPSMON_Civdisable",false];		
-	};
+  If (alive _unit) then
+  {
+    _unit switchmove "";
+    _unit enableAI "MOVE";
+    _unit setvariable ["UPSMON_Civdisable",false];    
+  };
 };

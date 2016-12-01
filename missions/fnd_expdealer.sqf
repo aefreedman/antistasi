@@ -15,28 +15,28 @@ _break = false;
 _maxRoads = count (_roads);
 
 while {!(_break) && (count _roads > 0)} do {
-	_roads = _roads call BIS_fnc_arrayShuffle;
-	_p1 = "";
-	_posCmp = "";
-	_index = 1;
+  _roads = _roads call BIS_fnc_arrayShuffle;
+  _p1 = "";
+  _posCmp = "";
+  _index = 1;
 
-	for [{_i=0},{_i<=count _roads},{_i=_i+1}] do {
-		if (((_roads select _i) distance _posSite >150) && ((_roads select _i) distance _posSite <300)) exitWith {_p1 = (_roads select _i); _index = _i;};
-	};
+  for [{_i=0},{_i<=count _roads},{_i=_i+1}] do {
+    if (((_roads select _i) distance _posSite >150) && ((_roads select _i) distance _posSite <300)) exitWith {_p1 = (_roads select _i); _index = _i;};
+  };
 
-	if (typeName _p1 != "ARRAY") exitWith {diag_log "no road found"};
-	_road = (_p1 nearRoads 5) select 0;
-	if (!isNil "_road") then {
-		_roadcon = roadsConnectedto (_road);
-		_p2 = getPos (_roadcon select 0);
-		_dirveh = [_p1,_p2] call BIS_fnc_DirTo;
-		_posCmp = [_p1, 8, _dirveh + 90] call BIS_Fnc_relPos;
-		if (count (nearestObjects [_posCmp, [], 6]) < 1) exitWith {
-			_break = true;
-		};
-		_roads set [_index,-1];
-		_roads = _roads - [-1];
-	};
+  if (typeName _p1 != "ARRAY") exitWith {diag_log "no road found"};
+  _road = (_p1 nearRoads 5) select 0;
+  if (!isNil "_road") then {
+    _roadcon = roadsConnectedto (_road);
+    _p2 = getPos (_roadcon select 0);
+    _dirveh = [_p1,_p2] call BIS_fnc_DirTo;
+    _posCmp = [_p1, 8, _dirveh + 90] call BIS_Fnc_relPos;
+    if (count (nearestObjects [_posCmp, [], 6]) < 1) exitWith {
+      _break = true;
+    };
+    _roads set [_index,-1];
+    _roads = _roads - [-1];
+  };
 };
 
 if !(_break) exitWith {[[petros,"globalChat","Sorry, I wasn't paying attention. What was it you requested of me?"],"commsMP"] call BIS_fnc_MP;};
@@ -61,9 +61,9 @@ _devin setunitpos "up";
 0 = [_posCmp, ([_posCmp,_p1] call BIS_fnc_DirTo), call (compile (preprocessFileLineNumbers "Compositions\cmpExp.sqf"))] call BIS_fnc_ObjectsMapper;
 
 {
-	if (str typeof _x find "Land_PlasticCase_01_medium_F" > -1) then {expCrate = _x; _nul = [expCrate] call emptyCrate;};
-	if (str typeof _x find "Box_Syndicate_Wps_F" > -1) then { _nul = [_x] call emptyCrate;};
-	if (str typeof _x find "Box_IED_Exp_F" > -1) then { _nul = [_x] call emptyCrate;};
+  if (str typeof _x find "Land_PlasticCase_01_medium_F" > -1) then {expCrate = _x; _nul = [expCrate] call emptyCrate;};
+  if (str typeof _x find "Box_Syndicate_Wps_F" > -1) then { _nul = [_x] call emptyCrate;};
+  if (str typeof _x find "Box_IED_Exp_F" > -1) then { _nul = [_x] call emptyCrate;};
 } forEach nearestObjects [_posCmp, [], 10];
 
 _tsk = ["FND_E",[side_blue,civilian],[format ["Demolitions expert Devin Connell has been spotted near %1. He's scheduled for a flight to Metavira or Arulco at %2:%3, so you better hurry up if you wish to acquire some of his fine products.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the crazy Irishman",_site],_posCmp,"CREATED",5,true,true,"Find"] call BIS_fnc_setTask;
@@ -72,57 +72,57 @@ misiones pushBack _tsk; publicVariable "misiones";
 // QRF, ground-based
 _qrf = false;
 if (random 8 < 1) then {
-	_qrf = true;
-	_basesAAF = bases - mrkFIA;
-	_bases = [];
-	_base = "";
-	{
-		_base = _x;
-		_posbase = getMarkerPos _base;
-		if ((_posCmp distance _posbase < 7500) and (_posCmp distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
-	} forEach _basesAAF;
-	if (count _bases > 0) then {_base = [_bases,_posCmp] call BIS_fnc_nearestPosition;} else {_base = ""};
+  _qrf = true;
+  _basesAAF = bases - mrkFIA;
+  _bases = [];
+  _base = "";
+  {
+    _base = _x;
+    _posbase = getMarkerPos _base;
+    if ((_posCmp distance _posbase < 7500) and (_posCmp distance _posbase > 1500) and (not (spawner getVariable _base))) then {_bases = _bases + [_base]}
+  } forEach _basesAAF;
+  if (count _bases > 0) then {_base = [_bases,_posCmp] call BIS_fnc_nearestPosition;} else {_base = ""};
 
-	_posbase = getMarkerPos _base;
+  _posbase = getMarkerPos _base;
 
-	_tam = 100;
+  _tam = 100;
 
-	while {true} do
-		{
-		_roads = _posbase nearRoads _tam;
-		if (count _roads > 0) exitWith {};
-		_tam = _tam + 50;
-		};
+  while {true} do
+    {
+    _roads = _posbase nearRoads _tam;
+    if (count _roads > 0) exitWith {};
+    _tam = _tam + 50;
+    };
 
-	_road = _roads select 0;
+  _road = _roads select 0;
 
-	_vehicle= [position _road, 0,selectRandom vehTrucks, side_green] call bis_fnc_spawnvehicle;
-	_veh = _vehicle select 0;
-	[_veh] spawn genVEHinit;
-	[_veh,"AAF Escort"] spawn inmuneConvoy;
-	_vehCrew = _vehicle select 1;
-	{[_x] spawn genInit} forEach _vehCrew;
-	_grupoVeh = _vehicle select 2;
-	_soldados = _soldados + _vehCrew;
-	_grupos = _grupos + [_grupoVeh];
-	_vehiculos = _vehiculos + [_veh];
+  _vehicle= [position _road, 0,selectRandom vehTrucks, side_green] call bis_fnc_spawnvehicle;
+  _veh = _vehicle select 0;
+  [_veh] spawn genVEHinit;
+  [_veh,"AAF Escort"] spawn inmuneConvoy;
+  _vehCrew = _vehicle select 1;
+  {[_x] spawn genInit} forEach _vehCrew;
+  _grupoVeh = _vehicle select 2;
+  _soldados = _soldados + _vehCrew;
+  _grupos = _grupos + [_grupoVeh];
+  _vehiculos = _vehiculos + [_veh];
 
-	sleep 1;
+  sleep 1;
 
-	_tipogrupo = infSquad call BIS_fnc_selectRandom;
-	_grupo = [_posbase, side_green, (cfgInf >> _tipogrupo)] call BIS_Fnc_spawnGroup;
+  _tipogrupo = infSquad call BIS_fnc_selectRandom;
+  _grupo = [_posbase, side_green, (cfgInf >> _tipogrupo)] call BIS_Fnc_spawnGroup;
 
-	{_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
-	_grupos = _grupos + [_grupo];
+  {_x assignAsCargo _veh; _x moveInCargo _veh; _soldados = _soldados + [_x]; [_x] spawn genInit} forEach units _grupo;
+  _grupos = _grupos + [_grupo];
 
-	[_veh] spawn smokeCover;
+  [_veh] spawn smokeCover;
 
-	_Vwp0 = _grupoVeh addWaypoint [_posCmp, 0];
-	_Vwp0 setWaypointType "TR UNLOAD";
-	_Vwp0 setWaypointBehaviour "SAFE";
-	_Gwp0 = _grupo addWaypoint [_posCmp, 0];
-	_Gwp0 setWaypointType "GETOUT";
-	_Vwp0 synchronizeWaypoint [_Gwp0];
+  _Vwp0 = _grupoVeh addWaypoint [_posCmp, 0];
+  _Vwp0 setWaypointType "TR UNLOAD";
+  _Vwp0 setWaypointBehaviour "SAFE";
+  _Gwp0 = _grupo addWaypoint [_posCmp, 0];
+  _Gwp0 setWaypointType "GETOUT";
+  _Vwp0 synchronizeWaypoint [_Gwp0];
 };
 // END QRF
 
@@ -133,30 +133,30 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || (not alive _devin) || 
 // QRF, air-based
 //if (!(_qrf) && (random 8 < 1)) then {
 if !(_qrf) then {
-	["spawnCSAT", _posCmp, _site, 15, "transport", "small"] remoteExec ["enemyQRF",HCattack];
+  ["spawnCSAT", _posCmp, _site, 15, "transport", "small"] remoteExec ["enemyQRF",HCattack];
 };
 // END QRF
 waitUntil {sleep 1; (dateToNumber date > _fechalimnum) || (not alive _devin) || ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance _devin < 10)} count allPlayers > 0)};
 
 if ({((side _x isEqualTo side_blue) || (side _x isEqualTo civilian)) && (_x distance _devin < 10)} count allPlayers > 0) then {
-	_tsk = ["FND_E",[side_blue,civilian],[format ["Demolitions expert Devin Connell has been spotted near %1. He's scheduled for a flight to Metavira or Arulco at %2:%3, so you better hurry up if you wish to acquire some of his fine products.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the crazy Irishman",_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
-	[[_devin,"buy_exp"],"flagaction"] call BIS_fnc_MP;
-	_mrkDev = createMarker ["Devin", _posCmp];
-	_mrkDev setMarkerShape "ICON";
-	_mrkDev setMarkerType "flag_Croatia";
-	_mrk = createMarker ["DevPat", _posCmp];
-	_mrk setMarkerSize [100,100];
+  _tsk = ["FND_E",[side_blue,civilian],[format ["Demolitions expert Devin Connell has been spotted near %1. He's scheduled for a flight to Metavira or Arulco at %2:%3, so you better hurry up if you wish to acquire some of his fine products.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the crazy Irishman",_site],_posCmp,"SUCCEEDED",5,true,true,"Find"] call BIS_fnc_setTask;
+  [[_devin,"buy_exp"],"flagaction"] call BIS_fnc_MP;
+  _mrkDev = createMarker ["Devin", _posCmp];
+  _mrkDev setMarkerShape "ICON";
+  _mrkDev setMarkerType "flag_Croatia";
+  _mrk = createMarker ["DevPat", _posCmp];
+  _mrk setMarkerSize [100,100];
     _mrk setMarkerShape "RECTANGLE";
     _mrk setMarkerBrush "SOLID";
     _mrk setMarkerColor "ColorUNKNOWN";
     _mrk setMarkerText "Devin";
     _mrk setMarkerAlpha 0;
     _devin allowDamage true;
-	line1 = ["Devin", "Top of the day to ya. Haven't made yer acquaintance."];
+  line1 = ["Devin", "Top of the day to ya. Haven't made yer acquaintance."];
     [[line1],"DIRECT",0.15] execVM "createConv.sqf";
 }
 else {
-	_tsk = ["FND_E",[side_blue,civilian],[format ["Demolitions expert Devin Connell has been spotted near %1. He's scheduled for a flight to Metavira or Arulco at %2:%3, so you better hurry up if you wish to acquire some of his fine products.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the crazy Irishman",_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
+  _tsk = ["FND_E",[side_blue,civilian],[format ["Demolitions expert Devin Connell has been spotted near %1. He's scheduled for a flight to Metavira or Arulco at %2:%3, so you better hurry up if you wish to acquire some of his fine products.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Find the crazy Irishman",_site],_posCmp,"FAILED",5,true,true,"Find"] call BIS_fnc_setTask;
 };
 
 waitUntil {sleep 10; (dateToNumber date > _fechalimnum) || !(alive _devin)};
@@ -164,13 +164,13 @@ waitUntil {sleep 10; (dateToNumber date > _fechalimnum) || !(alive _devin)};
 diag_log format ["Devin's alive? %1", (alive _devin)];
 
 if (alive _devin) then {
-	_devin enableAI "ANIM";
-	_devin enableAI "MOVE";
-	_devin stop false;
-	_devin doMove getMarkerPos "resource_7";
+  _devin enableAI "ANIM";
+  _devin enableAI "MOVE";
+  _devin stop false;
+  _devin doMove getMarkerPos "resource_7";
 }
 else {
-	[[_devin,"remove"],"flagaction"] call BIS_fnc_MP;
+  [[_devin,"remove"],"flagaction"] call BIS_fnc_MP;
 };
 
 server setVariable ["expActive", false, true];

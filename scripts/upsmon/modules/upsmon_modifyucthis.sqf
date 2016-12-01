@@ -6,12 +6,12 @@ _grp = group _npc;
 
 If (!IsNull _npc && alive _npc && _grp in UPSMON_NPCs) then
 {
-	_grp setvariable ["UPSMON_Removegroup",true];
+  _grp setvariable ["UPSMON_Removegroup",true];
 
-	waituntil {!alive _npc || !(_grp in UPSMON_NPCs)};
+  waituntil {!alive _npc || !(_grp in UPSMON_NPCs)};
 
-	If (alive _npc) then
-	{
-		_this execvm "Scripts\UPSMON.sqf";
-	};
+  If (alive _npc) then
+  {
+    _this execvm "Scripts\UPSMON.sqf";
+  };
  };

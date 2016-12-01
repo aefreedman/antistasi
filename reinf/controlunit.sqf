@@ -22,9 +22,9 @@ if (_owner!=player) exitWith {hint "You cannot control AI while you are controll
 
 {
 if (_x != vehicle _x) then
-	{
-	[_x] orderGetIn true;
-	};
+  {
+  [_x] orderGetIn true;
+  };
 } forEach units group player;
 
 _unit setVariable ["owner",player,true];

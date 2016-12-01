@@ -14,28 +14,28 @@ _prestigeOPFOR = _datos select 2;
 _prestigeBLUFOR = _datos select 3;
 
 if (_prestigeOPFOR + _prestigeBLUFOR > 100) then {
-	_prestigeOPFOR = round (_prestigeOPFOR / 2);
-	_prestigeBLUFOR = round (_prestigeBLUFOR / 2);
+  _prestigeOPFOR = round (_prestigeOPFOR / 2);
+  _prestigeBLUFOR = round (_prestigeBLUFOR / 2);
 };
 
 if ((_blufor > 0) && ((_prestigeBLUFOR > 90) || (_prestigeBLUFOR + _prestigeOPFOR > 90))) then {
-	_blufor = 0;
-	_opfor = _opfor - 5;
+  _blufor = 0;
+  _opfor = _opfor - 5;
 }
 else {
-	if ((_opfor > 0) && ((_prestigeOPFOR > 90) || (_prestigeBLUFOR + _prestigeOPFOR > 90))) then {
-	_opfor = 0;
-	_blufor = _blufor - 5;
-	};
+  if ((_opfor > 0) && ((_prestigeOPFOR > 90) || (_prestigeBLUFOR + _prestigeOPFOR > 90))) then {
+  _opfor = 0;
+  _blufor = _blufor - 5;
+  };
 };
 
 if (_prestigeOPFOR + _prestigeBLUFOR + _opfor > 100) then {
-	_opfor = 100 - (_prestigeOPFOR + _prestigeBLUFOR);
+  _opfor = 100 - (_prestigeOPFOR + _prestigeBLUFOR);
 };
 _prestigeOPFOR = _prestigeOPFOR + _opfor;
 
 if (_prestigeOPFOR + _prestigeBLUFOR + _blufor > 100) then {
-	_blufor = 100 - (_prestigeOPFOR + _prestigeBLUFOR);
+  _blufor = 100 - (_prestigeOPFOR + _prestigeBLUFOR);
 };
 _prestigeBLUFOR = _prestigeBLUFOR + _blufor;
 

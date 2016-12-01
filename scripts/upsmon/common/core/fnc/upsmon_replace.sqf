@@ -21,17 +21,17 @@ _lo=[_old] call UPSMON_StrLen;
 _ln=[_new] call UPSMON_StrLen;
 _out="";
 for "_i" from 0 to (count _arr)-1 do {
-	_tmp="";
-	if (_i <= _la-_lo) then {
-		for "_j" from _i to (_i+_lo-1) do {
-			_tmp=_tmp + toString([_arr select _j]);
-		};
-	};
-	if (_tmp==_old) then {
-		_out=_out+_new;
-		_i=_i+_lo-1;
-	} else {
-		_out=_out+toString([_arr select _i]);
-	};
+  _tmp="";
+  if (_i <= _la-_lo) then {
+    for "_j" from _i to (_i+_lo-1) do {
+      _tmp=_tmp + toString([_arr select _j]);
+    };
+  };
+  if (_tmp==_old) then {
+    _out=_out+_new;
+    _i=_i+_lo-1;
+  } else {
+    _out=_out+toString([_arr select _i]);
+  };
 };
 _out

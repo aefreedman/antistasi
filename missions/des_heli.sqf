@@ -6,8 +6,8 @@ _marcador = _this select 0;
 _source = _this select 1;
 
 if (_source == "mil") then {
-	_val = server getVariable "milActive";
-	server setVariable ["milActive", _val + 1, true];
+  _val = server getVariable "milActive";
+  server setVariable ["milActive", _val + 1, true];
 };
 
 _posicion = getMarkerPos _marcador;
@@ -19,11 +19,11 @@ _fechalim = [date select 0, date select 1, date select 2, date select 3, (date s
 _fechalimnum = dateToNumber _fechalim;
 
 while {true} do
-	{
-	sleep 0.1;
-	_poscrash = [_posicion,5000,random 360] call BIS_fnc_relPos;
-	if ((!surfaceIsWater _poscrash) and (_poscrash distance _posHQ < 4000)) exitWith {};
-	};
+  {
+  sleep 0.1;
+  _poscrash = [_posicion,5000,random 360] call BIS_fnc_relPos;
+  if ((!surfaceIsWater _poscrash) and (_poscrash distance _posHQ < 4000)) exitWith {};
+  };
 
 _tipoVeh = planesAAF call BIS_fnc_selectRandom;
 
@@ -62,11 +62,11 @@ _soldados = _soldados + [_unit];
 _tam = 100;
 
 while {true} do
-	{
-	_roads = _posicion nearRoads _tam;
-	if (count _roads > 0) exitWith {};
-	_tam = _tam + 50;
-	};
+  {
+  _roads = _posicion nearRoads _tam;
+  if (count _roads > 0) exitWith {};
+  _tam = _tam + 50;
+  };
 
 _road = _roads select 0;
 
@@ -116,65 +116,65 @@ _Vwp0 setWaypointBehaviour "SAFE";
 waitUntil {sleep 1; (not alive _heli) or (_vehT distance _heli < 50) or (dateToNumber date > _fechalimnum)};
 
 if (_vehT distance _heli < 50) then
-	{
-	_vehT doMove position _heli;
-	sleep 60;
-	if (alive _heli) then
-		{
-		_heli attachTo [_vehT,[0,-3,2]];
-		_emitterArray = _humo getVariable "effects";
-		{deleteVehicle _x} forEach _emitterArray;
-		deleteVehicle _humo;
-		};
+  {
+  _vehT doMove position _heli;
+  sleep 60;
+  if (alive _heli) then
+    {
+    _heli attachTo [_vehT,[0,-3,2]];
+    _emitterArray = _humo getVariable "effects";
+    {deleteVehicle _x} forEach _emitterArray;
+    deleteVehicle _humo;
+    };
 
-	_Vwp0 = _grupoVehT addWaypoint [_posicion, 1];
-	_Vwp0 setWaypointType "MOVE";
-	_Vwp0 setWaypointBehaviour "SAFE";
+  _Vwp0 = _grupoVehT addWaypoint [_posicion, 1];
+  _Vwp0 setWaypointType "MOVE";
+  _Vwp0 setWaypointBehaviour "SAFE";
 
-	_Vwp0 = _grupoVeh addWaypoint [_poscrash, 0];
-	_Vwp0 setWaypointType "LOAD";
-	_Vwp0 setWaypointBehaviour "SAFE";
-	_Gwp0 = _grupo addWaypoint [_poscrash, 0];
-	_Gwp0 setWaypointType "GETIN";
-	_Vwp0 synchronizeWaypoint [_Gwp0];
+  _Vwp0 = _grupoVeh addWaypoint [_poscrash, 0];
+  _Vwp0 setWaypointType "LOAD";
+  _Vwp0 setWaypointBehaviour "SAFE";
+  _Gwp0 = _grupo addWaypoint [_poscrash, 0];
+  _Gwp0 setWaypointType "GETIN";
+  _Vwp0 synchronizeWaypoint [_Gwp0];
 
-	_Vwp0 = _grupoVeh addWaypoint [_posicion, 2];
-	_Vwp0 setWaypointType "MOVE";
-	_Vwp0 setWaypointBehaviour "SAFE";
+  _Vwp0 = _grupoVeh addWaypoint [_posicion, 2];
+  _Vwp0 setWaypointType "MOVE";
+  _Vwp0 setWaypointBehaviour "SAFE";
 
-	};
+  };
 
 waitUntil {sleep 1; (not alive _heli) or (_vehT distance _posicion < 100) or (dateToNumber date > _fechalimnum)};
 
 if (not alive _heli) then
-	{
-	_tsk = ["DES",[side_blue,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-	[0,300] remoteExec ["resourcesFIA",2];
-	[5,0] remoteExec ["prestige",2];
-	//[-3,3,_posicion] remoteExec ["citySupportChange",2];
-	[1200] remoteExec ["timingCA",2];
-	{if (_x distance _heli < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
-	[5,stavros] call playerScoreAdd;
-	};
+  {
+  _tsk = ["DES",[side_blue,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"SUCCEEDED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+  [0,300] remoteExec ["resourcesFIA",2];
+  [5,0] remoteExec ["prestige",2];
+  //[-3,3,_posicion] remoteExec ["citySupportChange",2];
+  [1200] remoteExec ["timingCA",2];
+  {if (_x distance _heli < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
+  [5,stavros] call playerScoreAdd;
+  };
 
 if ((dateToNumber date > _fechalimnum) or (_vehT distance _posicion < 100)) then
-	{
-	_tsk = ["DES",[side_blue,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
-	//[3,0,_posicion] remoteExec ["citySupportChange",2];
-	[-600] remoteExec ["timingCA",2];
-	[-10,stavros] call playerScoreAdd;
-	};
+  {
+  _tsk = ["DES",[side_blue,civilian],[format ["We have downed air vehicle. It is a good chance to destroy it before it is recovered. Do it before a recovery team from the %1 reaches the place. MOVE QUICKLY",_nombrebase],"Destroy Air",_mrkfin],_posCrashMrk,"FAILED",5,true,true,"Destroy"] call BIS_fnc_setTask;
+  //[3,0,_posicion] remoteExec ["citySupportChange",2];
+  [-600] remoteExec ["timingCA",2];
+  [-10,stavros] call playerScoreAdd;
+  };
 
 if (!isNull _humo) then
-	{
-	_emitterArray = _humo getVariable "effects";
-	{deleteVehicle _x} forEach _emitterArray;
-	deleteVehicle _humo;
-	};
+  {
+  _emitterArray = _humo getVariable "effects";
+  {deleteVehicle _x} forEach _emitterArray;
+  deleteVehicle _humo;
+  };
 
 if (_source == "mil") then {
-	_val = server getVariable "milActive";
-	server setVariable ["milActive", _val - 1, true];
+  _val = server getVariable "milActive";
+  server setVariable ["milActive", _val - 1, true];
 };
 
 _nul = [1200,_tsk] spawn borrarTask;
