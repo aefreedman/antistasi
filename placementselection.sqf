@@ -126,4 +126,13 @@ if (visiblemap) then
   };
 "FIA_HQ" setMarkerPos (getMarkerPos "respawn_west");
 posHQ = getMarkerPos "respawn_west"; publicVariable "posHQ";
+
+_updated = [] call arsenalManage;
+if (_updated != "") then
+  {
+  _updated = format ["Arsenal Updated<br/><br/>%1",_updated];
+  [[petros,"income",_updated],"commsMP"] call BIS_fnc_MP;
+  };
+}
+
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
