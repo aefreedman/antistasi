@@ -1,12 +1,12 @@
 #include "defines.hpp"
 #include "dialogs.hpp"
 
-author="Barbolani";
-OnLoadName = "Antistasi - modified";
+author="nateb, ae and Barbolani";
+OnLoadName = "Antistasi - SpaceHunnies Edition";
 OnLoadMission = "Be a Resistance Leader - Be a Hero";
 loadScreen = "pic.JPG";
 
-overviewText = "Be the Resistance Leader. Fight against a superior enemy in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.";
+overviewText = "Be the Resistance Leader. Fight against an enemy superior in technology, number, assets and vehicles. Use guerrilla tactics in a totally dynamic world, with around 18 sidemissions, everywhere, anytime, anything.";
 overviewPicture = "pic.jpg";
 
 allowFunctionsLog = 1;
