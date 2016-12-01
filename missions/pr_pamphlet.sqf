@@ -42,14 +42,14 @@ _crates pushBack _crate1;
 [PRTruck] spawn VEHinit;
 {_x reveal PRTruck} forEach (allPlayers - hcArray);
 PRTruck setVariable ["destino",_targetName,true];
-PRTruck addEventHandler ["GetIn",
+_eh_index = PRTruck addEventHandler ["GetIn",
   {
-  if (_this select 1 == "driver") then
-    {
-    _texto = format ["This truck carries leaflets for %1.",(_this select 0) getVariable "destino"];
-    _texto remoteExecCall ["hint",_this select 2];
+    if (_this select 1 == "driver") then {
+      _texto = format ["This truck carries leaflets for %1.",(_this select 0) getVariable "destino"];
+      _texto remoteExecCall ["hint",_this select 2];
     };
-  }];
+  }
+];
 
 [PRTruck,"Mission Vehicle"] spawn inmuneConvoy;
 
@@ -273,6 +273,7 @@ if ((not alive PRTruck) or (dateToNumber date > _fechalimnum)) then {
   _tsk = ["PR",[side_blue,civilian], [format ["You failed to provide leaflets for our volunteers in %1.", _targetName],"Leaflet Drop",_targetMarker],_targetPosition,"FAILED",5,true,true,"Heal"] call BIS_fnc_setTask;
   [0,-2,_targetMarker] remoteExec ["citySupportChange",2];
   [-10,stavros] call playerScoreAdd;
+  PRTruck removeEventHandler["GetIn", _eh_index];
 }
 else {
   _tsk = ["PR",[side_blue,civilian], [format ["Well done. Our volunteers in %1 are now spreading the word.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Leaflet Drop",_targetMarker],_targetPosition,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
@@ -280,6 +281,7 @@ else {
   [5,0] remoteExec ["prestige",2];
   {if (_x distance _targetPosition < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
   [5,stavros] call playerScoreAdd;
+  PRTruck removeEventHandler["GetIn", _eh_index];
 };
 
 _nul = [1200,_tsk] spawn borrarTask;
