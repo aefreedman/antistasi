@@ -118,7 +118,9 @@ clearItemCargoGlobal caja;
     [_baseClass, _category, _unlockedList] call _fnc_unlock;
   } else {
     // Return to inventory.
-    [_fullClass, _category, _numFullClass] call _fnc_addBackToInventory;
+    if !(_baseClass in _unlockedList) then { // do not return already unlocked items to inventory
+      [_fullClass, _category, _numFullClass] call _fnc_addBackToInventory;
+    };
   };
 } forEach _allUnlockableInvInfo;
 
