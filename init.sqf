@@ -92,7 +92,6 @@ if(isServer) then
         waitUntil {isPlayer stavros};
         };
     fpsCheck = [] execVM "fpsCheck.sqf";
-    _nul = [caja] call cajaAAF;
     [unlockedWeapons] spawn weaponCheck;
     waitUntil {!(isNil "placementDone")};
     distancias = [] spawn distancias3;
