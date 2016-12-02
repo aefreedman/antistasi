@@ -128,11 +128,10 @@ if (visiblemap) then
 posHQ = getMarkerPos "respawn_west"; publicVariable "posHQ";
 
 private _updated = [] call arsenalManage;
-if (_updated != "") then
-  {
+if (_updated != "") then {
   _updated = format ["Arsenal Updated<br/><br/>%1",_updated];
   [[petros,"income",_updated],"commsMP"] call BIS_fnc_MP;
-  };
 };
+
 
 if (isNil "placementDone") then {placementDone = true; publicVariable "placementDone"};
