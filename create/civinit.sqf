@@ -24,7 +24,7 @@ _EHkilledIdx = _unit addEventHandler ["killed",
         }
       else
         {
-        if (typeOf _muerto == "C_man_w_worker_F") then {_killer addRating 1000};
+        if (typeOf _muerto == "C_man_w_worker_F") then {_killer addRating -1000};
         [-10,_killer] call playerScoreAdd
         }
       };

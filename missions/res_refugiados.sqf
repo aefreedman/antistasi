@@ -66,7 +66,7 @@ if ({alive _x} count _POWs == 0) then
   _tsk = ["RES",[side_blue,civilian],[format ["A group of FIA supportes are hidden in %1 awaiting for evacuation. We have to find them before AAF does it. If not, there will be a certain death for them. Bring them back to HQ",_marcador],"Refugees Evac",_nombredest],getPos _casa,"FAILED",5,true,true,"run"] call BIS_fnc_setTask;
   _cuenta = count _POWs;
   [_cuenta,0] remoteExec ["prestige",2];
-  [0,-15,_posicion] remoteExec ["citySupportChange",2];
+  [0,-5,_posicion] remoteExec ["citySupportChange",2];
   [-10,stavros] call playerScoreAdd;
   }
 else
@@ -94,5 +94,3 @@ deleteGroup _grupo;
 //deleteMarker _mrkfin;
 
 _nul = [1200,_tsk] spawn borrarTask;
-
-

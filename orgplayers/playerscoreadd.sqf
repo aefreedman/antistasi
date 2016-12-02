@@ -1,20 +1,23 @@
-//if (!isMultiplayer) exitWith {};
+#define PLAYER_SCORE_FACTOR 2
 
-private ["_puntos","_jugador","_puntosJ","_dineroJ"];
-_puntos = _this select 0;
-_jugador = _this select 1;
+//if (!isMultiplayer) exitWith {};
+params ["_puntos", "_jugador"];
+private ["_puntosJ","_dineroJ"];
+
 _notification = true;
+
+_puntos = _puntos * PLAYER_SCORE_FACTOR;
 
 if (!isPlayer _jugador) exitWith {};
 
 if (count _this > 2) then {_notification = false};
 
-//if (rank _jugador == "COLONEL") exitWith {};
 _jugador = _jugador getVariable ["owner",_jugador];
 //if (typeName _jugador == typeName "") exitWith {diag_log format ["Antistasi Error: Intento de asignar puntos a un %1 siendo en realidad %2",_jugador, _this select 1]};
 if (isMultiplayer) exitWith {
   _puntosJ = _jugador getVariable ["score",0];
   _dineroJ = _jugador getVariable ["dinero",0];
+
   if (_puntos > 0) then {
     _dineroJ = _dineroJ + (_puntos * 10);
     _jugador setVariable ["dinero",_dineroJ,true];
@@ -22,7 +25,10 @@ if (isMultiplayer) exitWith {
     if (_notification) then {
       [petros,"income",_texto] remoteExec ["commsMP",_jugador];
     };
+
+    _jugador addRating _puntos;
   };
+
   _puntos = _puntos + _puntosJ;
   _jugador setVariable ["score",_puntos,true];
 };

@@ -354,18 +354,25 @@ _helmets = [
 _unlocked_weapons =   [
   "Binocular",
   "rhs_weap_makarov_pm",
-  "rhs_weap_aks74u"
+  // "rhs_weap_aks74u",
+  //"CUP_hgun_SA61",
+  //"CUP_hgun_MicroUzi",
+  "CUP_hgun_TaurusTracker455"
 ];
 
 _unlocked_magazines =   [
   "rhs_mag_9x18_8_57N181S",
   "rhs_30Rnd_545x39_AK",
   "rhs_mag_rdg2_white",
+  //"CUP_20Rnd_B_765x17_Ball_M",
+  //"CUP_30Rnd_9x19_UZI",
+  "CUP_6Rnd_45ACP_M",
 
   // rockets for discardable launchers, unlocking them would otherwise be a PITA
-  "rhs_rpg26_mag"
-//  "rhs_rshg2_mag"
+  "rhs_rpg26_mag",
+  "rhs_rshg2_mag"
 ];
+
 
 // Standard rifles for AI soldiers are picked from this array. Add only rifles.
 _unlocked_rifles =    [
@@ -423,10 +430,6 @@ _unlocked_items =     [
   "G_Tactical_Black",
   "G_Aviator",
   "G_Shades_Black",
-  "U_C_Poloshirt_blue",
-  "U_C_Poloshirt_burgundy",
-  "U_C_Poloshirt_salmon",
-  "U_C_Poloshirt_tricolour",
   "U_C_Poor_1",
   "U_Rangemaster",
   "U_NikosBody",
@@ -436,11 +439,6 @@ _unlocked_items =     [
   "U_I_G_Story_Protagonist_F",
   "U_I_G_resistanceLeader_F",
   "U_C_Poloshirt_blue",
-  "U_C_Poloshirt_burgundy",
-  "U_C_Poloshirt_stripped",
-  "U_C_Poloshirt_tricolour",
-  "U_C_Poloshirt_salmon",
-  "U_C_Poloshirt_redwhite",
   "U_C_Commoner1_1",
   "U_C_Commoner1_2",
   "U_C_Commoner1_3",
@@ -458,7 +456,40 @@ _unlocked_items =     [
   "U_B_survival_uniform",
   "U_OrestesBody",
   "rhs_vest_pistol_holster",
-  "rhs_scarf"
+  "rhs_scarf",
+  "CUP_U_I_GUE_Anorak_03",
+  "U_I_C_Soldier_Bandit_3_F",
+  "CUP_U_O_CHDKZ_Bardak",
+  "CUP_U_O_CHDKZ_Lopotev",
+  "CUP_U_C_Citizen_02",
+  "U_C_HunterBody_grn",
+  "rhsgref_uniform_flecktarn",
+  "CUP_U_C_Mechanic_03",
+  "CUP_U_I_GUE_Flecktarn2",
+  "U_I_C_Soldier_Para_1_F",
+  "U_I_C_Soldier_Para_2_F",
+  "U_I_C_Soldier_Para_3_F",
+  "U_I_C_Soldier_Para_4_F",
+  "CUP_U_O_Partisan_TTsKO",
+  "CUP_U_C_Profiteer_04",
+  "CUP_U_C_Rocker_02",
+  "CUP_U_C_Suit_01",
+  "U_C_Man_casual_6_F",
+  "CUP_U_C_Woodlander_01",
+  "CUP_U_C_Worker_02",
+  "CUP_V_I_Guerilla_Jacket",
+  "V_BandollierB_oli",
+  "CUP_V_OI_TKI_Jacket3_01",
+  "CUP_H_ChDKZ_Beret",
+  "CUP_H_NAPA_Fedora",
+  "rhs_tsh4_bala",
+  "rhs_tsh4",
+  "rhs_fieldcap",
+  "CUP_TK_NeckScarf",
+  "CUP_FR_NeckScarf",
+  "CUP_FR_NeckScarf2",
+  "G_Spectacles",
+  "G_Squares"
 ];
 
 _unlocked_backpacks =   [
@@ -466,6 +497,40 @@ _unlocked_backpacks =   [
 ];
 
 _unlocked_optics =    [];
+
+_civ_uniforms = [
+  "U_C_Poor_1",
+  "U_Rangemaster",
+  "U_NikosBody",
+  "U_C_Poloshirt_blue",
+  "U_C_Commoner1_1",
+  "U_C_Commoner1_2",
+  "U_C_Commoner1_3",
+  "U_Rangemaster",
+  "U_NikosBody",
+  "U_C_Poor_1",
+  "U_C_Poor_2",
+  "U_C_WorkerCoveralls",
+  "U_C_Poor_shorts_1",
+  "U_C_Commoner_shorts",
+  "U_C_ShirtSurfer_shorts",
+  "U_C_TeeSurfer_shorts_1",
+  "U_C_TeeSurfer_shorts_2",
+  "U_OrestesBody",
+  "CUP_U_I_GUE_Anorak_03",
+  "CUP_U_O_CHDKZ_Bardak",
+  "CUP_U_O_CHDKZ_Lopotev",
+  "CUP_U_C_Citizen_02",
+  "U_C_HunterBody_grn",
+  "CUP_U_C_Mechanic_03",
+  "CUP_U_C_Profiteer_04",
+  "CUP_U_C_Rocker_02",
+  "CUP_U_C_Suit_01",
+  "U_C_Man_casual_6_F",
+  "CUP_U_C_Woodlander_01",
+  "CUP_U_C_Worker_02",
+  "CUP_V_OI_TKI_Jacket3_01"
+];
 
 // The flag to be used for VDV troops.
 _flag =   "rhs_Flag_vdv_F";
@@ -483,15 +548,15 @@ These are the vehicles and statics that you can buy at HQ. Currently, the array 
 */
 _vfs = [
   "C_Offroad_01_F",
-  "C_Van_01_transport_F",
+  "C_Truck_02_transport_F",
   "RHS_Mi8amt_civilian",
   "B_G_Quadbike_01_F",
-  "rhs_uaz_open_MSV_01",
+  "rhsgref_ins_uaz_open",
   "rhs_gaz66o_msv",
-  "B_G_Offroad_01_armed_F",
+  "rhsgref_ins_uaz_dshkm",
   "rhs_DSHKM_ins",
   "rhs_2b14_82mm_msv",
-  "rhs_Metis_9k115_2_vdv",
+  "rhsgref_ins_g_btr60",
   "RHS_ZU23_VDV",
   "rhs_bmd1_chdkz",
   "rhs_gaz66_r142_vdv"
@@ -644,6 +709,7 @@ unlockedItems =   _unlocked_items + _unlocked_optics;
 unlockedBackpacks = _unlocked_backpacks;
 
 basicGear = unlockedWeapons + unlockedMagazines + unlockedItems + unlockedBackpacks;
+civUniforms = _civ_uniforms;
 
 // the flag
 cFlag =       _flag;

@@ -109,7 +109,7 @@ class CfgIdentities
     {
         name = "Petros";
         nameSound = "Petros";
-        face="GreekHead_A3_01";
+        face="GreekHead_A3_03";
 	glasses="None";
 	speaker="Male01GRE";
 	pitch=1.1;
