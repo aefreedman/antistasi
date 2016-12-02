@@ -18,6 +18,14 @@ if (!isMultiPlayer) then
     call compile preprocessFileLineNumbers "initPetros.sqf";
     lockedWeapons = lockedWeapons - unlockedWeapons;
 
+    unlockedWeaponsInitial = (count unlockedWeapons);
+    unlockedItemsInitial = (count unlockedItems);
+    unlockedMagazinesInitial = (count unlockedMagazines);
+    unlockedBackpacksInitial = (count unlockedBackpacks);
+    publicVariable "unlockedWeaponsInitial";
+    publicVariable "unlockedMagazinesInitial";
+    publicVariable "unlockedItemsInitial";
+    publicVariable "unlockedBackpacksInitial";
 
     // XLA fixed arsenal
     if (hayXLA) then {
