@@ -21,11 +21,11 @@ if (isMultiplayer) then
     if (player != stavros) then
       {
       if (isPlayer stavros) then {_nombreC = name stavros} else {_nombreC = "NONE"};
-      _texto = format ["<t size='0.55'>" + "Commander: %3 | Rank: %2 | HR: %1 | Your Money: %4 € | NATO Support: %5 | CSAT Support: %6 | Undercover Mode:", server getVariable "hr", rank player, _nombreC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT"];
+      _texto = format ["<t size='0.55'>" + "Commander: %3 | Rank: %2 | Rank Progress: %7 | HR: %1 | Your Money: %4 € | NATO Support: %5 | CSAT Support: %6 | Undercover Mode:", server getVariable "hr", rank player, _nombreC, player getVariable "dinero",server getVariable "PrestigeNATO", server getVariable "prestigeCSAT", rating player];
       }
     else
       {
-      _texto = format ["<t size='0.55'>" + "Rank: %5 | HR: %1 | Your Money: %6 € | FIA Money: %2 € | NATO Support: %3 | CSAT Support: %4 | Undercover Mode:", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT",rank player, player getVariable "dinero"];
+      _texto = format ["<t size='0.55'>" + "Rank: %5 | Rank Progress: %6 | HR: %1 | Your Money: %6 € | FIA Money: %2 € | NATO Support: %3 | CSAT Support: %4 | Undercover Mode:", server getVariable "hr", server getVariable "resourcesFIA", server getVariable "PrestigeNATO", server getVariable "prestigeCSAT",rank player, player getVariable "dinero", rating player];
       };
     if (captive player) then {_texto = format ["%1 ON",_texto]} else {_texto = format ["%1 OFF",_texto]};
     if (_texto != _viejoTexto) then
