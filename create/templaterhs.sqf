@@ -355,8 +355,8 @@ _unlocked_weapons =   [
   "Binocular",
   "rhs_weap_makarov_pm",
   // "rhs_weap_aks74u",
-  "CUP_hgun_SA61",
-  "CUP_hgun_MicroUzi",
+  //"CUP_hgun_SA61",
+  //"CUP_hgun_MicroUzi",
   "CUP_hgun_TaurusTracker455"
 ];
 
@@ -364,8 +364,8 @@ _unlocked_magazines =   [
   "rhs_mag_9x18_8_57N181S",
   "rhs_30Rnd_545x39_AK",
   "rhs_mag_rdg2_white",
-  "CUP_20Rnd_B_765x17_Ball_M",
-  "CUP_30Rnd_9x19_UZI",
+  //"CUP_20Rnd_B_765x17_Ball_M",
+  //"CUP_30Rnd_9x19_UZI",
   "CUP_6Rnd_45ACP_M",
 
   // rockets for discardable launchers, unlocking them would otherwise be a PITA
