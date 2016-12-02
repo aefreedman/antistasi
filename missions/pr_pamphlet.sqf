@@ -277,7 +277,7 @@ if ((not alive PRTruck) or (dateToNumber date > _fechalimnum)) then {
 }
 else {
   _tsk = ["PR",[side_blue,civilian], [format ["Well done. Our volunteers in %1 are now spreading the word.",_targetName,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Leaflet Drop",_targetMarker],_targetPosition,"SUCCEEDED",5,true,true,"Heal"] call BIS_fnc_setTask;
-  [-15,5,_targetMarker] remoteExec ["citySupportChange",2];
+  [-5,5,_targetMarker] remoteExec ["citySupportChange",2];
   [5,0] remoteExec ["prestige",2];
   {if (_x distance _targetPosition < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
   [5,stavros] call playerScoreAdd;

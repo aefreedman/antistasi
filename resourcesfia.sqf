@@ -1,8 +1,14 @@
+#define RESOURCE_SCALE_FACTOR 2
+
+params ["_hr", "_resourcesFIA"];
+
 private ["_hr","_resourcesFIA","_hrT","_resourcesFIAT"];
 waitUntil {!resourcesIsChanging};
 resourcesIsChanging = true;
-_hr = _this select 0;
-_resourcesFIA = _this select 1;
+
+_hr = _hr * RESOURCE_SCALE_FACTOR;
+_resourcesFIA = _resourcesFIA * RESOURCE_SCALE_FACTOR;
+
 if (isNil "_resourcesFIA") then {diag_log "Tienes algún coste sin definit en las tablas de FIA"};
 if ((isNil "_hr") or (isNil "_resourcesFIA")) exitWith {};
 
