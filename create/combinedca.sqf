@@ -150,7 +150,7 @@ if (_CSAT) then
     sleep 15;
     };
 
-  _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["AAF and CSAT are attacking %2 from the %1. Intercept them or we may loose a sector",_nombreorig,_nombredest],"AAF Attack",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+  _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["AAF and USSR forces are attacking %2 from the %1. Intercept them or we may lose a sector",_nombreorig,_nombredest],"AAF Attack",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
   [["TaskSucceeded", ["", format ["%1 under fire",_nombredest]]],"BIS_fnc_showNotification"] call BIS_fnc_MP;
   //bombardeo aereo!!!
   [_mrkDestino] spawn
@@ -475,7 +475,7 @@ if (not(_mrkDestino in mrkAAF)) then
     }
   else
     {
-    _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["AAF and CSAT are attacking %2 from the %1. Intercept them or we may loose a sector",_nombreorig,_nombredest],"AAF Attack",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
+    _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["AAF and USSR are attacking %2 from the %1. Intercept them or we may loose a sector",_nombreorig,_nombredest],"AAF Attack",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
     };
   {_x doMove _posorigen} forEach _soldados;
   {_wpRTB = _x addWaypoint [_posorigen, 0]; _x setCurrentWaypoint _wpRTB} forEach _grupos;
@@ -491,7 +491,7 @@ else
     }
   else
     {
-    _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["AAF and CSAT are attacking %2 from the %1. Intercept them or we may loose a sector",_nombreorig,_nombredest],"AAF Attack",_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
+    _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["AAF and USSR are attacking %2 from the %1. Intercept them or we may loose a sector",_nombreorig,_nombredest],"AAF Attack",_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
     };
   waitUntil {sleep 1; !(spawner getVariable _mrkDestino)};
   };
@@ -525,5 +525,3 @@ deleteVehicle _x;
 if (!([distanciaSPWN,1,_x,"BLUFORSpawn"] call distanceUnits)) then {deleteVehicle _x};
 } forEach _vehiculos;
 {deleteGroup _x} forEach _grupos;
-
-

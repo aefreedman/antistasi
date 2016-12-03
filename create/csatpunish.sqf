@@ -13,7 +13,7 @@ _vehiculos = [];
 _civiles = [];
 
 _nombredest = [_mrkDestino] call localizar;
-_tsk = ["AtaqueAAF",[side_blue,civilian],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
+_tsk = ["AtaqueAAF",[side_blue,civilian],[format ["The USSR is making a punishment expedition to %1. They will kill everyone there. Defend the city at all costs",_nombredest],"USSR Punishment",_mrkDestino],getMarkerPos _mrkDestino,"CREATED",10,true,true,"Defend"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 //Ataque de artillería
 _nul = [_mrkdestino] spawn artilleria;
@@ -48,7 +48,7 @@ for "_i" from 1 to 3 do
     {[_x] spawn CSATinit} forEach _heliCrew;
     _wp1 = _grupoheli addWaypoint [_posdestino, 0];
     _wp1 setWaypointType "SAD";
-    [_heli,"CSAT Air Attack"] spawn inmuneConvoy;
+    [_heli,"USSR Air Attack"] spawn inmuneConvoy;
     }
   else
     {
@@ -56,7 +56,7 @@ for "_i" from 1 to 3 do
     _grupo = [_posorigen, side_red, opGroup_Squad] call BIS_Fnc_spawnGroup;
     {_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] spawn CSATinit} forEach units _grupo;
     _grupos = _grupos + [_grupo];
-    [_heli,"CSAT Air Transport"] spawn inmuneConvoy;
+    [_heli,"USSR Air Transport"] spawn inmuneConvoy;
 
     if (random 100 < 50) then
       {
@@ -130,7 +130,7 @@ waitUntil {sleep 5; (({not (captive _x)} count _soldados) < ({captive _x} count 
 if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or ({alive _x} count _soldados < round (_solMax / 3)) or (time > _tiempo)) then
   {
   {_x doMove [0,0,0]} forEach _soldados;
-  _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
+  _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["USSR is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"USSR Punishment",_mrkDestino],getMarkerPos _mrkDestino,"SUCCEEDED",10,true,true,"Defend"] call BIS_fnc_setTask;
   [-5,20,_posdestino] remoteExec ["citySupportChange",2];
   [10,0] remoteExec ["prestige",2];
   {[-5,0,_x] remoteExec ["citySupportChange",2]} forEach ciudades;
@@ -139,7 +139,7 @@ if ((({not (captive _x)} count _soldados) < ({captive _x} count _soldados)) or (
   }
 else
   {
-  _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["CSAT is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"CSAT Punishment",_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
+  _tsk = ["AtaqueAAF",[side_blue,civilian],[format ["USSR is making a punishment expedition to %1. They will kill everybody there. Defend the city at all costs",_nombredest],"USSR Punishment",_mrkDestino],getMarkerPos _mrkDestino,"FAILED",10,true,true,"Defend"] call BIS_fnc_setTask;
   [-5,-20,_posdestino] remoteExec ["citySupportChange",2];
   {[0,-5,_x] remoteExec ["citySupportChange",2]} forEach ciudades;
   destroyedCities = destroyedCities + [_mrkDestino];
@@ -176,4 +176,3 @@ waitUntil {sleep 1; not (spawner getVariable _mrkDestino)};
 
 {deleteVehicle _x} forEach _civiles;
 deleteGroup _grupoCivil;
-

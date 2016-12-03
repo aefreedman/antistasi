@@ -385,7 +385,7 @@ if (_hayCSAT) then
       {[_x] spawn CSATinit} forEach _heliCrew;
       _wp1 = _grupoheli addWaypoint [_posdestino, 0];
       _wp1 setWaypointType "SAD";
-      [_heli,"CSAT Air Attack"] spawn inmuneConvoy;
+      [_heli,"USSR Air Attack"] spawn inmuneConvoy;
       }
     else
       {
@@ -394,7 +394,7 @@ if (_hayCSAT) then
       {_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] spawn CSATinit} forEach units _grupo;
       //[_mrkDestino,_grupo] spawn attackDrill;
       _grupos = _grupos + [_grupo];
-      [_heli,"CSAT Air Transport"] spawn inmuneConvoy;
+      [_heli,"USSR Air Transport"] spawn inmuneConvoy;
       if ((_marcador in bases) or (_marcador in aeropuertos) or (random 10 < _threatEval)) then
         {
         [_heli,_grupo,_marcador,_threatEval] spawn airdrop;

@@ -270,7 +270,7 @@ class Mission
 	class Intel
 	{
 		briefingName="[SP/CO8] Antistasi - SpaceHunnies Fork";
-		overviewText="Build FIA Army from scratch and defeat the AAF and CSAT forces in a whole map Dynamic Mission.";
+		overviewText="Build the FIA Army from scratch and defeat AAF and USSR forces in a whole map dynamic mission.";
 		resistanceWest=0;
 		resistanceEast=1;
 		startWeather=0.1;
@@ -580,8 +580,8 @@ class Mission
 			dataType="Marker";
 			position[]={24070.148,-0.051461257,29143.367};
 			name="spawnCSAT";
-			text="CSAT Carrier";
-			type="flag_CSAT";
+			text="USSR Carrier";
+			type="rhs_flag_Russia";
 			id=22;
 			atlOffset=185.91853;
 		};
@@ -591,7 +591,7 @@ class Mission
 			position[]={3634.4292,-185.97,4856.5923};
 			name="spawnNATO";
 			text="NATO Carrier";
-			type="flag_UN";
+			type="flag_NATO";
 			id=23;
 		};
 		class Item24

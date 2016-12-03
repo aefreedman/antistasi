@@ -15,7 +15,7 @@ _fechalim = [date select 0, date select 1, date select 2, date select 3, (date s
 _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
-_tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+_tsk = ["AS",[side_blue,civilian],[format ["A USSR officer is inspecting %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 _grp = createGroup side_red;
 
@@ -32,7 +32,7 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (not alive _oficial)};
 
 if (not alive _oficial) then
   {
-  _tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  _tsk = ["AS",[side_blue,civilian],[format ["A USSR officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
   //[3,0] remoteExec ["prestige",2];
   [0,300] remoteExec ["resourcesFIA",2];
   //[-5,10,_posicion] remoteExec ["citySupportChange",2];
@@ -43,7 +43,7 @@ if (not alive _oficial) then
   }
 else
   {
-  _tsk = ["AS",[side_blue,civilian],[format ["A CSAT officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  _tsk = ["AS",[side_blue,civilian],[format ["A USSR officer is inspecting a %1. Go there and kill him before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Kill the Officer",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
   [-600] remoteExec ["timingCA",2];
   [-10,stavros] call playerScoreAdd;
   [_marcador,-30] call addTimeForIdle;
@@ -60,5 +60,3 @@ deleteGroup _grp;
 //sleep (600 + random 1200);
 //_nul = [_tsk,true] call BIS_fnc_deleteTask;
 _nul = [1200,_tsk] spawn borrarTask;
-
-

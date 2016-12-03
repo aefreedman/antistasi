@@ -50,6 +50,6 @@ opGroup_Security =    [opI_SL, opI_RFL1];
 // the affiliation
 side_red =      east;
 
-opFlag =      "Flag_CSAT_F";
+opFlag =      "rhs_Flag_Russia_F";
 
 opIR = "acc_pointer_IR";
