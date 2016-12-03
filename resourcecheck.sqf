@@ -52,11 +52,11 @@ while {true} do
         _recAddCiudadOPFOR = (_recAddCiudadOPFOR/2);
         if (_power) then
           {
-          if (_prestigeBLUFOR + _prestigeOPFOR + 1 <= 100) then {[0,1,_ciudad] spawn citySupportChange};
+           [0,5,_ciudad] spawn citySupportChange;
           }
         else
           {
-          [0,-1,_ciudad] spawn citySupportChange;
+          //[0,-1,_ciudad] spawn citySupportChange;
           };
         }
       else
@@ -65,11 +65,11 @@ while {true} do
         _hrAddCiudad = (_hrAddCiudad/2);
         if (_power) then
           {
-          if (_prestigeOPFOR + _prestigeBLUFOR + 1 <= 100) then {[1,0,_ciudad] call citySupportChange};
+            [1,0,_ciudad] call citySupportChange;
           }
         else
           {
-          [-1,0,_ciudad] spawn citySupportChange
+          //[-1,0,_ciudad] spawn citySupportChange
           };
         };
       };
