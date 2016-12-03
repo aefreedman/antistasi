@@ -6,11 +6,15 @@ private ["_hr","_resourcesFIA","_hrT","_resourcesFIAT"];
 waitUntil {!resourcesIsChanging};
 resourcesIsChanging = true;
 
-_hr = _hr * RESOURCE_SCALE_FACTOR;
-_resourcesFIA = _resourcesFIA * RESOURCE_SCALE_FACTOR;
-
 if (isNil "_resourcesFIA") then {diag_log "Tienes algún coste sin definit en las tablas de FIA"};
 if ((isNil "_hr") or (isNil "_resourcesFIA")) exitWith {};
+
+if (_hr > 0) then {
+  _hr = _hr * RESOURCE_SCALE_FACTOR;
+};
+if (_resourcesFIA > 0) then {
+  _resourcesFIA = _resourcesFIA * RESOURCE_SCALE_FACTOR;
+};
 
 _hrT = server getVariable "hr";
 _resourcesFIAT = server getVariable "resourcesFIA";
