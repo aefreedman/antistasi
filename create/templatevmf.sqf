@@ -60,6 +60,6 @@ opGroup_Security =    [opI_RFL1, opI_MK2, opI_RFL2, opI_MED]; // security detail
 // the affiliation
 side_red =      east;
 
-opFlag =      "Flag_CSAT_F";
+opFlag =      "rhs_Flag_Russia_F";
 
 opIR = "rhs_acc_perst1ik";

@@ -16,7 +16,7 @@ _fechalimnum = dateToNumber _fechalim;
 
 _nombredest = [_marcador] call localizar;
 
-_tsk = ["CON",[side_blue,civilian],[format ["We have spotted a CSAT SpecOp team patrolling around %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"CSAT SpecOps",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
+_tsk = ["CON",[side_blue,civilian],[format ["We have spotted a USSR SpecOp team patrolling around %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"USSR SpecOps",_marcador],_posicion,"CREATED",5,true,true,"Kill"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _mrkfin = createMarkerLocal [format ["specops%1", random 100],_posicion];
@@ -32,7 +32,7 @@ sleep 1;
 _uav = createVehicle [opUAVsmall, _posicion, [], 0, "FLY"];
 createVehicleCrew _uav;
 _nul = [leader _grupo, _mrkfin, "RANDOM", "SPAWNED", "NOVEH2", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
-{_nul = [_x] spawn CSATinit; _x allowFleeing 0} forEach units _grupo;
+{_nul = [_x] spawn USSRinit; _x allowFleeing 0} forEach units _grupo;
 
 _grupoUAV = group (crew _uav select 1);
 _nul = [leader _grupoUAV, _mrkfin, "SAFE", "SPAWNED","NOVEH", "NOFOLLOW"] execVM "scripts\UPSMON.sqf";
@@ -41,14 +41,14 @@ waitUntil  {sleep 5; (dateToNumber date > _fechalimnum) or ({alive _x} count uni
 
 if (dateToNumber date > _fechalimnum) then
   {
-  _tsk = ["CON",[side_blue,civilian],[format ["We have spotted a CSAT SpecOp team patrolling around %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"CSAT SpecOps",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  _tsk = ["CON",[side_blue,civilian],[format ["We have spotted a USSR SpecOp team patrolling around %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"USSR SpecOps",_marcador],_posicion,"FAILED",5,true,true,"Kill"] call BIS_fnc_setTask;
   [5,0,_posicion] remoteExec ["citySupportChange",2];
   [-600] remoteExec ["timingCA",2];
   [-10,stavros] call playerScoreAdd;
   }
 else
   {
-  _tsk = ["CON",[side_blue,civilian],[format ["We have spotted a CSAT SpecOp team patrolling around %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"CSAT SpecOps",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
+  _tsk = ["CON",[side_blue,civilian],[format ["We have spotted a USSR SpecOp team patrolling around %1. Ambush them and we will have one less problem. Do this before %2:%3. Be careful, they are tough boys.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"USSR SpecOps",_marcador],_posicion,"SUCCEEDED",5,true,true,"Kill"] call BIS_fnc_setTask;
   [0,200] remoteExec ["resourcesFIA",2];
   [0,5,_posicion] remoteExec ["citySupportChange",2];
   [600] remoteExec ["timingCA",2];

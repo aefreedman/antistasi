@@ -39,7 +39,7 @@ if (count _airports > 0) then {
 }
 else {
   _airport = "spawnCSAT";
-  _airportName = "the CSAT carrier";
+  _airportName = "the USSR carrier";
 };
 
 _tsk = ["DEF_Camp",[side_blue,civilian],[format ["A QRF has just been spotted taking off from %2. Their initial heading suggests that %1 has been spotted. Assume defensive positions ASAP!", _campName, _airportName], format ["Defend %1", _campName],_targetMarker],_targetPosition,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;

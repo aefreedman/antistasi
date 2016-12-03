@@ -8,7 +8,7 @@ if ((side _x == side_green) or (side _x == side_red)) then
   };
 } forEach allUnits;
 if (_presente) exitWith {hint "You cannot rest with enemies near our units"};
-if ("AtaqueAAF" in misiones) exitWith {hint "You cannot rest while AAF or CSAT is counterattacking"};
+if ("AtaqueAAF" in misiones) exitWith {hint "You cannot rest while AAF or USSR is counterattacking"};
 if ("DEF_HQ" in misiones) exitWith {hint "You cannot rest while your HQ is under attack"};
 
 _chequeo = false;
@@ -20,5 +20,3 @@ if (_x distance _posHQ > 100) then {_chequeo = true};
 if (_chequeo) exitWith {hint "All player must be in a 100mts radius from HQ to be able to rest"};
 
 [[],"resourcecheckSkipTime"] call BIS_fnc_MP;
-
-

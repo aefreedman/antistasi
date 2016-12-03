@@ -11,7 +11,7 @@ if (server getVariable "blockCSAT") exitWith {};
 
 if ({(_x distance _posicion < 500) and ((typeOf _x == "B_static_AA_F") or (typeOf _x == statAA))} count staticsToSave > 4) exitWith {};
 
-_tsk = ["DEF_HQ",[side_blue,civilian],["CSAT knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Petros. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Petros","respawn_west"],_posicion,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
+_tsk = ["DEF_HQ",[side_blue,civilian],["USSR knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Petros. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Petros","respawn_west"],_posicion,"CREATED",5,true,true,"Defend"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
 
 _pos = [_posicion, distanciaSPWN * 3, random 360] call BIS_Fnc_relPos;
@@ -26,7 +26,7 @@ _vehiculos = _vehiculos + [_heli];
 {[_x] spawn CSATinit} forEach _heliCrew;
 _wp1 = _grupoheli addWaypoint [_posicion, 0];
 _wp1 setWaypointType "SAD";
-[_heli,"CSAT Air Attack"] spawn inmuneConvoy;
+[_heli,"USSR Air Attack"] spawn inmuneConvoy;
 sleep 30;
 
 for "_i" from 0 to (round random 2) do
@@ -44,7 +44,7 @@ for "_i" from 0 to (round random 2) do
   _grupo = [_pos, side_red, opGroup_SpecOps] call BIS_Fnc_spawnGroup;
   {_x assignAsCargo _heli; _x moveInCargo _heli; _soldados = _soldados + [_x]; [_x] spawn CSATinit} forEach units _grupo;
   _grupos = _grupos + [_grupo];
-  [_heli,"CSAT Air Transport"] spawn inmuneConvoy;
+  [_heli,"USSR Air Transport"] spawn inmuneConvoy;
   [_heli,_grupo,_posicion,_pos,_grupoheli] spawn fastropeCSAT;
   sleep 10;
   };
@@ -53,11 +53,11 @@ waitUntil {sleep 1;({not (captive _x)} count _soldados < {captive _x} count _sol
 
 if (_posicion distance getMarkerPos "respawn_west" > 999) then
   {
-  _tsk = ["DEF_HQ",[side_blue,civilian],["CSAT knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Petros. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Petros","respawn_west"],_posicion,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
+  _tsk = ["DEF_HQ",[side_blue,civilian],["USSR knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Petros. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Petros","respawn_west"],_posicion,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
   }
 else
   {
-  _tsk = ["DEF_HQ",[side_blue,civilian],["CSAT knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Petros. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Petros","respawn_west"],_posicion,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
+  _tsk = ["DEF_HQ",[side_blue,civilian],["USSR knows our HQ coordinates. They have sent a SpecOp Squad in order to kill Petros. Intercept them and kill them. Or you may move our HQ 1Km away so they will loose track","Defend Petros","respawn_west"],_posicion,"SUCCEEDED",5,true,true,"Defend"] call BIS_fnc_setTask;
   [0,3] remoteExec ["prestige",2];
   [0,300] remoteExec ["resourcesFIA",2];
   //[-5,5,_posicion] remoteExec ["citySupportChange",2];

@@ -23,7 +23,7 @@ _texto = "";
 //experimental
 if (count (vehAAFAT - vehTank) < count vehAAFAT) then {_tipoVeh = selectRandom vehTank; _texto = "Enemy Tank"} else {_tipoVeh = selectRandom vehIFV; _texto = "Enemy IFV"};
 
-// if ("I_MBT_03_cannon_F" in vehAAFAT) then {_tipoVeh = "I_MBT_03_cannon_F"; _texto = "AAF Tank"} else {_tipoVeh = opSPAA; _texto = "CSAT Artillery"};
+// if ("I_MBT_03_cannon_F" in vehAAFAT) then {_tipoVeh = "I_MBT_03_cannon_F"; _texto = "AAF Tank"} else {_tipoVeh = opSPAA; _texto = "USSR Artillery"};
 
 _tsk = ["DES",[side_blue,civilian],[format ["We know an enemy armor (%4) is stationed in %1. It is a good chance to destroy or steal it before it causes more damage. Do it before %2:%3.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_texto],"Steal or Destroy Armor",_marcador],_posicion,"CREATED",5,true,true,"Destroy"] call BIS_fnc_setTask;
 misiones pushBack _tsk; publicVariable "misiones";
