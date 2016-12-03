@@ -52,7 +52,7 @@ if ((side _killer == side_blue) || (captive _killer)) then {
     _coste = server getVariable (typeOf _killed); // TODO: YIKES! Need a prefix on this
     if (isNil "_coste") then {diag_log format ["Don't know the cost of %1",typeOf _killed]; _coste = 0};
     [-_coste] remoteExec ["resourcesAAF",2];
-    _nul = [FIA_INFLUENCE_REWARD,0,getPos _killed] remoteExec ["citySupportChange",2];
+    _nul = [0,FIA_INFLUENCE_REWARD,getPos _killed] remoteExec ["citySupportChange",2];
   };
 
   {
