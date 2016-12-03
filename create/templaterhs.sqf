@@ -547,19 +547,19 @@ These are the vehicles and statics that you can buy at HQ. Currently, the array 
 3-12: military vehicles and statics
 */
 _vfs = [
-  "C_Offroad_01_F",
-  "C_Truck_02_transport_F",
-  "RHS_Mi8amt_civilian",
-  "B_G_Quadbike_01_F",
-  "rhsgref_ins_uaz_open",
-  "rhs_gaz66o_msv",
-  "rhsgref_ins_uaz_dshkm",
-  "rhs_DSHKM_ins",
-  "rhs_2b14_82mm_msv",
-  "rhsgref_ins_g_btr60",
-  "RHS_ZU23_VDV",
-  "rhs_bmd1_chdkz",
-  "rhs_gaz66_r142_vdv"
+  "C_Offroad_01_F", // Offroad
+  "C_Truck_02_transport_F", // Truck
+  "RHS_Mi8amt_civilian", // Civ heli
+  "B_G_Quadbike_01_F", // Quadbike
+  "rhsgref_ins_uaz_open", // UAZ
+  "rhs_gaz66o_msv", // Military Truck
+  "rhsgref_ins_uaz_dshkm", // Armed UAZ
+  "rhs_DSHKM_ins", // Static MG
+  "rhs_2b14_82mm_msv", // Static Mortar
+  "rhs_Metis_9k115_2_vdv", // Static AT
+  "RHS_ZU23_VDV", // Static AA
+  "rhsgref_ins_g_btr60", // APC
+  "rhs_gaz66_r142_vdv" // Command Truck. Currently unused.
 ];
 
 _civHeli = "RHS_Mi8amt_civilian";
