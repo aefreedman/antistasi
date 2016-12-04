@@ -1,4 +1,4 @@
-/*
+/**
  * Gets the specified number of positions for objects of type around a marker
  *
  * Arguments:
@@ -15,10 +15,10 @@
  *
  */
 
-params [["_targetMarker", "", [""]], ["_objectType", "", [""]] , ["_numberOfPositions", 1, [0]], ["_searchRadius", 0, [0]]];
+if (!params [["_targetMarker", "", [""]], ["_objectType", "", [""]] , ["_numberOfPositions", 1, [0]], ["_searchRadius", 0, [0]]]) exitWith {};
 
 if (_targetMarker == "") exitWith {
-    diag_log "[LOCATORS] Something attempted to search a position but didn't pass a target location!"
+    diag_log "[SH] Something attempted to search a position but didn't pass a target location!"
 };
 
 // _searchRadius is only 0 by default

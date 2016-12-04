@@ -278,7 +278,8 @@ fnc_attemptUnlock = compile preprocessFileLineNumbers "municion\attemptunlock.sq
 fnc_getUnlockedVariableforCategory = compile preprocessFileLineNumbers "municion\getunlockedvariableforcategory.sqf";
 fnc_categoryUnlockThreshold = compile preprocessFileLineNumbers "municion\categoryunlockthreshold.sqf";
 fnc_buildArsenalRequirements = compile preprocessFileLineNumbers "municion\buildarsenalrequirements.sqf";
-LOCATORS_fnc_getRandomObjectPositionsAroundMarker = compile preprocessFileLineNumbers "generic functions\LOCATORS_fnc_getRandomObjectPositionsAroundMarker.sqf";
+SH_fnc_getRandomObjectPositionsAroundMarker = compile preprocessFileLineNumbers "space_hunnies\SH_fnc_getRandomObjectPositionsAroundMarker.sqf";
+SH_fnc_getClosestRoad = compile preprocessFileLineNumbers "space_hunnies\SH_fnc_getClosestRoad.sqf";
 
 execVM "statSave\saveFuncs.sqf";
 
