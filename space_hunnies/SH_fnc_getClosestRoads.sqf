@@ -14,19 +14,16 @@
  * Example:
  *
  */
+private _searchIncrement = 10;
+private _defaultSearchRadius = 5;
 
-#define SEARCH_INCREMENT 10;
-#define DEFAULT_SEARCH_RADIUS 5;
+if (!params [["_searchPosition", [0, 0, 0], [[]]], ["_startRadius", _defaultSearchRadius, 0], ["_maxRadius", 0, 0]]) exitWith {};
 
-if (!params [["_searchPosition", [0, 0, 0], [[]]], ["_startRadius", DEFAULT_SEARCH_RADIUS, 0], ["_maxRadius", 0, 0]]) exitWith {};
-
+private _roads = [];
 if !(_searchPosition isEqualTo [0, 0, 0]) then {
-    private _roads = [];
     while { count _roads == 0 && (_radius < _maxRadius && _maxRadius > 0) } do {
         _roads = _searchPosition nearRoads _radius;
-        _radius = _radius + SEARCH_INCREMENT;
+        _radius = _radius + _searchIncrement;
     };
-    _roads
-} else {
-    []
 };
+_roads
