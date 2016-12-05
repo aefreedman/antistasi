@@ -133,7 +133,7 @@ CON_Puestos = compile preProcessFileLineNumbers "Missions\CON_Puestos.sqf";
 ataqueHQ = compile preProcessFileLineNumbers "Missions\ataqueHQ.sqf";
 localizar = compile preProcessFileLineNumbers "localizar.sqf";
 AS_Oficial = compile preProcessFileLineNumbers "Missions\AS_Oficial.sqf";
-AS_Traidor = compile preProcessFileLineNumbers "Missions\AS_Traidor.sqf";
+ANTI_MIS_AST_traitor = compile preProcessFileLineNumbers "Missions\AS\AST\ANTI_MIS_AST_traitor.sqf";
 missionrequest = compile preProcessFileLineNumbers "Missions\missionrequest.sqf";
 missionrequestAUTO = compile preProcessFileLineNumbers "Missions\missionrequestAUTO.sqf";
 cajaAAF = compile preProcessFileLineNumbers "Municion\cajaAAF.sqf";
@@ -279,7 +279,7 @@ fnc_getUnlockedVariableforCategory = compile preprocessFileLineNumbers "municion
 fnc_categoryUnlockThreshold = compile preprocessFileLineNumbers "municion\categoryunlockthreshold.sqf";
 fnc_buildArsenalRequirements = compile preprocessFileLineNumbers "municion\buildarsenalrequirements.sqf";
 SH_fnc_getRandomObjectPositionsAroundMarker = compile preprocessFileLineNumbers "space_hunnies\SH_fnc_getRandomObjectPositionsAroundMarker.sqf";
-SH_fnc_getClosestRoad = compile preprocessFileLineNumbers "space_hunnies\SH_fnc_getClosestRoad.sqf";
+SH_fnc_getClosestRoads = compile preprocessFileLineNumbers "space_hunnies\SH_fnc_getClosestRoads.sqf";
 
 execVM "statSave\saveFuncs.sqf";
 

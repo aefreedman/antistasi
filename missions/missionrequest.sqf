@@ -405,7 +405,7 @@ if (_tipo == "AST") then {
   }
   else {
     _sitio = _posibles call BIS_fnc_selectRandom;
-    [_sitio, "civ"] remoteExec ["AS_Traidor",HCgarrisons];
+    [_sitio, "civ"] remoteExec ["ANTI_MIS_AST_traitor",HCgarrisons];
   };
 };
 
